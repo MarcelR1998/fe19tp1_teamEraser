@@ -1,20 +1,20 @@
 // DOCUMENT CLICK-LISTENER
-/*
-
-const blur = document.querySelector(".blur");
-const popup = document.querySelector(".popup");
-
 document.addEventListener("click", function (e) {
     // close welcome popup?
-    if (e.target.classList.contains("exit")) {
-        popup.classList.add("hidden");
-        blur.classList.add("hidden");
+    if (e.target.id === 'closeWelcome') {
+        e.target.parentElement.classList.add("invisible");
     }
 
     // nav?
     const subnav = document.querySelector('#side-subnav');
     if (e.target.parentElement.classList.contains('button-sidebar')) {
         openSubnav(e);
+    }
+      
+    // checks for if user clicked outside of icon, but still within button. Has related function in interaction.js.
+else if (e.target.classList.contains('button-sidebar')) {
+    openSubnav2(e);
+
         // if not nav/subnav, but subnav is open, close subnav
     } else if (e.target !== subnav && !subnav.contains(e.target)) {
         if (this.querySelector('#side-subnav').dataset.open) {
@@ -26,6 +26,7 @@ document.addEventListener("click", function (e) {
         closeSubnav();
     }
 
+    /*
     // load note? (make this smarter?)
     if (e.target.classList.contains('note') && e.target.dataset.id) {
         loadNote(e.target.dataset.id);
@@ -34,13 +35,16 @@ document.addEventListener("click", function (e) {
     } else if (e.target.parentElement.parentElement.classList.contains('note') && e.target.parentElement.parentElement.dataset.id) {
         loadNote(e.target.parentElement.parentElement.dataset.id);
     }
+    */
+
 
     // clear storage? (dev func)
     if (e.target.id == 'clearStorage') {
-        clearStorage();
+        //tinymce.activeEditor.setContent(clearStorage());
+        localStorage.clear();
+        loadFromLocalStorage();
         displayMsg('Storage cleared!');
     }
-    console.log(e);
+    //console.log(e);
 });
 
-*/

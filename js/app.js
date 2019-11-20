@@ -1,3 +1,6 @@
+
+var noteList = [];
+
 /*
  * Quill editor
  *************/
@@ -62,7 +65,9 @@ var quill = new Quill('#editor', {
  * Note list
  ***********/
 
-let noteList = [];
+window.addEventListener("load", function () {
+    loadFromLocalStorage();
+})
 
 activeId = false;
 
@@ -87,18 +92,19 @@ function saveToLocalStorage() {
 }
 
 function loadFromLocalStorage() {
-    let noteListString = localStorage.getItem("notelist");
-    let notelist = JSON.parse(noteListString);
-    if (!notelist) {
-        notelist = [];
-        console.log('Notelist set to []');
+    let noteListString = localStorage.getItem("noteList");
+    noteList = JSON.parse(noteListString);
+
+    if (noteList == null) {
+        noteList = [];
+        console.log('noteList is empty');
     }
     console.log('loaded noteList from LS');
 }
 
-function renderNote(note){
+function renderNote(note) {
     activeId = note.id;
-    console.log('Active id set to '+note.id);
+    console.log('Active id set to ' + note.id);
 }
 
 function saveNote() {
@@ -107,17 +113,23 @@ function saveNote() {
 
     if (orig) {
         console.log('Updating orig in noteList');
-        let updatedContent = quill.getContents();
-        noteList.splice(noteList.indexOf(orig), 1, updatedContent);
+        let i = noteList.indexOf(orig);
+        noteList[i].content = quill.getContents();
+        noteList[i].text = quill.getText(0, 30);
+        noteList[i].title = document.getElementById("title-input").value;
+        noteList[i].updated = Date.now();
+
+        //noteList.splice(i, 1, updatedContent);
     } else {
         // Otherwhise, add updated as new.
         console.log('Saving new note to noteList');
         let noteObj = {
             favorite: false,
-            text: quill.getContents(),
-            content: quill.getText(0, 30),
+            text: quill.getText(0, 30),
+            content: quill.getContents(),
             id: Date.now(),
             title: document.getElementById("title-input").value,
+            updated: Date.now()
         }
 
         activeId = noteObj.id;
@@ -125,14 +137,17 @@ function saveNote() {
         noteList.push(noteObj);
     }
     saveToLocalStorage();
-    
+
 }
 
-function deleteNote(note) {
+function deleteNote() {
     // jämför note.id med id:n i noteList
-    // vid match, ta bort notelist[x] ur noteList
-    notelist.forEach(function(item, i){
-        if (note.id === item.id) {
+    // vid match, ta bort noteList[x] ur noteList
+    if (!activeId) {
+        return;
+    }
+    noteList.forEach(function (item, i) {
+        if (activeId === item.id) {
             noteList.splice(i, 1)
         }
     });
@@ -146,7 +161,7 @@ function deleteTextFromDOM() {
 }
 
 /*
- * Popup 
+ * Popup
  ***********/
 
 /*(() => { // Runs directly in local scope
@@ -162,47 +177,9 @@ function deleteTextFromDOM() {
         }
     }
     welcome();
-})(); // local scope*/ 
+})(); // local scope*/
 
 
 
 
 
-// DOCUMENT CLICK-LISTENER
-document.addEventListener("click", function (e) {
-    // close welcome popup?
-    if (e.target.id === 'closeWelcome') {
-        e.target.parentElement.classList.add("hidden");
-    }
-
-    // nav?
-    const subnav = document.querySelector('#side-subnav');
-    if (e.target.parentElement.classList.contains('button-sidebar')) {
-        openSubnav(e);
-        // if not nav/subnav, but subnav is open, close subnav
-    } else if (e.target !== subnav && !subnav.contains(e.target)) {
-        if (this.querySelector('#side-subnav').dataset.open) {
-            closeSubnav();
-        }
-    }
-    // subnav closebtn?
-    if (e.target.classList.contains('closebtn') && e.target.parentElement.id == 'side-subnav') {
-        closeSubnav();
-    }
-
-    // load note? (make this smarter?)
-    if (e.target.classList.contains('note') && e.target.dataset.id) {
-        loadNote(e.target.dataset.id);
-    } else if (e.target.parentElement.classList.contains('note') && e.target.parentElement.dataset.id) {
-        loadNote(e.target.parentElement.dataset.id);
-    } else if (e.target.parentElement.parentElement.classList.contains('note') && e.target.parentElement.parentElement.dataset.id) {
-        loadNote(e.target.parentElement.parentElement.dataset.id);
-    }
-
-    // clear storage? (dev func)
-    if (e.target.id == 'clearStorage') {
-        tinymce.activeEditor.setContent(clearStorage());
-        displayMsg('Storage cleared!');
-    }
-    //console.log(e);
-});

@@ -1,9 +1,16 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Vollkorn:400,700&display=swap');
+
 
 *{
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: 'Roboto',
+    sans-serif;
 }
 
 #quireLogo {
@@ -94,7 +101,7 @@ div.mce-edit-area{
     background-color: rgb(179, 179, 179);
 }
 
-.hidden{
+.invisible{
     display: none;
 }
 
@@ -143,20 +150,20 @@ div.mce-edit-area{
 
 /* Buttons */
 
-.button-sidebar{
+.sidebarbutton {
     font-size: 25px;
     color: white;
     background: none;
     border: none;
 }
 
-.button-sidebar:hover{
+.sidebarbutton:hover {
     
     font-size: 26px;
     cursor: pointer;
 }
 
-.button-sidebar:focus {
+.sidebarbutton:focus {
     font-size: 30px;
 }
 
@@ -309,20 +316,23 @@ button:focus {
 /* Themes */
 
 .lightmodeTheme{
-
+    font-family: 'Roboto',
+    sans-serif
+     !important;
 }
 
 .darkModeTheme {
     
-    background-color: rgb(49, 50, 59);
-    color: white;
+   font-family: 'Courgette',
+   cursive
+ !important;
+    
     
 }
 
 .nightModeTheme {
-    background-color: rgba(167, 83, 52, 0.863);
-    color: rgb(0, 0, 0);
-    
+    font-family: 'Vollkorn',
+    serif !important;
 }
 
 

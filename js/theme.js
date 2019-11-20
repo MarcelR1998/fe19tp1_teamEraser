@@ -1,4 +1,4 @@
-let theme = document.querySelector("*");
+let theme = document.querySelector("#editor");
 let lightmode = document.getElementById("lightmode");
 let darkmode = document.getElementById("darkmode");
 let nightmode = document.getElementById("nightmode");
@@ -6,18 +6,21 @@ let nightmode = document.getElementById("nightmode");
 document.addEventListener("click", function (e) {
 
     if (e.target.classList.contains("lightmode")){
-        theme.className = "";
-        console.log("pressed");
+        theme.classList.remove("darkModeTheme");
+        theme.classList.remove("nightModeTheme");
+        console.log("loaded sans-serif font template");
     }
 
     if (e.target.classList.contains("darkmode")){
-        theme.className = "";
+        theme.classList.remove("nightModeTheme");
         theme.classList.add("darkModeTheme");
+        console.log("loaded quirky font template")
     }
 
     if (e.target.classList.contains("nattläge")) {
-        theme.className = "";
+        theme.classList.remove("darkModeTheme");
         theme.classList.add("nightModeTheme");
+        console.log("loaded serif font template")
     }
 
 });

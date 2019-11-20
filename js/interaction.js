@@ -1,7 +1,7 @@
 /*
 * INTERACTION
 *************'''''*/
- 
+
 // Display user msg
 const displayMsg = (msg, selector = '#editorMsg') => {
     document.querySelector(selector).innerHTML = msg;
@@ -14,23 +14,32 @@ const subnavContent = (title) => {
     document.querySelector('#side-subnav .body .title').innerHTML = title;
 
     const allNotes = () => {
-        
+
         // get stored notes and print list
-        let notes = getStored('myNotes') || [];
+        // let notes = getStored('myNotes') || [];
+
+
 
         // sort notes by updated last
-        notes.sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : 1);
+        //notes.sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : 1);
 
         // put formated notes in arr
         let htmlArr = [];
-        for (let x = 0; x < notes.length; x++) {
+        
+        for (let x = 0; x < noteList.length; x++) {
+            let updateTime = new Date(noteList[x].updated);
+            let createTime = new Date(noteList[x].id);
+            let updateDateString = updateTime.toLocaleDateString();
+            let createDateString = createTime.toLocaleDateString(); 
+            let updateTimeString = updateTime.toLocaleTimeString().slice(0, 5);
+            let createTimeString = createTime.toLocaleTimeString().slice(0, 5);
             let content =
-                `<li class="item note" data-id="${notes[x].id}" data-created="" data-lastUpdated="">
-                <h4 class="itemTitle">${notes[x].title}</h4>
-                <div class="itemContent">${notes[x].content}</div>
+                `<li class="item note" data-note-id="${noteList[x].id}" data-created="" data-lastUpdated="">
+                <h4 class="itemTitle">${noteList[x].title}</h4>
+                <div class="itemContent">${noteList[x].text}</div>
                 <div class="meta">
-                    <p class="lastUpdated">updated <span>${notes[x].lastUpdated}</span></p>
-                    <p class="created">created <span>${notes[x].created}</span></p>
+                    <p class="lastUpdated">updated <span>${updateDateString} ${updateTimeString}</span></p>
+                    <p class="created">created <span>${createDateString} ${createTimeString}</span></p>
                 </div>
             </li>`;
             htmlArr.push(content);
@@ -41,6 +50,8 @@ const subnavContent = (title) => {
         htmlArr.forEach((el, i) => {
             htmlStr += el;
         });
+        //console.log(toString(htmlArr));
+        //return;
 
         // print note-list
         document.querySelector('#side-subnav .body .content').innerHTML =
@@ -48,6 +59,16 @@ const subnavContent = (title) => {
             ${htmlStr}
         </ul>`;
 
+
+        let itemNote = document.querySelectorAll('ul.noteList li');
+
+        itemNote.forEach(function (element) {
+            element.addEventListener("click", function (e) {
+                loadNote(element.dataset.noteId)
+            })
+        });
+
+        /*
         // create excerpt
         const listItems = document.querySelectorAll('.itemContent');
         listItems.forEach(function (content, index) {
@@ -55,6 +76,7 @@ const subnavContent = (title) => {
             let excerpt = content.childNodes[3].innerHTML.textcontent + '...';
             content.childNodes[3].innerHTML = excerpt;
         });
+        */
     }
 
     // return if not on "all notes" /temp***
@@ -76,6 +98,15 @@ const openSubnav = (e) => {
     subnav.dataset.open = true;
 }
 
+// Display Subnav (For when user clicks outside icon, but still on button)
+const openSubnav2 = (e) => {
+    subnavContent(e.target.dataset.title);
+    //
+    const subnav = document.querySelector("#side-subnav");
+    subnav.style.width = "250px";
+    subnav.dataset.open = true;
+}
+
 // Hide subnav
 const closeSubnav = () => {
     const subnav = document.querySelector("#side-subnav");
@@ -83,50 +114,14 @@ const closeSubnav = () => {
     subnav.dataset.open = false;
 }
 
-
-
-
-// listener 
-// DOCUMENT CLICK-LISTENER
-
-const blur = document.querySelector(".blur");
-const popup = document.querySelector(".popup");
-
-document.addEventListener("click", function (e) {
-    /*// close welcome popup?
-    if (e.target.classList.contains("exit")) {
-        popup.classList.add("hidden");
-        blur.classList.add("hidden");
-    }*/
-
-    // nav?
-    const subnav = document.querySelector('#side-subnav');
-    if (e.target.parentElement.classList.contains('button-sidebar')) {
-        openSubnav(e);
-        // if not nav/subnav, but subnav is open, close subnav
-    } else if (e.target !== subnav && !subnav.contains(e.target)) {
-        if (this.querySelector('#side-subnav').dataset.open) {
-            closeSubnav();
+function loadNote(id) {
+    //quill.setContents(notens content, source: String = 'api')
+    console.log(id);
+    noteList.forEach(element => {
+        if (element.id == id) {
+            quill.setContents = 'hej';//element.content; //noteList[i].content
         }
-    }
-    // subnav closebtn?
-    if (e.target.classList.contains('closebtn') && e.target.parentElement.id == 'side-subnav') {
-        closeSubnav();
-    }
+    });
 
-    // load note? (make this smarter?)
-    if (e.target.classList.contains('note') && e.target.dataset.id) {
-        loadNote(e.target.dataset.id);
-    } else if (e.target.parentElement.classList.contains('note') && e.target.parentElement.dataset.id) {
-        loadNote(e.target.parentElement.dataset.id);
-    } else if (e.target.parentElement.parentElement.classList.contains('note') && e.target.parentElement.parentElement.dataset.id) {
-        loadNote(e.target.parentElement.parentElement.dataset.id);
-    }
 
-    // clear storage? (dev func)
-    if (e.target.id == 'clearStorage') {
-        clearStorage();
-        displayMsg('Storage cleared!');
-    }
-    console.log(e);
-});
+}

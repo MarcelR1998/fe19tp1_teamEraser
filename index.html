@@ -13,12 +13,12 @@
 
 <body>
     <div id="theme">
-        <div class="blur hidden">
+        <div class="blur invisible">
             <img src="media/solidblack.jpg" class="" alt="">
         </div>
 
         <!-- Pop up -->
-        <div class="popup hidden">
+        <div class="popup invisible">
             <button class="exithidden exit "> <span class="fa fa-times exit"></span> </button>
             <h1>Welcome!</h1>
             <p>
@@ -36,12 +36,17 @@
                 </div>
 
                 <div id="side-nav-buttons">
-                    <button class="button-sidebar" id="new_note" data-title="new"><i class="fas fa-plus"></i></button>
-                    <button class="button-sidebar" id="search" data-title="search"><i class="fa fa-search"></i></button>
-                    <button class="button-sidebar" id="all_notes" data-title="all"><i class="fas fa-sticky-note"></i></button>
-                    <button class="button-sidebar" id="favorites" data-title="favorites"><i class="fa fa-star"></i></button>
-                    <button class="button-sidebar" id="stats" data-title="stats"><i class="fa fa-chart-bar"></i></button>
-                    <button class="button-sidebar" id="settings" data-title="settings"><i class="fas fa-cog"></i></button>
+                    <!--button-sidebar handles javascript, while sidebarbutton purely concerns css.-->                    
+                    <button class="sidebarbutton" id="new_note" data-title="new"><i class="fas fa-plus"></i></button>
+                    <button class="button-sidebar sidebarbutton" id="search" data-title="search"><i class="fa fa-search"></i></button>
+                    <button class="button-sidebar sidebarbutton" id="all_notes" data-title="all"><i
+                            class="fas fa-sticky-note"></i></button>
+                    <button class="button-sidebar sidebarbutton" id="favorites" data-title="favorites"><i
+                            class="fa fa-star"></i></button>
+                    <button class="button-sidebar sidebarbutton" id="stats" data-title="stats"><i
+                            class="fa fa-chart-bar"></i></button>
+                    <button class="button-sidebar sidebarbutton" id="settings" data-title="settings"><i
+                            class="fas fa-cog"></i></button>
                 </div>
             </div>
             <div id="side-subnav" data-open="false">
@@ -63,12 +68,11 @@
 
                 <div id="bottom-buttons">
                     <button id="save-note">Save</button>
-                    <button id="load-note">Load</button>
                     <button id="delete-note">Delete</button>
                     <button id="clearStorage" class="demoBtn">Clear L-storage</button>
-                    <button class="lightmode">lightmode</button>
-                    <button class="darkmode">darkmode</button>
-                    <button class="nattläge">nattläge</button>
+                    <button class="lightmode">Roboto</button>
+                    <button class="darkmode">Courgette</button>
+                    <button class="nattläge">Vollkorn</button>
                     <p id="editorMsg"></p>
                 </div>
             </div>
@@ -89,16 +93,16 @@
 
     <!-- 
     Handly functions 
-    <script src="js/handyFuncs.js"></script>
+    <script src="js/handyFuncs.js"></script> -->
 
     <!-- Local storage 
-    <script src="js/localStorage.js"></script>
+    <script src="js/localStorage.js"></script> -->
 
     <!-- Notes 
-    <script src="js/notes.js"></script>
+    <script src="js/notes.js"></script> -->
 
     <!-- Editor 
-    <script src="js/editor.js"></script>
+    <script src="js/editor.js"></script> -->
 
     <!-- Interaction -->
     <script src="js/interaction.js"></script>
@@ -106,9 +110,8 @@
     <!-- Listener -->
     <script src="js/listener.js"></script>
 
-    <!-- Themes 
+    //Themes 
     <script src="js/theme.js"></script>
-    -->
 </body>
 
 </html>
