@@ -25,12 +25,12 @@ const subnavContent = (title) => {
 
         // put formated notes in arr
         let htmlArr = [];
-        
+
         for (let x = 0; x < noteList.length; x++) {
             let updateTime = new Date(noteList[x].updated);
             let createTime = new Date(noteList[x].id);
             let updateDateString = updateTime.toLocaleDateString();
-            let createDateString = createTime.toLocaleDateString(); 
+            let createDateString = createTime.toLocaleDateString();
             let updateTimeString = updateTime.toLocaleTimeString().slice(0, 5);
             let createTimeString = createTime.toLocaleTimeString().slice(0, 5);
             let content =
@@ -115,13 +115,13 @@ const closeSubnav = () => {
 }
 
 function loadNote(id) {
-    //quill.setContents(notens content, source: String = 'api')
-    console.log(id);
     noteList.forEach(element => {
-        if (element.id == id) {
-            quill.setContents = 'hej';//element.content; //noteList[i].content
+        if (element.id === Number(id)) {
+            console.log('loaded note: ' + element.title + " " + id);
+            quill.setContents(element.content);
+            document.getElementById("title-input").value = element.title;
+            activeId = id;
+            editor.className = element.theme;
         }
     });
-
-
 }

@@ -76,10 +76,10 @@ activeId = false;
  ***********/
 let saveNoteBtn = document.getElementById('save-note');
 let deleteNotebtn = document.getElementById('delete-note');
-let loadNotebtn = document.getElementById('load-note');
+//let loadNotebtn = document.getElementById('load-note');
 
 saveNoteBtn.addEventListener("click", saveNote);
-loadNotebtn.addEventListener("click", renderNote);
+//loadNotebtn.addEventListener("click", renderNote);
 deleteNotebtn.addEventListener("click", deleteNote);
 
 /* 
@@ -102,24 +102,23 @@ function loadFromLocalStorage() {
     console.log('loaded noteList from LS');
 }
 
-function renderNote(note) {
+/*function renderNote(note) {
     activeId = note.id;
     console.log('Active id set to ' + note.id);
-}
+}*/
 
 function saveNote() {
+    console.log(theme.className);
     // If id exists in noteList, overwrite orig with updated. 
     let orig = noteList.find(item => item.id == activeId) || false;
 
     if (orig) {
-        console.log('Updating orig in noteList');
         let i = noteList.indexOf(orig);
         noteList[i].content = quill.getContents();
         noteList[i].text = quill.getText(0, 30);
         noteList[i].title = document.getElementById("title-input").value;
         noteList[i].updated = Date.now();
-
-        //noteList.splice(i, 1, updatedContent);
+        noteList[i].theme = theme.className;
     } else {
         // Otherwhise, add updated as new.
         console.log('Saving new note to noteList');
@@ -129,7 +128,8 @@ function saveNote() {
             content: quill.getContents(),
             id: Date.now(),
             title: document.getElementById("title-input").value,
-            updated: Date.now()
+            updated: Date.now(),
+            theme: theme.className
         }
 
         activeId = noteObj.id;
