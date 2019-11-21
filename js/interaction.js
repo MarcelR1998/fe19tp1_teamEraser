@@ -113,15 +113,3 @@ const closeSubnav = () => {
     subnav.style.width = "0";
     subnav.dataset.open = false;
 }
-
-function loadNote(id) {
-    noteList.forEach(element => {
-        if (element.id === Number(id)) {
-            console.log('loaded note: ' + element.title + " " + id);
-            quill.setContents(element.content);
-            document.getElementById("title-input").value = element.title;
-            activeId = id;
-            editor.className = element.theme;
-        }
-    });
-}

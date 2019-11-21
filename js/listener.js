@@ -43,6 +43,8 @@ document.addEventListener("click", function (e) {
         loadFromLocalStorage();
         displayMsg('Storage cleared!');
     }
-    //console.log(e);
 });
+
+// Skapa ny note??
+document.querySelector('#new_note').addEventListener('click', function () { newNote(); });
 

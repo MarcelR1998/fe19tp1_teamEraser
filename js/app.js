@@ -88,7 +88,7 @@ deleteNotebtn.addEventListener("click", deleteNote);
 
 function saveToLocalStorage() {
     localStorage.setItem("noteList", JSON.stringify(noteList));
-    console.log('saved noteList to LS');
+    console.log('saved noteist to LS');
 }
 
 function loadFromLocalStorage() {
@@ -141,16 +141,17 @@ function saveNote() {
 }
 
 function deleteNote() {
+    console.log('deleting note...')
     // jämför note.id med id:n i noteList
     // vid match, ta bort noteList[x] ur noteList
-    if (!activeId) {
-        return;
+    if (activeId) {
+        noteList.forEach(function (item, i) {
+            if (Number(activeId) === item.id) {
+                noteList.splice(i, 1);
+            }
+        });
     }
-    noteList.forEach(function (item, i) {
-        if (activeId === item.id) {
-            noteList.splice(i, 1)
-        }
-    });
+    newNote();
     console.log('Note deleted');
     // spara
     saveToLocalStorage();
@@ -159,6 +160,34 @@ function deleteNote() {
 function deleteTextFromDOM() {
     quill.deleteText(0, 999);
 }
+
+function loadNote(id) {
+    noteList.forEach(element => {
+        if (element.id === Number(id)) {
+            console.log('loaded note: ' + element.title + " " + id);
+            quill.setContents(element.content);
+            document.getElementById("title-input").value = element.title;
+            activeId = id;
+            editor.className = element.theme;
+        }
+    });
+}
+
+function newNote() {
+    console.log("new note")
+    //nollställ aktiv note
+    activeId = false;
+    //rensa eventuell editor-txt
+    quill.setContents("");
+    //rensa rubrik-fält
+    document.getElementById("title-input").value = "";
+    //nollställ editor-tema
+    editor.className = "ql-container ql-snow";
+    //autofokusera editor
+    const editorField = document.querySelector('#editor .ql-editor.ql-blank');
+    editorField.focus();
+}
+
 
 /*
  * Popup
