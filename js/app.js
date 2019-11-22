@@ -174,7 +174,7 @@ function loadNote(id) {
 }
 
 function newNote() {
-    console.log("new note")
+    console.log("new note");
     //nollställ aktiv note
     activeId = false;
     //rensa eventuell editor-txt

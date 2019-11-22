@@ -150,20 +150,20 @@ div.mce-edit-area{
 
 /* Buttons */
 
-.sidebarbutton {
+.side-nav-btn {
     font-size: 25px;
     color: white;
     background: none;
     border: none;
 }
 
-.sidebarbutton:hover {
+.side-nav-btn:hover {
     
     font-size: 26px;
     cursor: pointer;
 }
 
-.sidebarbutton:focus {
+.side-nav-btn:focus {
     font-size: 30px;
 }
 
@@ -273,6 +273,10 @@ button:focus {
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 }
 
 @media screen and (max-height: 450px) {

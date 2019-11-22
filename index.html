@@ -37,21 +37,17 @@
 
                 <div id="side-nav-buttons">
                     <!--button-sidebar handles javascript, while sidebarbutton purely concerns css.-->
-                    <button class="sidebarbutton" id="new_note" data-title="new"><i class="fas fa-plus"></i></button>
-                    <button class="button-sidebar sidebarbutton" id="search" data-title="search"><i
-                            class="fa fa-search"></i></button>
-                    <button class="button-sidebar sidebarbutton" id="all_notes" data-title="all"><i
-                            class="fas fa-sticky-note"></i></button>
-                    <button class="button-sidebar sidebarbutton" id="favorites" data-title="favorites"><i
+                    <button class="side-nav-btn" id="new_note" data-title="new"><i class="fas fa-plus"></i></button>
+                    <button class="side-nav-btn" id="search" data-title="search"><i class="fa fa-search"></i></button>
+                    <button class="side-nav-btn" id="all" data-title="all"><i class="fas fa-sticky-note"></i></button>
+                    <button class="side-nav-btn" id="favorites" data-title="favorites"><i
                             class="fa fa-star"></i></button>
-                    <button class="button-sidebar sidebarbutton" id="stats" data-title="stats"><i
-                            class="fa fa-chart-bar"></i></button>
-                    <button class="button-sidebar sidebarbutton" id="settings" data-title="settings"><i
-                            class="fas fa-cog"></i></button>
+                    <button class="side-nav-btn" id="stats" data-title="stats"><i class="fa fa-chart-bar"></i></button>
+                    <button class="side-nav-btn" id="settings" data-title="settings"><i class="fas fa-cog"></i></button>
                 </div>
             </div>
             <div id="side-subnav" data-open="false">
-                <a href="javascript:void(0)" class="closebtn">&times;</a>
+                <button class="closebtn">&times;</button>
                 <div class="body">
                     <h3 class="title"></h3>
                     <div class="content"></div>
