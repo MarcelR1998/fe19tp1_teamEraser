@@ -1,11 +1,22 @@
 /*
 * INTERACTION
-*************'''''*/
+****************/
 
 // Display user msg
 const displayMsg = (msg, selector = '#editorMsg') => {
     document.querySelector(selector).innerHTML = msg;
 }
+
+// BOTTOM BUTTONS
+let saveNoteBtn = document.getElementById('save-note');
+let deleteNotebtn = document.getElementById('delete-note');
+let clearNoteBtn = document.getElementById('clear-text');
+
+saveNoteBtn.addEventListener("click", saveNote);
+deleteNotebtn.addEventListener("click", deleteNote);
+clearNoteBtn.addEventListener("click", clearNote);
+
+
 
 // NAVBAR
 // Get requested content
@@ -23,19 +34,6 @@ const subnavContent = (title) => {
     /*
     * FUNCS 
     **********/
-
-    // get printable timestamps (created, updated)
-    const dateStamps = (note) => {
-        let updateTime = new Date(note.updated);
-        let createTime = new Date(note.id);
-
-        return {
-            updatedDate: updateTime.toLocaleDateString(),
-            updatedTime: updateTime.toLocaleTimeString().slice(0, 5),
-            createdDate: createTime.toLocaleDateString(),
-            createdTime: createTime.toLocaleTimeString().slice(0, 5)
-        };
-    }
 
     // available sort-functions
     const sortFuncs = {
@@ -59,8 +57,21 @@ const subnavContent = (title) => {
     // apply filter
     const applyFilter = (notes, filterBy = () => true) => notes.filter(filterBy);
 
+    // get printable timestamps (created, updated)
+    const dateStamps = (note) => {
+        let updateTime = new Date(note.updated);
+        let createTime = new Date(note.id);
+
+        return {
+            updatedDate: updateTime.toLocaleDateString(),
+            updatedTime: updateTime.toLocaleTimeString().slice(0, 5),
+            createdDate: createTime.toLocaleDateString(),
+            createdTime: createTime.toLocaleTimeString().slice(0, 5)
+        };
+    }
+
     // available html-templates
-    templateList = {
+    templates = {
         default: (note) =>
             `<li class="item note" data-note-id="${note.id}" data-created="" data-lastUpdated="">
                 <h4 class="itemTitle">${note.title}</h4>
@@ -73,7 +84,7 @@ const subnavContent = (title) => {
     }
 
     // apply template
-    const applyTemplate = (notes) => notes.map(note => templateList.default(note));
+    const applyTemplate = (notes, template = 'default') => notes.map(note => templates[template](note));
 
     // print notes to DOM
     const printList = (content = '', parentSelector = '#side-subnav .body .content') => {
@@ -108,11 +119,10 @@ const subnavContent = (title) => {
     **********/
 
     // print sorted notes with applied template and filter
-    printList(
-        applyTemplate(
-            applyFilter(
-                applySort(noteList), filterFuncs[activeFilter]
-            )));
+    printList(applyTemplate(
+        applyFilter(
+            applySort(noteList), filterFuncs[activeFilter]
+        )));
 
     // be ready to load specific note in editor
     applyListener('ul.noteList li', 'click');
