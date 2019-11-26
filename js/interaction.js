@@ -1,127 +1,165 @@
 /*
 * INTERACTION
-*************'''''*/
+****************/
 
 // Display user msg
 const displayMsg = (msg, selector = '#editorMsg') => {
     document.querySelector(selector).innerHTML = msg;
 }
 
+// BOTTOM BUTTONS
+let saveNoteBtn = document.getElementById('save-note');
+let deleteNotebtn = document.getElementById('delete-note');
+let clearNoteBtn = document.getElementById('clear-text');
+
+saveNoteBtn.addEventListener("click", saveNote);
+deleteNotebtn.addEventListener("click", deleteNote);
+clearNoteBtn.addEventListener("click", clearNote);
+
+
+
 // NAVBAR
-// Get wanted content
+// Get requested content
 const subnavContent = (title) => {
+    /*
+    * SETUP
+    ********/
+
     // set subnav title
     document.querySelector('#side-subnav .body .title').innerHTML = title;
 
-    const allNotes = () => {
+    // set active filter
+    const activeFilter = title.toLowerCase();
 
-        // get stored notes and print list
-        // let notes = getStored('myNotes') || [];
+    /*
+    * FUNCS 
+    **********/
 
+    // available sort-functions
+    const sortFuncs = {
+        byUpdated: (a, b) => a.updated > b.updated ? -1 : 1,
+        byUpdatedAsc: (a, b) => a.updated < b.updated ? -1 : 1,
+        byCreated: (a, b) => a.id > b.id ? -1 : 1,
+        byCreatedAsc: (a, b) => a.id < b.id ? -1 : 1
+    }
 
+    // sort notes by updated last
+    const applySort = (notes = noteList, sortFunc = 'byUpdated') => notes.sort(sortFuncs[sortFunc]);
 
-        // sort notes by updated last
-        //notes.sort((a, b) => a.lastUpdated > b.lastUpdated ? -1 : 1);
+    // available filters
+    const filterFuncs = {
+        search: (note) => false, // edit search-filter
+        all: (note) => true,
+        favorites: (note) => note.favorite,
+        created: (a, b) => a.lastUpdated > b.lastUpdated ? -1 : 1
+    }
 
-        // put formated notes in arr
-        let htmlArr = [];
-        
-        for (let x = 0; x < noteList.length; x++) {
-            let updateTime = new Date(noteList[x].updated);
-            let createTime = new Date(noteList[x].id);
-            let updateDateString = updateTime.toLocaleDateString();
-            let createDateString = createTime.toLocaleDateString(); 
-            let updateTimeString = updateTime.toLocaleTimeString().slice(0, 5);
-            let createTimeString = createTime.toLocaleTimeString().slice(0, 5);
-            let content =
-                `<li class="item note" data-note-id="${noteList[x].id}" data-created="" data-lastUpdated="">
-                <h4 class="itemTitle">${noteList[x].title}</h4>
-                <div class="itemContent">${noteList[x].text}</div>
+    // apply filter
+    const applyFilter = (notes, filterBy = () => true) => notes.filter(filterBy);
+
+    // get printable timestamps (created, updated)
+    const dateStamps = (note) => {
+        let updateTime = new Date(note.updated);
+        let createTime = new Date(note.id);
+
+        return {
+            updatedDate: updateTime.toLocaleDateString(),
+            updatedTime: updateTime.toLocaleTimeString().slice(0, 5),
+            createdDate: createTime.toLocaleDateString(),
+            createdTime: createTime.toLocaleTimeString().slice(0, 5)
+        };
+    }
+
+    // available html-templates
+    templates = {
+        default: (note) =>
+            `<li class="item note" data-note-id="${note.id}" data-created="" data-lastUpdated="">
+                <h4 class="itemTitle">${note.title}</h4>
+                <div class="itemContent">${note.text}</div>
                 <div class="meta">
-                    <p class="lastUpdated">updated <span>${updateDateString} ${updateTimeString}</span></p>
-                    <p class="created">created <span>${createDateString} ${createTimeString}</span></p>
+                    <p class="lastUpdated">updated <span>${dateStamps(note).updatedDate} ${dateStamps(note).updatedTime}</span></p>
+                    <p class="created">created <span>${dateStamps(note).createdDate} ${dateStamps(note).createdTime}</span></p>
                 </div>
-            </li>`;
-            htmlArr.push(content);
-        }
+            </li>`
+    }
 
-        // make html-str
-        let htmlStr = '';
-        htmlArr.forEach((el, i) => {
-            htmlStr += el;
-        });
-        //console.log(toString(htmlArr));
-        //return;
+    // apply template
+    const applyTemplate = (notes, template = 'default') => notes.map(note => templates[template](note));
 
-        // print note-list
-        document.querySelector('#side-subnav .body .content').innerHTML =
+    // print notes to DOM
+    const printList = (content = '', parentSelector = '#side-subnav .body .content') => {
+        // var ska content printas
+        const parentElem = document.querySelector(parentSelector);
+
+        // om content inte är str, joina till str
+        content = typeof content !== 'string' ? content.join('') : content;
+
+        // print
+        parentElem.innerHTML =
             `<ul class="noteList">
-            ${htmlStr}
-        </ul>`;
+                ${content}
+            </ul>`;
+    }
 
-
-        let itemNote = document.querySelectorAll('ul.noteList li');
-
-        itemNote.forEach(function (element) {
-            element.addEventListener("click", function (e) {
-                loadNote(element.dataset.noteId)
+    // apply listener to load note
+    const applyListener = (selector = 'ul.noteList li', trigger = 'click') => {
+        // vad ska lyssna?
+        const targets = document.querySelectorAll(selector);
+        // placera öron
+        targets.forEach((target, nth) => {
+            targets[nth].addEventListener(trigger, (e) => {
+                loadNote(e.target.closest('li.item.note').dataset.noteId);
             })
-        });
-
-        /*
-        // create excerpt
-        const listItems = document.querySelectorAll('.itemContent');
-        listItems.forEach(function (content, index) {
-            console.log(content.childNodes[3], index);
-            let excerpt = content.childNodes[3].innerHTML.textcontent + '...';
-            content.childNodes[3].innerHTML = excerpt;
-        });
-        */
+        })
     }
 
-    // return if not on "all notes" /temp***
-    if (title === 'all') {
-        allNotes()
-    } else { // temp*
-        document.querySelector('#side-subnav .body .content').innerHTML = '';
-        return;
-    }
 
-}
+    /*
+    * ACTION
+    **********/
+
+    // print sorted notes with applied template and filter
+    printList(applyTemplate(
+        applyFilter(
+            applySort(noteList), filterFuncs[activeFilter]
+        )));
+
+    // be ready to load specific note in editor
+    applyListener('ul.noteList li', 'click');
+} // subnavContent()
 
 // Display subnav
-const openSubnav = (e) => {
-    subnavContent(e.target.parentElement.dataset.title);
+const openSubnav = (name) => {
+    subnavContent(name);
     //
     const subnav = document.querySelector("#side-subnav");
-    subnav.style.width = "250px";
-    subnav.dataset.open = true;
-}
-
-// Display Subnav (For when user clicks outside icon, but still on button)
-const openSubnav2 = (e) => {
-    subnavContent(e.target.dataset.title);
-    //
-    const subnav = document.querySelector("#side-subnav");
-    subnav.style.width = "250px";
-    subnav.dataset.open = true;
+    if (subnav.dataset.open === 'false') {
+        subnav.style.width = "250px";
+        subnav.dataset.open = true;
+    }
 }
 
 // Hide subnav
 const closeSubnav = () => {
     const subnav = document.querySelector("#side-subnav");
-    subnav.style.width = "0";
-    subnav.dataset.open = false;
+    if (subnav.dataset.open === 'true') {
+        subnav.style.width = "0";
+        subnav.dataset.open = false;
+    }
 }
 
-function loadNote(id) {
-    //quill.setContents(notens content, source: String = 'api')
-    console.log(id);
-    noteList.forEach(element => {
-        if (element.id == id) {
-            quill.setContents = 'hej';//element.content; //noteList[i].content
-        }
-    });
-
+/*
+// Display Subnav (For when user clicks outside icon, but still on button)
+const openSubnav2 = (e) => {
+    subnavContent(e.target.dataset.title);
+    //
+    const subnav = document.querySelector("#side-subnav");
+    if (subnav.dataset.open === 'false') {
+        subnav.style.width = "250px";
+        subnav.dataset.open = true;
+    }
 
 }
+*/
+
+

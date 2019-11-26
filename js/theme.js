@@ -5,13 +5,13 @@ let nightmode = document.getElementById("nightmode");
 
 document.addEventListener("click", function (e) {
 
-    if (e.target.classList.contains("lightmode")){
+    if (e.target.classList.contains("lightmode")) {
         theme.classList.remove("darkModeTheme");
         theme.classList.remove("nightModeTheme");
         console.log("loaded sans-serif font template");
     }
 
-    if (e.target.classList.contains("darkmode")){
+    if (e.target.classList.contains("darkmode")) {
         theme.classList.remove("nightModeTheme");
         theme.classList.add("darkModeTheme");
         console.log("loaded quirky font template")
