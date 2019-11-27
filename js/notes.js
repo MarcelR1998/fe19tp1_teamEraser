@@ -106,3 +106,28 @@ function loadNote(id) {
 function clearNote() {
     quill.deleteText(0, 999);
 }
+
+function updateFavStatus(noteId) {
+    // find note to mark/unmark
+    let note = noteList.find(note => note.id === Number(noteId)) || false;
+
+    // if not found, abort
+    if (!note) {
+        console.log('Couldn\'t find note to mark as fav');
+        return;
+    }
+
+    // update favorite-status
+    if (!note.favorite) {
+        note.favorite = true;
+    } else {
+        note.favorite = false;
+    }
+
+    // save changes to LS
+    saveToLocalStorage();
+
+    // re-render the DOM-list
+    subnavContent(document.querySelector('#side-subnav .body .title').innerHTML);
+    console.log('Note', note.id, 'is now favorite:', note.favorite);
+}
