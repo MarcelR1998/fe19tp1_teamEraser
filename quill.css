@@ -1,0 +1,24 @@
+
+@import "~quill/dist/quill.core.css";
+
+#editor {
+    height: 800px;
+    width: 100%;
+    order: 3;
+    border: none;
+}
+
+div.ql-toolbar.ql-snow {
+    display: flex;
+    background-color: white;
+    width: 600px;
+    height: 65px;
+    margin: 4px;
+    border-radius: 4px;
+}  
+
+#editor > div.ql-editor.ql-blank, #editor > div.ql-editor {
+   background-color: white;
+   border: none;
+   box-shadow: 5px 5px 3px rgb(27, 40, 42);
+}
