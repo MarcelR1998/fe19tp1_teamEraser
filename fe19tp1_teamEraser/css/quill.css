@@ -1,0 +1,79 @@
+
+/*
+* QUILL STYLING
+*********************/
+
+@import "~quill/dist/quill.core.css";
+
+#editor {
+  height: 800px;
+  width: 100%;
+  order: 3;
+  border: none;
+}
+
+div.ql-toolbar.ql-snow {
+  display: flex;
+  background-color: white;
+  width: 600px;
+  height: 65px;
+  margin: 4px;
+  border-radius: 4px;
+}  
+
+#editor > div.ql-editor.ql-blank, #editor > div.ql-editor {
+  background-color: white;
+  border: none;
+  box-shadow: 2px 2px 1px rgb(27, 40, 42);
+  padding: 80px;
+}
+
+/*@media only screen and (max-width: 950px){
+  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
+    -webkit-box-shadow: 0;
+    -moz-box-shadow: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    padding-top: 100px; 
+    width: 800px;
+    margin-left: 100px;
+    padding: 0;
+  }
+}*/
+@media only screen and (max-width: 650px){
+  div.ql-toolbar.ql-snow{
+
+  z-index: 1;
+  position: fixed;
+  left: -59px;
+  transform: translateX();
+  width: 100%;
+  bottom: 76px;
+  padding: 10px;
+  }
+  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    padding-top: 100px;
+    width: 500px;
+  }
+  #editorContainer{
+    
+  }
+ 
+
+  }
+
+/* @media only screen and (max-width: 1000px) {
+      #editor > div.ql-editor.ql-blank{
+        margin: 0 10%; 
+        width: 1000px;
+    }
+    body > div.ql-toolbar.ql-snow{
+        width: 1200px;
+    }  
+    
+  } 
+*/
