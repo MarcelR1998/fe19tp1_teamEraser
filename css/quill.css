@@ -38,6 +38,7 @@
     margin-top: 105px;
 }
 
+<<<<<<< HEAD
 @media only screen and (max-width: 950px){
   #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
 /*     -webkit-box-shadow: 0;
@@ -72,6 +73,22 @@
     width: 500px;
   }
 
+=======
+@media only screen and (max-width: 600px){
+  div.ql-toolbar.ql-snow{
+   
+  /* display:block; 
+  top:388px;
+  position:relative;
+  padding:0; */
+  /* display: flex; */
+  
+
+
+  
+    
+  }
+>>>>>>> 5e3bcb4553dc7d50e5d4fd7a3c5a99228f98df9a
   }
 
 /* @media only screen and (max-width: 1000px) {

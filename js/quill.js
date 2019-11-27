@@ -6,13 +6,29 @@ var toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'], // toggled buttons
     ['blockquote'],
 
+<<<<<<< HEAD
     , // custom button values
+=======
+    [{
+        'header': 1
+    }, {
+        'header': 2
+    }], // custom button values
+>>>>>>> 5e3bcb4553dc7d50e5d4fd7a3c5a99228f98df9a
     [{
         'list': 'ordered'
     }, {
         'list': 'bullet'
     }],
+<<<<<<< HEAD
     ,
+=======
+    [{
+        'script': 'sub'
+    }, {
+        'script': 'super'
+    }], // superscript/subscript
+>>>>>>> 5e3bcb4553dc7d50e5d4fd7a3c5a99228f98df9a
     [{
         'indent': '-1'
     }, {
@@ -29,8 +45,12 @@ var toolbarOptions = [
 
     [{
         'color': []
+<<<<<<< HEAD
     }, 
     {
+=======
+    }, {
+>>>>>>> 5e3bcb4553dc7d50e5d4fd7a3c5a99228f98df9a
         'background': []
     }], // dropdown with defaults from theme,
     [{
