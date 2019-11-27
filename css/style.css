@@ -164,7 +164,6 @@ div.mce-edit-area{
 
 
 .side-nav-btn:hover {
-    
     font-size: 26px;
     cursor: pointer;
 }
@@ -192,6 +191,14 @@ button:focus {
     background: white;
     border: 1px solid rgb(179, 179, 179);
     width: 100px;
+    cursor: pointer;
+}
+
+.top-buttons-font{
+    background: white;
+    border: none;
+    width: 99px;
+    cursor: pointer;
 }
 
 .note-add {
@@ -304,6 +311,9 @@ button:focus {
     padding: 10px;
     border:rgb(199, 199, 199) solid 1px;
     transition-duration: .3s;
+    white-space: nowrap;
+    /*display: flex;
+    flex-wrap: wrap;*/
 }
 
 .noteList .item:hover {
@@ -312,6 +322,11 @@ button:focus {
     cursor: pointer;
 }
 
+.favoriteNote{
+    width: 20px;
+    height: 20px;
+    position: absolute; 
+}
 
 /* display part of note content in subnav */
 .itemContent > * {
@@ -344,13 +359,57 @@ button:focus {
     
 }
 
+/* Tool Bar */
+
+#editorContainer > div.ql-toolbar.ql-snow{
+    
+}
+
+/* Drop down fonts */
+
+#dropdown{
+    z-index: 2;
+    
+}
+
+#dropdown ul{
+    list-style: none;
+    background-color: white;
+}
+
+#dropdown ul:hover {
+    cursor: pointer;
+}
+
+#dropdown ul li{
+    text-align: center;
+    height: 19px;
+    font-size: 13px;
+    border: 1px solid rgb(173, 173, 173);
+    width: 100px;
+    padding-top: 3px ;
+    
+}
+
+#dropdown ul ul{
+  
+    display: none;
+}
+
+
+#dropdown ul li:hover > ul {
+    display: block;
+    margin-top: 6px;
+}
+
+
+
 .nightModeTheme {
     font-family: 'Vollkorn',
     serif !important;
 }
 
 /* Print */
-<<<<<<< HEAD
 
 @page {
     /* size: landscape; */
@@ -422,12 +481,13 @@ button:focus {
         box-shadow: none;
     }
 
+
     #quireLogo, #stats, #settings{
         display: none;
     }
 
     #side-subnav {
-        height: 100%;
+        height: calc(100% - 135px);
         width: 0;
         position: fixed;
         z-index: 4;
@@ -440,7 +500,7 @@ button:focus {
         transform: translateX(0px);
         position: fixed;
         float: left;
-        height: 100vh;
+        /*height: 100vh;*/
     }
 
     #title-and-favorites{
@@ -453,102 +513,22 @@ button:focus {
 
     .top-buttons{
         width: 70px;
+
+    }
+
+    #dropdown ul li{
+        text-align: center;
+        height: 19px;
+        font-size: 13px;
+        border: 1px solid rgb(173, 173, 173);
+        width: 70px;
+        padding-top: 3px ;
+        
+    }
+
+    .top-buttons-font{
+     width: 70px;  
     }
 
 }
 
-=======
-
-@page {
-    /* size: landscape; */
-}
-
-@media print {
-    #side-nav, #side-nav-buttons, .side-nav-btn, i, button, #editorContainer > div.ql-toolbar.ql-snow, #title-and-favorites{
-        display: none;
-    }
-
-
-    #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
-        -webkit-box-shadow: none !important;
-        -moz-box-shadow: none !important;
-        box-shadow: none !important;
-
-        background-color: red !important;
-        z-index: 2147483647 !important;
-        width: 900px !important;
-        height: 100% !important;
-
-        margin: 0 !important;
-        padding: 50px !important;
-    }
-
-    #editor{
-        margin: -50px !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-        height: auto !important;
-    }
-} 
-
-@media only screen and (max-width: 600px) {
-
-    #side-nav {
-        z-index: 3;
-        position: fixed;
-        display: flex;
-        bottom: 0;
-        flex-direction: row;
-        margin: 0;
-        height: 75px;
-        width: 100%;
-        background-color: rgb(0, 83, 146);
-    }
-
-    #side-nav-buttons{
-        display: flex;
-        width: 100%;
-        justify-content: space-around;
-    }
-
-    #side-nav-buttons button {
-        display: inline;
-        width: 60px;
-    }
-
-    #editor{
-        width: 100vh;
-        margin-left: 0;
-
-    }
-
-    #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
-        width: 100vh;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
-    }
-
-    #quireLogo, #stats, #settings{
-        display: none;
-    }
-
-    #side-subnav {
-        height: 100%;
-        width: 0;
-        position: fixed;
-        z-index: 4;
-        top: 0;
-        left: 0;
-        background-color: rgb(230, 230, 230);
-        overflow-x: hidden;
-        transition: 0.5s;
-        padding-top: 60px;
-        transform: translateX(0px);
-        position: fixed;
-        float: left;
-        height: 100vh;
-    }
-}
-
->>>>>>> 5e3bcb4553dc7d50e5d4fd7a3c5a99228f98df9a

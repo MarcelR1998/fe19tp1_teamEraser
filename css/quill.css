@@ -38,7 +38,6 @@
     margin-top: 105px;
 }
 
-<<<<<<< HEAD
 @media only screen and (max-width: 950px){
   #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
 /*     -webkit-box-shadow: 0;
@@ -64,31 +63,17 @@
   padding: 10px;
   }
   #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
-    -webkit-box-shadow: 0;
-    -moz-box-shadow: 0;
     box-shadow: none;
     margin: 0;
     padding: 0;
     padding-top: 100px;
     width: 500px;
   }
-
-=======
-@media only screen and (max-width: 600px){
-  div.ql-toolbar.ql-snow{
-   
-  /* display:block; 
-  top:388px;
-  position:relative;
-  padding:0; */
-  /* display: flex; */
-  
-
-
-  
+  #editorContainer{
     
   }
->>>>>>> 5e3bcb4553dc7d50e5d4fd7a3c5a99228f98df9a
+ 
+
   }
 
 /* @media only screen and (max-width: 1000px) {

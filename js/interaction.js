@@ -79,6 +79,7 @@ const subnavContent = (title) => {
                 <div class="meta">
                     <p class="lastUpdated">updated <span>${dateStamps(note).updatedDate} ${dateStamps(note).updatedTime}</span></p>
                     <p class="created">created <span>${dateStamps(note).createdDate} ${dateStamps(note).createdTime}</span></p>
+                    <button class = "favoriteNote far fa-star"></button>
                 </div>
             </li>`
     }

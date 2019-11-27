@@ -3,35 +3,19 @@
  *************/
 
 var toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+    ['bold'], ['italic'], ['underline'], ['strike'], // toggled buttons
     ['blockquote'],
 
-<<<<<<< HEAD
     , // custom button values
-=======
-    [{
-        'header': 1
-    }, {
-        'header': 2
-    }], // custom button values
->>>>>>> 5e3bcb4553dc7d50e5d4fd7a3c5a99228f98df9a
     [{
         'list': 'ordered'
-    }, {
+    }],[ {
         'list': 'bullet'
     }],
-<<<<<<< HEAD
     ,
-=======
-    [{
-        'script': 'sub'
-    }, {
-        'script': 'super'
-    }], // superscript/subscript
->>>>>>> 5e3bcb4553dc7d50e5d4fd7a3c5a99228f98df9a
     [{
         'indent': '-1'
-    }, {
+    }],[ {
         'indent': '+1'
     }], // outdent/indent
     [{
@@ -45,12 +29,8 @@ var toolbarOptions = [
 
     [{
         'color': []
-<<<<<<< HEAD
-    }, 
+    }],[ 
     {
-=======
-    }, {
->>>>>>> 5e3bcb4553dc7d50e5d4fd7a3c5a99228f98df9a
         'background': []
     }], // dropdown with defaults from theme,
     [{
@@ -59,6 +39,8 @@ var toolbarOptions = [
 
     ['clean'] // remove formatting button
 ];
+
+
 
 
 //Init editor
@@ -70,3 +52,42 @@ var quill = new Quill('#editor', {
     theme: 'snow'
 
 });
+
+
+
+// ['bold'], ['italic', 'underline', 'strike'], // toggled buttons
+//     ['blockquote'],
+
+//     , // custom button values
+//     [{
+//         'list': 'ordered'
+//     }, {
+//         'list': 'bullet'
+//     }],
+//     ,
+//     [{
+//         'indent': '-1'
+//     }, {
+//         'indent': '+1'
+//     }], // outdent/indent
+//     [{
+//         'direction': 'rtl'
+//     }], // text direction
+
+//     , // custom dropdown
+//     [{
+//         'header': [1, 2, 3, 4, 5, 6, false]
+//     }],
+
+//     [{
+//         'color': []
+//     }, 
+//     {
+//         'background': []
+//     }], // dropdown with defaults from theme,
+//     [{
+//         'align': []
+//     }],
+
+//     ['clean'] // remove formatting button
+// ];
