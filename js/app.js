@@ -7,7 +7,23 @@ window.addEventListener("load", function () {
     loadFromLocalStorage();
 })
 
+const toggleAutoSave = (btn) => {
+    if (btn.innerHTML === 'on') {
+        // change status in DOM
+        btn.innerHTML = 'off';
+        btn.closest('button').classList.remove('autosaveOn');
 
+        // display manual save-btn
+        document.querySelector('#save-note').classList.remove('hidden');
+    } else {
+        // change status in DOM
+        btn.innerHTML = 'on';
+        btn.closest('button').classList.add('autosaveOn');
+
+        // hide manual save-btn
+        document.querySelector('#save-note').classList.add('hidden');
+    }
+}
 
 
 /*

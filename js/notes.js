@@ -64,29 +64,42 @@ function saveNote() {
             theme.className
         );
 
-        //activeId = newNote.id;
-
         noteList.push(newNote);
     }
     saveToLocalStorage();
 
 }
 
-function deleteNote() {
-    console.log('deleting note...')
-    // jämför note.id med id:n i noteList
-    // vid match, ta bort noteList[x] ur noteList
-    if (activeId) {
-        noteList.forEach(function (item, i) {
-            if (Number(activeId) === item.id) {
-                noteList.splice(i, 1);
-            }
-        });
+function deleteNote(idToDelete) {
+    // assuming parameter's a valid num, else bail...
+    if (!idToDelete || idToDelete == 'undefined') {
+        console.log('Couldn\'t find the note to delete...');
+        return;
     }
-    newNote();
-    console.log('Note deleted');
-    // spara
+
+    // delete the note, explained from inside and out:
+    // 1. find the note to delete
+    // 2. get the note's actual index in noteList
+    // 3. delete the note by index
+    noteList.splice(
+        noteList.indexOf(
+            noteList.find(note => note.id === idToDelete)
+        ), 1);
+
+
+    // update LS
     saveToLocalStorage();
+
+    // re-render the DOM-list
+    renderSubnav(document.querySelector('#side-subnav .body .title').innerHTML);
+
+    // if deleted note was active note, clear editor
+    console.log(typeof idToDelete, typeof activeId)
+    if (idToDelete === Number(activeId)) {
+        clearNote();
+    }
+
+    console.log('Note deleted');
 }
 
 
@@ -128,6 +141,6 @@ function updateFavStatus(noteId) {
     saveToLocalStorage();
 
     // re-render the DOM-list
-    subnavContent(document.querySelector('#side-subnav .body .title').innerHTML);
+    renderSubnav(document.querySelector('#side-subnav .body .title').innerHTML);
     console.log('Note', note.id, 'is now favorite:', note.favorite);
 }

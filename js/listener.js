@@ -1,3 +1,14 @@
+// ACTION BUTTONS
+let saveNoteBtn = document.querySelector('#save-note');
+let autoSaveBtn = document.querySelector('#auto-save');
+let clearNoteBtn = document.querySelector('#clear-text');
+
+saveNoteBtn.addEventListener("click", saveNote);
+autoSaveBtn.addEventListener('click', (e) => {
+    toggleAutoSave(e.target.children[0]);
+});
+clearNoteBtn.addEventListener("click", clearNote);
+
 
 // SIDE-NAV-BUTTONS
 document.querySelector('#side-nav').addEventListener('click', (e) => {
@@ -23,19 +34,7 @@ document.querySelector('#side-subnav').addEventListener('click', (e) => {
     if (e.target.classList.contains('favoriteNote')) {
         updateFavStatus(e.target.closest('li').dataset.noteId);
     } else if (e.target.classList.contains("deleteNote")) {
-        let idToBeRemoved = e.target.closest('li').dataset.noteId;
-        for (i = 0; i < noteList.length; i++) {
-            if (noteList[i].id == idToBeRemoved) {
-                console.log("removed " + noteList[i].title)
-                noteList.splice(i, 1);
-                saveToLocalStorage()
-            }
-        }
-        /*noteList.forEach(function(note){
-           if (note.id == idToBeRemoved){
-            //remove note  
-           } 
-       }) */
+        deleteNote(Number(e.target.closest('li').dataset.noteId));
     } else {
         closeSubnav();
     }
@@ -61,7 +60,20 @@ document.querySelector('#bottom-buttons').addEventListener('click', (e) => {
 });
 
 
-
+// AUTO-SAVE
+// on editor-changes
+quill.on('text-change', function (delta, oldDelta, source) {
+    console.log('activeID', activeId)
+    if (document.querySelector('#auto-save span').innerHTML === 'on') {
+        saveNote();
+    }
+});
+// on title-changes
+document.querySelector('#title-input').addEventListener('change', () => {
+    if (document.querySelector('#auto-save span').innerHTML === 'on') {
+        saveNote();
+    }
+});
 
 
 

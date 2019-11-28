@@ -7,20 +7,12 @@ const displayMsg = (msg, selector = '#editorMsg') => {
     document.querySelector(selector).innerHTML = msg;
 }
 
-// BOTTOM BUTTONS
-let saveNoteBtn = document.getElementById('save-note');
-let deleteNotebtn = document.getElementById('delete-note');
-let clearNoteBtn = document.getElementById('clear-text');
-
-saveNoteBtn.addEventListener("click", saveNote);
-deleteNotebtn.addEventListener("click", deleteNote);
-clearNoteBtn.addEventListener("click", clearNote);
-
 
 
 // NAVBAR
 // Get requested content
-const subnavContent = (title) => {
+const renderSubnav = (title) => {
+    console.log('re-rendering!');
     /*
     * SETUP
     ********/
@@ -115,8 +107,9 @@ const subnavContent = (title) => {
         // place out ears
         targets.forEach((target, nth) => {
             targets[nth].addEventListener(trigger, (e) => {
-                // if clicked is favourite-btn, chill...
-                if (e.target.classList.contains('favoriteNote')) {
+                // if clicked is an action-btn, chill...
+                if (e.target.classList.contains('favoriteNote')
+                    || e.target.classList.contains('deleteNote')) {
                     return;
                     // else, load note!
                 } else {
@@ -139,11 +132,11 @@ const subnavContent = (title) => {
 
     // be ready to load specific note in editor
     applyListener('ul.noteList li', 'click');
-} // subnavContent()
+} // renderSubnav()
 
 // Display subnav
 const openSubnav = (name) => {
-    subnavContent(name);
+    renderSubnav(name);
     //
     const subnav = document.querySelector("#side-subnav");
     if (subnav.dataset.open === 'false') {
@@ -164,7 +157,7 @@ const closeSubnav = () => {
 /*
 // Display Subnav (For when user clicks outside icon, but still on button)
 const openSubnav2 = (e) => {
-    subnavContent(e.target.dataset.title);
+    renderSubnav(e.target.dataset.title);
     //
     const subnav = document.querySelector("#side-subnav");
     if (subnav.dataset.open === 'false') {
