@@ -25,22 +25,16 @@ body {
 /* Top title / Favorite  */
 #title-and-favorites{
     position: fixed;
-    top: 5px;
-    left: 80px;
+    top: 12px;
+    left: 92px;
     z-index: 2;
 }
 
 #title-input{
     border:1px solid rgba(153, 153, 153, 0.801);
-    border-radius: 2px;
     padding: 3px;
 }
 
-#favorite-top-star:hover{
-    color: rgb(55, 101, 255);
-    cursor: pointer;
-
-}
 
 /* pop up */
 
@@ -81,13 +75,6 @@ body {
 .exithidden:hover{
     color: gray;
 }
-
-
-div.mce-edit-area{
-    padding: 5% 22%;
-}
-
-
 
 #closeWelcome{
     margin-bottom: 5px;
@@ -161,8 +148,6 @@ div.mce-edit-area{
     border: none;
 }
 
-
-
 .side-nav-btn:hover {
     font-size: 26px;
     cursor: pointer;
@@ -176,13 +161,15 @@ button:focus {
     outline: none;
 }
 
+
+
 #bottom-buttons{
     display: flex;
     flex-direction: row;
     height: 24px;
     position: fixed;
-    top: 5px;
-    left: 272px;
+    top: 12px;
+    left: 257px;
     z-index: 3;
 }
 
@@ -322,10 +309,33 @@ button:focus {
     cursor: pointer;
 }
 
-.favoriteNote{
+.noteList .item:hover .favoriteNote,
+.noteList .item:hover .deleteNote {
+    color: white;
+    transition-duration: .3s;
+
+}
+
+.favoriteNote {
+    color: #818181;
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
     width: 20px;
     height: 20px;
-    position: absolute; 
+    position: absolute;
+    transform: translateX(180px) translateY(-20px);
+}
+
+.deleteNote {
+    color: #818181;
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    transform: translateX(210px) translateY(-20px);
 }
 
 /* display part of note content in subnav */
@@ -362,7 +372,7 @@ button:focus {
 /* Tool Bar */
 
 #editorContainer > div.ql-toolbar.ql-snow{
-    
+    padding-top: 40px;
 }
 
 /* Drop down fonts */
@@ -392,17 +402,14 @@ button:focus {
 }
 
 #dropdown ul ul{
-  
     display: none;
 }
 
 
 #dropdown ul li:hover > ul {
     display: block;
-    margin-top: 6px;
+    margin-top: 5px;
 }
-
-
 
 .nightModeTheme {
     font-family: 'Vollkorn',
@@ -416,7 +423,14 @@ button:focus {
 }
 
 @media print {
-    #side-nav, #side-nav-buttons, .side-nav-btn, i, button, #editorContainer > div.ql-toolbar.ql-snow, #title-and-favorites{
+    #side-nav,
+    #side-nav-buttons,
+    .side-nav-btn,
+    i,
+    button,
+    #editorContainer>div.ql-toolbar.ql-snow,
+    #title-and-favorites,
+    #dropdown {
         display: none;
     }
 
@@ -426,7 +440,6 @@ button:focus {
         -moz-box-shadow: none !important;
         box-shadow: none !important;
 
-        background-color: red !important;
         z-index: 2147483647 !important;
         width: 900px !important;
         height: 100% !important;
@@ -442,8 +455,7 @@ button:focus {
         height: auto !important;
     }
 } 
-
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 731px) {
 
     #side-nav {
         z-index: 3;
@@ -503,9 +515,7 @@ button:focus {
         /*height: 100vh;*/
     }
 
-    #title-and-favorites{
-        left: 5px;
-    }
+   
 
     #bottom-buttons{
         left: 198px;
@@ -530,5 +540,11 @@ button:focus {
      width: 70px;  
     }
 
+    #title-and-favorites{
+        position: fixed;
+        top: 12px;
+        left: 20px;
+        
+    }
 }
 

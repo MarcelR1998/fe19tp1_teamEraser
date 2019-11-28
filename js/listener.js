@@ -19,9 +19,20 @@ document.querySelector('#side-nav').addEventListener('click', (e) => {
 
 // SIDE-SUBNAV
 document.querySelector('#side-subnav').addEventListener('click', (e) => {
-    // close subnav on click anywhere
-    // (this needs to be edited if we for example add list-sort-btns that should keep subnav open)
-    closeSubnav();
+    // close subnav on click anywhere (if not favStar)
+    if (e.target.classList.contains('favoriteNote')) {
+        updateFavStatus(e.target.closest('li').dataset.noteId);
+    } else if (e.target.classList.contains("deleteNote")){
+        let idToBeRemoved = e.target.closest('li').dataset.noteId;
+       console.log("hi");
+        noteList.forEach(function(note){
+           if (note.id == idToBeRemoved){
+            //remove note  
+           } 
+       }) 
+    } else {
+        closeSubnav();
+    }
 });
 
 // EDITOR

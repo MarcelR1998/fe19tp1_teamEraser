@@ -1,7 +1,7 @@
 let theme = document.querySelector("#editor");
-let lightmode = document.getElementById("lightmode");
+/*let lightmode = document.getElementById("lightmode");
 let darkmode = document.getElementById("darkmode");
-let nightmode = document.getElementById("nightmode");
+let nightmode = document.getElementById("nightmode");*/
 
 document.addEventListener("click", function (e) {
 
@@ -24,7 +24,6 @@ document.addEventListener("click", function (e) {
     }
 
 });
-
 /*function postInitWork()
 {
   var editor = tinyMCE.getInstanceById('editorContainer');

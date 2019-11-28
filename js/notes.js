@@ -13,7 +13,7 @@ class Note {
         this.text = quill.getText(0, 30);
         this.content = quill.getContents();
         this.favorite = false;
-        this.theme = theme.className;
+        this.theme = theme;
 
         // set global var active id to this
         activeId = this.id;
@@ -53,7 +53,7 @@ function saveNote() {
         noteList[i].theme = theme.className;
     } else {
         // Otherwhise, add updated as new.
-        console.log('Saving new note...');
+        console.log('Saving new note...' + theme.className);
         let newNote = new Note(
             Date.now(),
             Date.now(),
@@ -105,4 +105,29 @@ function loadNote(id) {
 
 function clearNote() {
     quill.deleteText(0, 999);
+}
+
+function updateFavStatus(noteId) {
+    // find note to mark/unmark
+    let note = noteList.find(note => note.id === Number(noteId)) || false;
+
+    // if not found, abort
+    if (!note) {
+        console.log('Couldn\'t find note to mark as fav');
+        return;
+    }
+
+    // update favorite-status
+    if (!note.favorite) {
+        note.favorite = true;
+    } else {
+        note.favorite = false;
+    }
+
+    // save changes to LS
+    saveToLocalStorage();
+
+    // re-render the DOM-list
+    subnavContent(document.querySelector('#side-subnav .body .title').innerHTML);
+    console.log('Note', note.id, 'is now favorite:', note.favorite);
 }

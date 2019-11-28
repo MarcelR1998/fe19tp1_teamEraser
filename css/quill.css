@@ -51,7 +51,7 @@
     padding: 0;
   }
 }
-@media only screen and (max-width: 650px){
+@media only screen and (max-width: 732px){
   div.ql-toolbar.ql-snow{
 
   z-index: 1;
@@ -69,10 +69,14 @@
     padding-top: 100px;
     width: 500px;
   }
-  #editorContainer{
-    
+
+  #editor{
+    margin-left: auto;
   }
- 
+  
+  #editorContainer > div.ql-toolbar.ql-snow{
+    padding-top: 15px;
+  }
 
   }
 

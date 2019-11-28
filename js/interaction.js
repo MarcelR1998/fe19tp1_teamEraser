@@ -70,6 +70,11 @@ const subnavContent = (title) => {
         };
     }
 
+    // choose favStar-icon based on the note's favStatus
+    const starIconClass = (note) => {
+        return note.favorite ? 'fas' : 'far';
+    }
+
     // available html-templates
     templates = {
         default: (note) =>
@@ -79,7 +84,8 @@ const subnavContent = (title) => {
                 <div class="meta">
                     <p class="lastUpdated">updated <span>${dateStamps(note).updatedDate} ${dateStamps(note).updatedTime}</span></p>
                     <p class="created">created <span>${dateStamps(note).createdDate} ${dateStamps(note).createdTime}</span></p>
-                    <button class = "favoriteNote far fa-star"></button>
+                    <button class = "favoriteNote ${starIconClass(note)} fa-star"></button>
+                    <button class = "deleteNote far fa-trash-alt"></button> 
                 </div>
             </li>`
     }
@@ -104,12 +110,18 @@ const subnavContent = (title) => {
 
     // apply listener to load note
     const applyListener = (selector = 'ul.noteList li', trigger = 'click') => {
-        // vad ska lyssna?
+        // what shall listen
         const targets = document.querySelectorAll(selector);
-        // placera öron
+        // place out ears
         targets.forEach((target, nth) => {
             targets[nth].addEventListener(trigger, (e) => {
-                loadNote(e.target.closest('li.item.note').dataset.noteId);
+                // if clicked is favourite-btn, chill...
+                if (e.target.classList.contains('favoriteNote')) {
+                    return;
+                    // else, load note!
+                } else {
+                    loadNote(e.target.closest('li.item.note').dataset.noteId);
+                }
             })
         })
     }
@@ -162,5 +174,3 @@ const openSubnav2 = (e) => {
 
 }
 */
-
-
