@@ -22,14 +22,20 @@ document.querySelector('#side-subnav').addEventListener('click', (e) => {
     // close subnav on click anywhere (if not favStar)
     if (e.target.classList.contains('favoriteNote')) {
         updateFavStatus(e.target.closest('li').dataset.noteId);
-    } else if (e.target.classList.contains("deleteNote")){
+    } else if (e.target.classList.contains("deleteNote")) {
         let idToBeRemoved = e.target.closest('li').dataset.noteId;
-       console.log("hi");
-        noteList.forEach(function(note){
+        for (i = 0; i < noteList.length; i++) {
+            if (noteList[i].id == idToBeRemoved) {
+                console.log("removed " + noteList[i].title)
+                noteList.splice(i, 1);
+                saveToLocalStorage()
+            }
+        }
+        /*noteList.forEach(function(note){
            if (note.id == idToBeRemoved){
             //remove note  
            } 
-       }) 
+       }) */
     } else {
         closeSubnav();
     }
