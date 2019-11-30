@@ -1,6 +1,6 @@
 /*
  * NOTES
- ***********/
+ ********/
 
 
 // CLASS
@@ -9,7 +9,7 @@ class Note {
     constructor(id, updated, title, text, content, favorite, theme) {
         this.id = Date.now();
         this.updated = Date.now();
-        this.title = document.getElementById("title-input").value;
+        this.title = document.querySelector("#title-input").value;
         this.text = quill.getText(0, 30);
         this.content = quill.getContents();
         this.favorite = false;
@@ -17,15 +17,13 @@ class Note {
 
         // set global var active id to this
         activeId = this.id;
-        console.log('active id updated to new note');
     }
 }
 
 
 // NOTE FUNCS
 
-function newNote() {
-    console.log("new note");
+const prepForNewNote = () => {
     //nollställ aktiv note
     activeId = false;
     //rensa eventuell editor-txt
@@ -39,7 +37,8 @@ function newNote() {
     editorField.focus();
 }
 
-function saveNote() {
+
+const saveNote = () => {
     // If id exists in noteList, overwrite orig with updated. 
     let orig = noteList.find(item => item.id === Number(activeId)) || false;
 
@@ -48,7 +47,7 @@ function saveNote() {
         let i = noteList.indexOf(orig);
         noteList[i].content = quill.getContents();
         noteList[i].text = quill.getText(0, 30);
-        noteList[i].title = document.getElementById("title-input").value;
+        noteList[i].title = document.querySelector("#title-input").value;
         noteList[i].updated = Date.now();
         noteList[i].theme = theme.className;
     } else {
@@ -57,7 +56,7 @@ function saveNote() {
         let newNote = new Note(
             Date.now(),
             Date.now(),
-            document.getElementById("title-input").value,
+            document.querySelector("#title-input").value,
             quill.getText(0, 30),
             quill.getContents(),
             false,
@@ -70,20 +69,21 @@ function saveNote() {
 
 }
 
-function deleteNote(idToDelete) {
-    // assuming parameter's a valid num, else bail...
-    if (!idToDelete || idToDelete == 'undefined') {
-        console.log('Couldn\'t find the note to delete...');
+
+const deleteNote = (id) => {
+    // assuming parameter's a valid num. But just in case, if not, bail...
+    if (!id || id == 'undefined') {
+        console.log('Couldn\'t find the note id. Nothing was deleted.');
         return;
     }
 
     // delete the note, explained from inside and out:
     // 1. find the note to delete
     // 2. get the note's actual index in noteList
-    // 3. delete the note by index
+    // 3. delete the note by noteList index
     noteList.splice(
         noteList.indexOf(
-            noteList.find(note => note.id === idToDelete)
+            noteList.find(note => note.id === id)
         ), 1);
 
 
@@ -91,38 +91,48 @@ function deleteNote(idToDelete) {
     saveToLocalStorage();
 
     // re-render the DOM-list
-    renderSubnav(document.querySelector('#side-subnav .body .title').innerHTML);
+    renderSubnav();
 
     // if deleted note was active note, clear editor
-    console.log(typeof idToDelete, typeof activeId)
     if (idToDelete === Number(activeId)) {
         clearNote();
     }
-
-    console.log('Note deleted');
 }
 
 
+const loadNote = (id) => {
+    // if autosave, pause till note is loaded
+    // (prevents it from saving as new at load)
+    let pauseAutosave = false;
+    if (autosaveStatus()) {
+        pauseAutosave = true;
+        autoSaveBtn.children[0].innerHTML = 'off';
+    }
 
-function loadNote(id) {
-    noteList.forEach(element => {
-        if (element.id === Number(id)) {
-            console.log('loaded note: ' + element.title + " " + id);
-            quill.setContents(element.content);
-            document.getElementById("title-input").value = element.title;
-            activeId = id;
-            editor.className = element.theme;
-        }
-    });
+    // find note to load
+    let loadedNote = noteList.find(note => note.id === Number(id)) || false;
+
+    if (loadedNote) {
+        // update active note
+        activeId = loadedNote.id;
+        // title to title-field
+        document.querySelector("#title-input").value = loadedNote.title;
+        // content to editor
+        quill.setContents(loadedNote.content);
+        // font to editor
+        editor.className = loadedNote.theme;
+    }
+
+    // if autosave was paused, turn it back on
+    if (pauseAutosave) {
+        autoSaveBtn.children[0].innerHTML = 'on';
+    }
 }
 
-function clearNote() {
-    quill.deleteText(0, 999);
-}
 
-function updateFavStatus(noteId) {
+function updateFavStatus(id) {
     // find note to mark/unmark
-    let note = noteList.find(note => note.id === Number(noteId)) || false;
+    let note = noteList.find(note => note.id === Number(id)) || false;
 
     // if not found, abort
     if (!note) {
@@ -130,7 +140,7 @@ function updateFavStatus(noteId) {
         return;
     }
 
-    // update favorite-status
+    // toggle fav-status
     if (!note.favorite) {
         note.favorite = true;
     } else {
@@ -142,5 +152,4 @@ function updateFavStatus(noteId) {
 
     // re-render the DOM-list
     renderSubnav(document.querySelector('#side-subnav .body .title').innerHTML);
-    console.log('Note', note.id, 'is now favorite:', note.favorite);
 }

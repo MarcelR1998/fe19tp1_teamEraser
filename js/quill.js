@@ -9,13 +9,13 @@ var toolbarOptions = [
     , // custom button values
     [{
         'list': 'ordered'
-    }],[ {
+    }], [{
         'list': 'bullet'
     }],
     ,
     [{
         'indent': '-1'
-    }],[ {
+    }], [{
         'indent': '+1'
     }], // outdent/indent
     [{
@@ -29,18 +29,16 @@ var toolbarOptions = [
 
     [{
         'color': []
-    }],[ 
-    {
-        'background': []
-    }], // dropdown with defaults from theme,
+    }], [
+        {
+            'background': []
+        }], // dropdown with defaults from theme,
     [{
         'align': []
     }],
 
     ['clean'] // remove formatting button
 ];
-
-
 
 
 //Init editor
@@ -53,41 +51,8 @@ var quill = new Quill('#editor', {
 
 });
 
+// Clear editor
+const clearNote = () => {
+    quill.deleteText(0, 999);
+}
 
-
-// ['bold'], ['italic', 'underline', 'strike'], // toggled buttons
-//     ['blockquote'],
-
-//     , // custom button values
-//     [{
-//         'list': 'ordered'
-//     }, {
-//         'list': 'bullet'
-//     }],
-//     ,
-//     [{
-//         'indent': '-1'
-//     }, {
-//         'indent': '+1'
-//     }], // outdent/indent
-//     [{
-//         'direction': 'rtl'
-//     }], // text direction
-
-//     , // custom dropdown
-//     [{
-//         'header': [1, 2, 3, 4, 5, 6, false]
-//     }],
-
-//     [{
-//         'color': []
-//     }, 
-//     {
-//         'background': []
-//     }], // dropdown with defaults from theme,
-//     [{
-//         'align': []
-//     }],
-
-//     ['clean'] // remove formatting button
-// ];

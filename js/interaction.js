@@ -11,8 +11,7 @@ const displayMsg = (msg, selector = '#editorMsg') => {
 
 // NAVBAR
 // Get requested content
-const renderSubnav = (title) => {
-    console.log('re-rendering!');
+const renderSubnav = (title = document.querySelector('#side-subnav .body .title').innerHTML) => {
     /*
     * SETUP
     ********/
@@ -40,10 +39,8 @@ const renderSubnav = (title) => {
 
     // available filters
     const filterFuncs = {
-        search: (note) => false, // edit search-filter
         all: (note) => true,
-        favorites: (note) => note.favorite,
-        created: (a, b) => a.lastUpdated > b.lastUpdated ? -1 : 1
+        favorites: (note) => note.favorite
     }
 
     // apply filter
@@ -132,10 +129,20 @@ const renderSubnav = (title) => {
 
     // be ready to load specific note in editor
     applyListener('ul.noteList li', 'click');
+
+    // if search-input has value, search
+    if (document.querySelector('#search-input').value.length > 0) {
+        searchNotes();
+    }
 } // renderSubnav()
 
 // Display subnav
 const openSubnav = (name) => {
+    // add shadow
+    const sidenav = document.querySelector('#side-nav');
+    sidenav.style.transitionDuration = '.3s';
+    sidenav.classList.add('shadowR');
+
     renderSubnav(name);
     //
     const subnav = document.querySelector("#side-subnav");
@@ -151,6 +158,32 @@ const closeSubnav = () => {
     if (subnav.dataset.open === 'true') {
         subnav.style.width = "0";
         subnav.dataset.open = false;
+    }
+
+    // hide shadow
+    const sidenav = document.querySelector('#side-nav');
+    sidenav.style.transitionDuration = '1.5s';
+    sidenav.classList.remove('shadowR');
+}
+
+// SEARCH NOTES
+
+const searchNotes = () => {
+    let searchValue = document.querySelector('#search-input').value.toLowerCase();
+    console.log('searching for:', searchValue)
+
+    let notes = document.querySelectorAll("ul.noteList li.note");
+
+    let i;
+    for (i = 0; i < notes.length; i++) {
+        let title = notes[i].querySelector('.itemTitle').innerHTML.toLowerCase();
+        let content = notes[i].querySelector('.itemContent').innerHTML.toLowerCase();
+        if (title.indexOf(searchValue) > -1
+            || content.indexOf(searchValue) > -1) {
+            notes[i].style.display = "";
+        } else {
+            notes[i].style.display = "none";
+        }
     }
 }
 

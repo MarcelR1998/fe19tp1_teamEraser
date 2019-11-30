@@ -5,7 +5,7 @@ let clearNoteBtn = document.querySelector('#clear-text');
 
 saveNoteBtn.addEventListener("click", saveNote);
 autoSaveBtn.addEventListener('click', (e) => {
-    toggleAutoSave(e.target.children[0]);
+    toggleAutoSave();
 });
 clearNoteBtn.addEventListener("click", clearNote);
 
@@ -18,7 +18,7 @@ document.querySelector('#side-nav').addEventListener('click', (e) => {
         // clicked on plus-icon, prepare new note 
         if (btn.id === 'new_note') {
             closeSubnav();
-            newNote();
+            prepForNewNote();
         } else {
             openSubnav(btn.id);
         }
@@ -30,11 +30,15 @@ document.querySelector('#side-nav').addEventListener('click', (e) => {
 
 // SIDE-SUBNAV
 document.querySelector('#side-subnav').addEventListener('click', (e) => {
-    // close subnav on click anywhere (if not favStar)
+    // close subnav on click anywhere but:
+    // favStar
     if (e.target.classList.contains('favoriteNote')) {
         updateFavStatus(e.target.closest('li').dataset.noteId);
+        // delete btn
     } else if (e.target.classList.contains("deleteNote")) {
         deleteNote(Number(e.target.closest('li').dataset.noteId));
+    } else if (e.target.id === 'search-input') {
+        console.log('ready to search...');
     } else {
         closeSubnav();
     }
@@ -63,20 +67,14 @@ document.querySelector('#bottom-buttons').addEventListener('click', (e) => {
 // AUTO-SAVE
 // on editor-changes
 quill.on('text-change', function (delta, oldDelta, source) {
-    console.log('activeID', activeId)
-    if (document.querySelector('#auto-save span').innerHTML === 'on') {
-        saveNote();
-    }
+    autoSave();
 });
 // on title-changes
-document.querySelector('#title-input').addEventListener('change', () => {
-    if (document.querySelector('#auto-save span').innerHTML === 'on') {
-        saveNote();
-    }
-});
+document.querySelector('#title-input').addEventListener('change', autoSave);
 
 
-
+// SEARCH NOTES
+document.querySelector('#search-input').addEventListener('keyup', searchNotes);
 
 
 /*

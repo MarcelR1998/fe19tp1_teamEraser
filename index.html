@@ -39,7 +39,7 @@
                 <div id="side-nav-buttons">
                     <!--button-sidebar handles javascript, while sidebarbutton purely concerns css.-->
                     <button class="side-nav-btn" id="new_note" data-title="new"><i class="fas fa-plus"></i></button>
-                    <button class="side-nav-btn" id="search" data-title="search"><i class="fa fa-search"></i></button>
+                    <!--<button class="side-nav-btn" id="search" data-title="search"><i class="fa fa-search"></i></button>-->
                     <button class="side-nav-btn" id="all" data-title="all"><i class="fas fa-sticky-note"></i></button>
                     <button class="side-nav-btn" id="favorites" data-title="favorites"><i
                             class="fa fa-star"></i></button>
@@ -51,6 +51,7 @@
                 <button class="closebtn">&times;</button>
                 <div class="body">
                     <h3 class="title"></h3>
+                    <input type="text" id="search-input" placeholder="search" />
                     <div class="content"></div>
                 </div>
             </div>
@@ -66,7 +67,7 @@
 
                 <div id="bottom-buttons">
                     <button id="auto-save" class="top-buttons autosaveOn">Autosave is
-                        <span>off</span></button>
+                        <span class="status">on</span></button>
                     <button class="top-buttons" id="save-note">Save</button>
                     <!--<button class="top-buttons" id="delete-note">Delete</button>-->
                     <button class="top-buttons" id="clear-text">Clear Text</button>

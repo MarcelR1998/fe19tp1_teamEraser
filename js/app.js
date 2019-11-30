@@ -7,22 +7,47 @@ window.addEventListener("load", function () {
     loadFromLocalStorage();
 })
 
-const toggleAutoSave = (btn) => {
-    if (btn.innerHTML === 'on') {
+
+// AUTO-SAVE
+const toggleAutoSave = () => {
+    let status = document.querySelector('#auto-save span.status');
+    if (autosaveStatus()) {
         // change status in DOM
-        btn.innerHTML = 'off';
-        btn.closest('button').classList.remove('autosaveOn');
+        status.innerHTML = 'off';
+        status.closest('button').classList.remove('autosaveOn');
 
         // display manual save-btn
         document.querySelector('#save-note').classList.remove('hidden');
     } else {
         // change status in DOM
-        btn.innerHTML = 'on';
-        btn.closest('button').classList.add('autosaveOn');
+        status.innerHTML = 'on';
+        status.closest('button').classList.add('autosaveOn');
 
         // hide manual save-btn
         document.querySelector('#save-note').classList.add('hidden');
     }
+}
+
+const autosaveStatus = () => {
+    const status = (document.querySelector('#auto-save span.status').innerHTML === 'on')
+        ? true : false;
+    return status;
+}
+
+const autoSave = () => {
+    // bail if:
+
+    // ...autosave is off
+    if (!autosaveStatus()) {
+        return;
+    }
+
+    // ...new note is empty
+    if (!activeId && quill.getLength() < 2) {
+        return;
+    }
+
+    saveNote();
 }
 
 
