@@ -211,12 +211,6 @@ button:focus {
     padding: 50px 80px;
 }
 
-@media screen and (max-width: 800px) {
-    .popup {
-        left: 20%;
-    }
-}
-
 #editorContainer {
     width: 100%;
     margin: 0 auto auto;
@@ -435,7 +429,9 @@ button:focus {
     button,
     #editorContainer>div.ql-toolbar.ql-snow,
     #title-and-favorites,
-    #dropdown {
+    #dropdown,
+    .popup,
+    .blur {
         display: none;
     }
 
@@ -520,6 +516,10 @@ button:focus {
         /*height: 100vh;*/
     }
 
+    .popup{
+        left: 10%;
+        width: 70%;
+    }
    
 
     #bottom-buttons{

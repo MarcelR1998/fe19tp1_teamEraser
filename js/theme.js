@@ -22,7 +22,6 @@ document.addEventListener("click", function (e) {
         theme.classList.add("nightModeTheme");
         console.log("loaded serif font template")
     }
-
 });
 /*function postInitWork()
 {

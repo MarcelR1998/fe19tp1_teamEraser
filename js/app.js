@@ -70,7 +70,18 @@ const autoSave = () => {
     welcome();
 })(); // local scope*/
 
+let visitIndex;
 
+if(!localStorage.getItem("visitIndex")){
+    document.querySelector(".popup").classList.remove("invisible");
+    document.querySelector(".blur").classList.remove("invisible");
+    localStorage.setItem("visitIndex", "visited");
+}
 
-
-
+document.addEventListener("click", function (e) {
+    // close welcome popup?
+    if (e.target.id === 'closeWelcome') {
+        e.target.parentElement.classList.add("invisible");
+        document.querySelector(".blur").classList.add("invisible");
+    }}
+)
