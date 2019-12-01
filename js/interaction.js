@@ -166,37 +166,65 @@ const closeSubnav = () => {
     sidenav.classList.remove('shadowR');
 }
 
+
+
 // SEARCH NOTES
 
 const searchNotes = () => {
-    let searchValue = document.querySelector('#search-input').value.toLowerCase();
+    //renderSubnav('all');
+    let searchValue = document.querySelector('#search-input').value;
     console.log('searching for:', searchValue)
 
-    let notes = document.querySelectorAll("ul.noteList li.note");
+    /// FUNCS
 
-    let i;
-    for (i = 0; i < notes.length; i++) {
-        let title = notes[i].querySelector('.itemTitle').innerHTML.toLowerCase();
-        let content = notes[i].querySelector('.itemContent').innerHTML.toLowerCase();
-        if (title.indexOf(searchValue) > -1
-            || content.indexOf(searchValue) > -1) {
-            notes[i].style.display = "";
+    // checks if filter matches any content substr
+    const substrMatch = (str, substr) => {
+        let match = false;
+        if (str.indexOf(substr) > -1) {
+            match = true;
+        }
+        return match;
+    }
+
+    // hide or show elem
+    const hideOrShow = (elem, selectors, filter, func) => {
+        // assume no match
+        let show = false;
+
+        // gather content to compare
+        let content = [];
+        selectors.forEach((item, i) => {
+            content.push(elem.querySelector(selectors[i]));
+        });
+
+        // if any content matches, make show true for current note
+        content.forEach((item, i) => {
+            if (func(content[i].innerHTML.toLowerCase(), filter)) {
+                show = true;
+            }
+        });
+
+        // ..and if show is true, display note
+        if (show) {
+            elem.style.display = '';
         } else {
-            notes[i].style.display = "none";
+            elem.style.display = 'none';
         }
     }
-}
 
-/*
-// Display Subnav (For when user clicks outside icon, but still on button)
-const openSubnav2 = (e) => {
-    renderSubnav(e.target.dataset.title);
-    //
-    const subnav = document.querySelector("#side-subnav");
-    if (subnav.dataset.open === 'false') {
-        subnav.style.width = "250px";
-        subnav.dataset.open = true;
-    }
+    /// ACTION
+
+    // decide visibility for each note based on search input
+    let notesInDom = document.querySelectorAll("ul.noteList li.note");
+
+    notesInDom.forEach((item, i) => {
+        hideOrShow(
+            notesInDom[i], // note-elem in DOM
+            ['.itemTitle', '.itemContent'], // elem-children with text to compare
+            searchValue.toLowerCase(), // filter
+            substrMatch // compare-function
+        );
+    });
+
 
 }
-*/

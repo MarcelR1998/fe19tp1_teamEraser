@@ -567,6 +567,10 @@ button:focus {
     box-shadow: 2px 0px 10px #222;
 }
 
+.highlighted {
+    color: black; 
+}
+
 #search-input{
     display: block;
     max-width: 90%;
