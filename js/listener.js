@@ -10,17 +10,17 @@ autoSaveBtn.addEventListener('click', (e) => {
 clearNoteBtn.addEventListener("click", clearNote);
 
 
-// SIDE-NAV-BUTTONS
+// NAV
 document.querySelector('#side-nav').addEventListener('click', (e) => {
-    const btn = e.target.closest('button.side-nav-btn');
-    // if sidenav btn or child was clicked, open subnav
-    if (btn) {
+    const navBtn = e.target.closest('button.side-nav-btn');
+    // if navbtn or child was clicked, open subnav
+    if (navBtn) {
         // clicked on plus-icon, prepare new note 
-        if (btn.id === 'new_note') {
+        if (navBtn.id === 'new_note') {
             closeSubnav();
             prepForNewNote();
         } else {
-            openSubnav(btn.id);
+            openSubnav(navBtn.id);
         }
     } else {
         // if clicked elem is not a sidenav btn, close subnav
@@ -28,7 +28,7 @@ document.querySelector('#side-nav').addEventListener('click', (e) => {
     }
 });
 
-// SIDE-SUBNAV
+// SUB-NAV
 document.querySelector('#side-subnav').addEventListener('click', (e) => {
     // close subnav on click anywhere but:
     // favStar

@@ -2,19 +2,13 @@
 * INTERACTION
 ****************/
 
-// Display user msg
-const displayMsg = (msg, selector = '#editorMsg') => {
-    document.querySelector(selector).innerHTML = msg;
-}
 
+/// RENDER SUBNAV
+// Get requested content 
+const renderSubnav = (title = document.querySelector('#side-subnav .body .title').innerHTML) => { // (default title if subnav is already open)
 
-
-// NAVBAR
-// Get requested content
-const renderSubnav = (title = document.querySelector('#side-subnav .body .title').innerHTML) => {
-    /*
-    * SETUP
-    ********/
+    /* SETUP
+    *********/
 
     // set subnav title
     document.querySelector('#side-subnav .body .title').innerHTML = title;
@@ -22,29 +16,32 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     // set active filter
     const activeFilter = title.toLowerCase();
 
-    /*
-    * FUNCS 
-    **********/
+
+
+    /* FUNCS
+    *********/
 
     // available sort-functions
-    const sortFuncs = {
-        byUpdated: (a, b) => a.updated > b.updated ? -1 : 1,
-        byUpdatedAsc: (a, b) => a.updated < b.updated ? -1 : 1,
-        byCreated: (a, b) => a.id > b.id ? -1 : 1,
-        byCreatedAsc: (a, b) => a.id < b.id ? -1 : 1
+    const sortBy = {
+        updated: (a, b) => a.updated > b.updated ? -1 : 1,
+        updatedAsc: (a, b) => a.updated < b.updated ? -1 : 1,
+        created: (a, b) => a.id > b.id ? -1 : 1,
+        createdAsc: (a, b) => a.id < b.id ? -1 : 1
     }
 
-    // sort notes by updated last
-    const applySort = (notes = noteList, sortFunc = 'byUpdated') => notes.sort(sortFuncs[sortFunc]);
+    // sort notes by last updated
+    const applySort = (notes = noteList, type = 'updated') => notes.sort(sortBy[type]);
+
 
     // available filters
-    const filterFuncs = {
+    const filterTypes = {
         all: (note) => true,
         favorites: (note) => note.favorite
     }
 
     // apply filter
-    const applyFilter = (notes, filterBy = () => true) => notes.filter(filterBy);
+    const applyFilter = (notes, type = () => true) => notes.filter(type);
+
 
     // get printable timestamps (created, updated)
     const dateStamps = (note) => {
@@ -82,6 +79,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     // apply template
     const applyTemplate = (notes, template = 'default') => notes.map(note => templates[template](note));
 
+
     // print notes to DOM
     const printList = (content = '', parentSelector = '#side-subnav .body .content') => {
         // var ska content printas
@@ -95,37 +93,53 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
             `<ul class="noteList">
                 ${content}
             </ul>`;
+
     }
 
-    // apply listener to load note
+    // Apply listener to load note on click
     const applyListener = (selector = 'ul.noteList li', trigger = 'click') => {
         // what shall listen
-        const targets = document.querySelectorAll(selector);
-        // place out ears
-        targets.forEach((target, nth) => {
+        const targets = document.querySelectorAll(selector) || false;
+
+        // if targetting fails, bail
+        if (!targets) {
+            return console.log('Failed to apply listeners to load specific notes...');
+        }
+
+        // func to place out ears
+        const setEars = (target, nth) => {
             targets[nth].addEventListener(trigger, (e) => {
+
                 // if clicked is an action-btn, chill...
                 if (e.target.classList.contains('favoriteNote')
                     || e.target.classList.contains('deleteNote')) {
                     return;
-                    // else, load note!
+
+                    // else, load note
                 } else {
                     loadNote(e.target.closest('li.item.note').dataset.noteId);
                 }
             })
-        })
+        }
+
+        // place out ears on every target
+        targets.forEach(setEars);
     }
 
 
-    /*
-    * ACTION
+
+    /* ACTION
     **********/
 
     // print sorted notes with applied template and filter
-    printList(applyTemplate(
-        applyFilter(
-            applySort(noteList), filterFuncs[activeFilter]
-        )));
+    printList(
+        applyTemplate(
+            applyFilter(
+                applySort(noteList),
+                filterTypes[activeFilter]
+            )
+        )
+    );
 
     // be ready to load specific note in editor
     applyListener('ul.noteList li', 'click');
@@ -134,23 +148,28 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     if (document.querySelector('#search-input').value.length > 0) {
         searchNotes();
     }
+
 } // renderSubnav()
 
-// Display subnav
-const openSubnav = (name) => {
-    // add shadow
+
+/// Display subnav
+const openSubnav = (subnavTitle) => {
+    // add shadow-style on open
     const sidenav = document.querySelector('#side-nav');
     sidenav.style.transitionDuration = '.3s';
     sidenav.classList.add('shadowR');
 
-    renderSubnav(name);
-    //
+    // prepare the content
+    renderSubnav(subnavTitle);
+
+    // roll in the nav
     const subnav = document.querySelector("#side-subnav");
     if (subnav.dataset.open === 'false') {
         subnav.style.width = "250px";
         subnav.dataset.open = true;
     }
 }
+
 
 // Hide subnav
 const closeSubnav = () => {
@@ -160,15 +179,14 @@ const closeSubnav = () => {
         subnav.dataset.open = false;
     }
 
-    // hide shadow
+    // hide shadow on close
     const sidenav = document.querySelector('#side-nav');
     sidenav.style.transitionDuration = '1.5s';
     sidenav.classList.remove('shadowR');
 }
 
 
-
-// SEARCH NOTES
+/// SEARCH NOTES
 
 const searchNotes = () => {
     //renderSubnav('all');
@@ -212,6 +230,7 @@ const searchNotes = () => {
         }
     }
 
+
     /// ACTION
 
     // decide visibility for each note based on search input
@@ -226,5 +245,11 @@ const searchNotes = () => {
         );
     });
 
+}
 
+
+
+// Display user msg (temp)
+const displayMsg = (msg, selector = '#editorMsg') => {
+    document.querySelector(selector).innerHTML = msg;
 }
