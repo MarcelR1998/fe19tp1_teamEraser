@@ -3,8 +3,44 @@
 ****************/
 
 
-/// RENDER SUBNAV
-// Get requested content 
+
+/// DISPLAY SUBNAV
+const openSubnav = (subnavTitle) => {
+    // add shadow-style on open
+    const sidenav = document.querySelector('#side-nav');
+    sidenav.style.transitionDuration = '.3s';
+    sidenav.classList.add('shadowR');
+
+    // prepare the content
+    renderSubnav(subnavTitle);
+
+    // roll in the nav
+    const subnav = document.querySelector("#side-subnav");
+    if (subnav.dataset.open === 'false') {
+        subnav.style.width = "250px";
+        subnav.dataset.open = true;
+    }
+}
+
+
+
+/// HIDE SUBNAV
+const closeSubnav = () => {
+    const subnav = document.querySelector("#side-subnav");
+    if (subnav.dataset.open === 'true') {
+        subnav.style.width = "0";
+        subnav.dataset.open = false;
+    }
+
+    // hide shadow on close
+    const sidenav = document.querySelector('#side-nav');
+    sidenav.style.transitionDuration = '1.5s';
+    sidenav.classList.remove('shadowR');
+}
+
+
+
+/// RENDER SUBNAV CONTENT
 const renderSubnav = (title = document.querySelector('#side-subnav .body .title').innerHTML) => { // (default title if subnav is already open)
 
     /* SETUP
@@ -30,7 +66,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     }
 
     // sort notes by last updated
-    const applySort = (notes = noteList, type = 'updated') => notes.sort(sortBy[type]);
+    const applySort = (notes = app.noteList, type = 'updated') => notes.sort(sortBy[type]);
 
 
     // available filters
@@ -57,7 +93,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     }
 
     // choose favStar-icon based on the note's favStatus
-    const starIconClass = (note) => {
+    const favIconClass = (note) => {
         return note.favorite ? 'fas' : 'far';
     }
 
@@ -70,7 +106,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
                 <div class="meta">
                     <p class="lastUpdated">updated <span>${dateStamps(note).updatedDate} ${dateStamps(note).updatedTime}</span></p>
                     <p class="created">created <span>${dateStamps(note).createdDate} ${dateStamps(note).createdTime}</span></p>
-                    <button class = "favoriteNote ${starIconClass(note)} fa-star"></button>
+                    <button class = "favoriteNote ${favIconClass(note)} fa-star"></button>
                     <button class = "deleteNote far fa-trash-alt"></button> 
                 </div>
             </li>`
@@ -127,7 +163,6 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     }
 
 
-
     /* ACTION
     **********/
 
@@ -135,7 +170,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     printList(
         applyTemplate(
             applyFilter(
-                applySort(noteList),
+                applySort(app.noteList),
                 filterTypes[activeFilter]
             )
         )
@@ -150,106 +185,3 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     }
 
 } // renderSubnav()
-
-
-/// Display subnav
-const openSubnav = (subnavTitle) => {
-    // add shadow-style on open
-    const sidenav = document.querySelector('#side-nav');
-    sidenav.style.transitionDuration = '.3s';
-    sidenav.classList.add('shadowR');
-
-    // prepare the content
-    renderSubnav(subnavTitle);
-
-    // roll in the nav
-    const subnav = document.querySelector("#side-subnav");
-    if (subnav.dataset.open === 'false') {
-        subnav.style.width = "250px";
-        subnav.dataset.open = true;
-    }
-}
-
-
-// Hide subnav
-const closeSubnav = () => {
-    const subnav = document.querySelector("#side-subnav");
-    if (subnav.dataset.open === 'true') {
-        subnav.style.width = "0";
-        subnav.dataset.open = false;
-    }
-
-    // hide shadow on close
-    const sidenav = document.querySelector('#side-nav');
-    sidenav.style.transitionDuration = '1.5s';
-    sidenav.classList.remove('shadowR');
-}
-
-
-/// SEARCH NOTES
-
-const searchNotes = () => {
-    //renderSubnav('all');
-    let searchValue = document.querySelector('#search-input').value;
-    console.log('searching for:', searchValue)
-
-    /// FUNCS
-
-    // checks if filter matches any content substr
-    const substrMatch = (str, substr) => {
-        let match = false;
-        if (str.indexOf(substr) > -1) {
-            match = true;
-        }
-        return match;
-    }
-
-    // hide or show elem
-    const hideOrShow = (elem, selectors, filter, func) => {
-        // assume no match
-        let show = false;
-
-        // gather content to compare
-        let content = [];
-        selectors.forEach((item, i) => {
-            content.push(elem.querySelector(selectors[i]));
-        });
-
-        // if any content matches, make show true for current note
-        content.forEach((item, i) => {
-            if (func(content[i].innerHTML.toLowerCase(), filter)) {
-                show = true;
-            }
-        });
-
-        // ..and if show is true, display note
-        if (show) {
-            elem.style.display = '';
-        } else {
-            elem.style.display = 'none';
-        }
-    }
-
-
-    /// ACTION
-
-    // decide visibility for each note based on search input
-    let notesInDom = document.querySelectorAll("ul.noteList li.note");
-
-    notesInDom.forEach((item, i) => {
-        hideOrShow(
-            notesInDom[i], // note-elem in DOM
-            ['.itemTitle', '.itemContent'], // elem-children with text to compare
-            searchValue.toLowerCase(), // filter
-            substrMatch // compare-function
-        );
-    });
-
-}
-
-
-
-// Display user msg (temp)
-const displayMsg = (msg, selector = '#editorMsg') => {
-    document.querySelector(selector).innerHTML = msg;
-}

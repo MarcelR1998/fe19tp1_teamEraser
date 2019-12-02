@@ -3,20 +3,20 @@
  *****************/
 
 
-// Save to LS
-function saveToLocalStorage() {
-    localStorage.setItem("noteList", JSON.stringify(noteList));
-    console.log('saved notes to LS');
+
+/// SAVE NOTES TO LS
+const saveToLocalStorage = () => {
+    localStorage.setItem("noteList", JSON.stringify(app.noteList));
 }
 
-// Load from LS
-function loadFromLocalStorage() {
-    let noteListString = localStorage.getItem("noteList");
-    noteList = JSON.parse(noteListString);
 
-    if (noteList == null) {
-        noteList = [];
-        console.log('noteList is empty');
+
+/// LOAD NOTES FROM LS
+const loadFromLocalStorage = () => {
+    let noteListString = localStorage.getItem("noteList");
+    app.noteList = JSON.parse(noteListString);
+
+    if (app.noteList == null) {
+        app.noteList = [];
     }
-    console.log('Notes loaded from LS');
 }

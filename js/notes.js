@@ -3,53 +3,57 @@
  ********/
 
 
-// CLASS
 
+/// CLASS
 class Note {
     constructor(id, updated, title, text, content, favorite, theme) {
         this.id = Date.now();
         this.updated = Date.now();
         this.title = document.querySelector("#title-input").value;
-        this.text = quill.getText(0, 30);
-        this.content = quill.getContents();
+        this.text = app.quill.getText(0, 30);
+        this.content = app.quill.getContents();
         this.favorite = false;
         this.theme = theme;
 
         // set global var active id to this
-        activeId = this.id;
+        app.activeId = this.id;
     }
 }
 
 
-// NOTE FUNCS
-
+/// NEW NOTE SETUP
 const prepForNewNote = () => {
-    //nollställ aktiv note
-    activeId = false;
-    //rensa eventuell editor-txt
-    quill.setContents("");
-    //rensa rubrik-fält
+    // kill active note
+    app.activeId = false;
+
+    // clear possible editor content
+    app.quill.setContents("");
+
+    // clear note title input field
     document.getElementById("title-input").value = "";
-    //nollställ editor-tema
+
+    // reset editor theme
     editor.className = "ql-container ql-snow";
-    //autofokusera editor
-    const editorField = document.querySelector('#editor .ql-editor.ql-blank');
-    editorField.focus();
+
+    // auto-focus on editor
+    document.querySelector('#editor .ql-editor.ql-blank').focus();
 }
 
 
+
+/// SAVE NOTE
 const saveNote = () => {
     // If id exists in noteList, overwrite orig with updated. 
-    let orig = noteList.find(item => item.id === Number(activeId)) || false;
+    let orig = app.noteList.find(item => item.id === Number(app.activeId)) || false;
 
     if (orig) {
         console.log('Updating existing note...');
-        let i = noteList.indexOf(orig);
-        noteList[i].content = quill.getContents();
-        noteList[i].text = quill.getText(0, 30);
-        noteList[i].title = document.querySelector("#title-input").value;
-        noteList[i].updated = Date.now();
-        noteList[i].theme = theme.className;
+        let i = app.noteList.indexOf(orig);
+        app.noteList[i].content = app.quill.getContents();
+        app.noteList[i].text = app.quill.getText(0, 30);
+        app.noteList[i].title = document.querySelector("#title-input").value;
+        app.noteList[i].updated = Date.now();
+        app.noteList[i].theme = theme.className;
     } else {
         // Otherwhise, add updated as new.
         console.log('Saving new note...' + theme.className);
@@ -57,19 +61,22 @@ const saveNote = () => {
             Date.now(),
             Date.now(),
             document.querySelector("#title-input").value,
-            quill.getText(0, 30),
-            quill.getContents(),
+            app.quill.getText(0, 30),
+            app.quill.getContents(),
             false,
             theme.className
         );
 
-        noteList.push(newNote);
+        app.noteList.push(newNote);
     }
-    saveToLocalStorage();
 
+    // update LS
+    saveToLocalStorage();
 }
 
 
+
+/// DELETE NOTE
 const deleteNote = (id) => {
     // assuming parameter's a valid num. But just in case, if not, bail...
     if (!id || id == 'undefined') {
@@ -81,9 +88,9 @@ const deleteNote = (id) => {
     // 1. find the note to delete
     // 2. get the note's actual index in noteList
     // 3. delete the note by noteList index
-    noteList.splice(
-        noteList.indexOf(
-            noteList.find(note => note.id === id)
+    app.noteList.splice(
+        app.noteList.indexOf(
+            app.noteList.find(note => note.id === id)
         ), 1);
 
 
@@ -94,12 +101,14 @@ const deleteNote = (id) => {
     renderSubnav();
 
     // if deleted note was active note, clear editor
-    if (idToDelete === Number(activeId)) {
+    if (idToDelete === Number(app.activeId)) {
         clearNote();
     }
 }
 
 
+
+/// LOAD SPECIFIC NOTE IN EDITOR
 const loadNote = (id) => {
     // if autosave, pause till note is loaded
     // (prevents it from saving as new at load)
@@ -110,15 +119,15 @@ const loadNote = (id) => {
     }
 
     // find note to load
-    let loadedNote = noteList.find(note => note.id === Number(id)) || false;
+    let loadedNote = app.noteList.find(note => note.id === Number(id)) || false;
 
     if (loadedNote) {
         // update active note
-        activeId = loadedNote.id;
+        app.activeId = loadedNote.id;
         // title to title-field
         document.querySelector("#title-input").value = loadedNote.title;
         // content to editor
-        quill.setContents(loadedNote.content);
+        app.quill.setContents(loadedNote.content);
         // font to editor
         editor.className = loadedNote.theme;
     }
@@ -130,14 +139,15 @@ const loadNote = (id) => {
 }
 
 
+
+/// TOGGLE FAVORITE
 function updateFavStatus(id) {
     // find note to mark/unmark
-    let note = noteList.find(note => note.id === Number(id)) || false;
+    let note = app.noteList.find(note => note.id === Number(id)) || false;
 
-    // if not found, abort
+    // if not found, bail
     if (!note) {
-        console.log('Couldn\'t find note to mark as fav');
-        return;
+        return console.log('Couldn\'t find note to mark as fav');
     }
 
     // toggle fav-status
@@ -153,3 +163,116 @@ function updateFavStatus(id) {
     // re-render the DOM-list
     renderSubnav(document.querySelector('#side-subnav .body .title').innerHTML);
 }
+
+
+
+/// TOGGLE AUTO-SAVE
+const toggleAutoSave = () => {
+    let status = document.querySelector('#auto-save span.status');
+    if (autosaveStatus()) {
+        // change status in DOM
+        status.innerHTML = 'off';
+        status.closest('button').classList.remove('autosaveOn');
+
+        // display manual save-btn
+        document.querySelector('#save-note').classList.remove('hidden');
+    } else {
+        // change status in DOM
+        status.innerHTML = 'on';
+        status.closest('button').classList.add('autosaveOn');
+
+        // hide manual save-btn
+        document.querySelector('#save-note').classList.add('hidden');
+    }
+}
+
+
+
+/// GET CURRENT AUTO-SAVE STATUS
+const autosaveStatus = () => {
+    const status = (document.querySelector('#auto-save span.status').innerHTML === 'on')
+        ? true : false;
+    return status;
+}
+
+
+
+/// AUTO-SAVE NOTE
+const autoSave = () => {
+    // bail if:
+
+    // ...autosave is off
+    if (!autosaveStatus()) {
+        return;
+    }
+
+    // ...new note is empty
+    if (!app.activeId && app.quill.getLength() < 2) {
+        return;
+    }
+
+    // else, save
+    saveNote();
+}
+
+
+
+/// SEARCH NOTES
+const searchNotes = () => {
+    //renderSubnav('all');
+    let searchValue = document.querySelector('#search-input').value;
+    console.log('searching for:', searchValue)
+
+    /// FUNCS
+
+    // checks if filter matches any content substr
+    const substrMatch = (str, substr) => {
+        let match = false;
+        if (str.indexOf(substr) > -1) {
+            match = true;
+        }
+        return match;
+    }
+
+    // hide or show elem
+    const hideOrShow = (elem, selectors, filter, func) => {
+        // assume no match
+        let show = false;
+
+        // gather content to compare
+        let content = [];
+        selectors.forEach((item, i) => {
+            content.push(elem.querySelector(selectors[i]));
+        });
+
+        // if any content matches, make show true for current note
+        content.forEach((item, i) => {
+            if (func(content[i].innerHTML.toLowerCase(), filter)) {
+                show = true;
+            }
+        });
+
+        // ..and if show is true, display note
+        if (show) {
+            elem.style.display = '';
+        } else {
+            elem.style.display = 'none';
+        }
+    }
+
+
+    /// ACTION
+
+    // decide visibility for each note based on search input
+    let notesInDom = document.querySelectorAll("ul.noteList li.note");
+
+    notesInDom.forEach((item, i) => {
+        hideOrShow(
+            notesInDom[i], // note-elem in DOM
+            ['.itemTitle', '.itemContent'], // elem-children with text to compare
+            searchValue.toLowerCase(), // filter
+            substrMatch // compare-function
+        );
+    });
+
+} // searchNotes()

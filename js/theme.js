@@ -4,7 +4,6 @@ let darkmode = document.getElementById("darkmode");
 let nightmode = document.getElementById("nightmode");*/
 
 document.addEventListener("click", function (e) {
-
     if (e.target.classList.contains("lightmode")) {
         theme.classList.remove("darkModeTheme");
         theme.classList.remove("nightModeTheme");

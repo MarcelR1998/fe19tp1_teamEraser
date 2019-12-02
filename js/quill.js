@@ -1,8 +1,16 @@
 /*
- * Quill editor
- *************/
+ * QUILL EDITOR
+ ***************/
 
-var toolbarOptions = [
+
+
+/// API
+Quill.import('delta');
+
+
+
+/// TOOLBAR PRESET
+const toolbarOptions = () => [
     ['bold'], ['italic'], ['underline'], ['strike'], // toggled buttons
     ['blockquote'],
 
@@ -41,18 +49,20 @@ var toolbarOptions = [
 ];
 
 
-//Init editor
-var Delta = Quill.import('delta');
-var quill = new Quill('#editor', {
-    modules: {
-        toolbar: toolbarOptions
-    },
-    theme: 'snow'
 
-});
+/// INIT EDITOR
+const initEditor = (id = '#editor', toolPreset = toolbarOptions(), theme = 'snow') => new Quill(
+    id,
+    {
+        modules: { toolbar: toolPreset },
+        theme: theme
+    }
+);
 
-// Clear editor
+
+
+/// CLEAR EDITOR
 const clearNote = () => {
-    quill.deleteText(0, 999);
+    app.quill.deleteText(0, 999);
 }
 
