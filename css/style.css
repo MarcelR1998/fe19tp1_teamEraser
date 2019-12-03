@@ -11,6 +11,11 @@
 body {
     font-family: 'Roboto',
     sans-serif;
+    height: 100vh;
+}
+
+#theme{
+    height: 100%;
 }
 
 #quireLogo {
@@ -23,18 +28,37 @@ body {
 }
 
 /* Top title / Favorite  */
-#title-and-favorites{
+#title-and-favorites {
     position: fixed;
     top: 12px;
     left: 92px;
-    z-index: 2;
+    z-index: 3;
 }
 
 #title-input{
-    border:1px solid rgba(153, 153, 153, 0.801);
+    height: 50px;
+    border: none;
     padding: 3px;
+    flex-basis: 100%;
+    margin: 100px 20% 0;
+    border: 1px solid lightgray;
+    border-bottom: none;
+    text-align: center;
+    font-size: x-large;
+    color: lightgray;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* white div covering text on the top of mobile view */
+
+#white-box-cover {
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    top: 0px;
+    background-color: white;
+    z-index: 1;
+}
 
 /* pop up */
 
@@ -89,7 +113,7 @@ body {
 }
 
 .invisible{
-    display: none;
+    display: none!important;
 }
 
 /* Side bar */
@@ -116,7 +140,7 @@ body {
 
 .main-page{
     display: flex;
-    height: 200px;
+    height: 100%;
 }
 
 #side-nav-buttons button{
@@ -162,8 +186,6 @@ button:focus {
     outline: none;
 }
 
-
-
 #bottom-buttons{
     display: flex;
     flex-direction: row;
@@ -173,7 +195,6 @@ button:focus {
     left: 257px;
     z-index: 3;
 }
-
 
 .top-buttons{
     background: white;
@@ -212,10 +233,13 @@ button:focus {
 }
 
 #editorContainer {
+    display: flex;
+    justify-content: center;
     width: 100%;
-    margin: 0 auto auto;
-    float: left;
-    padding-top: 0;
+    height: 100%;
+    flex-wrap: wrap;
+    padding: 0;
+    margin-left: 75px;
 }
 
 
@@ -289,7 +313,7 @@ button:focus {
     }
 }
 
-.noteList .item {
+.subnavList .item {
     font-size: 20px;   
     padding: 10px;
     /*border:rgb(199, 199, 199) solid 1px;*/
@@ -302,18 +326,30 @@ button:focus {
     border-radius: 10px;
 }
 
-.noteList .item:hover {
+
+.subnavList .item:hover {
     background: #005492;
     color: white;
     cursor: pointer;
 }
 
-.noteList .item:hover .favoriteNote,
-.noteList .item:hover .deleteNote {
+.subnavList .item:hover .favoriteNote,
+.subnavList .item:hover .deleteNote {
     color: white;
     transition-duration: .3s;
 
 }
+
+.subnavList .item.setting {
+    min-height: unset;
+}
+
+.subnavList .item.setting > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+
 
 .favoriteNote {
     color: #818181;
@@ -335,6 +371,43 @@ button:focus {
     height: 20px;
     position: absolute;
     transform: translateX(210px) translateY(-20px);
+}
+
+#confirmDeleteDiv {
+    /*background-color: rgb(230, 230, 230);
+    width: 92px;
+    height: 25px;
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;*/
+    transform: translateX(134px) translateY(10px);
+    position: relative;
+}
+
+#confirmDelete {
+    color: white;
+    background-color: red;
+    border: 1px solid red;
+    padding: 5px;
+    /*border-radius: 10px;*/
+}
+#confirmDelete:hover{
+    background-color: rgb(255, 110, 110);
+}
+
+#cancelDelete {
+    color:white;
+    background-color: rgb(190, 190, 190);
+    border: 1px solid rgb(190, 190, 190);
+    padding: 5px;
+    margin-left: 3px;
+    /*border-radius: 10px;*/
+}
+#cancelDelete:hover{
+    background-color: rgb(210, 210, 210 );
 }
 
 /* display part of note content in subnav */
@@ -458,6 +531,17 @@ button:focus {
 } 
 @media only screen and (max-width: 731px) {
 
+
+    #title-input {
+        height: 34px;
+        font-size: 30px;
+    }
+
+    #bottom-buttons {
+        left: 425px !important;
+        height: 42px;
+    }
+
     #side-nav {
         z-index: 3;
         position: fixed;
@@ -482,7 +566,7 @@ button:focus {
     }
 
     #editor{
-        width: 100vh;
+        width: 100vw;
         margin-left: 0;
 
     }
@@ -513,7 +597,8 @@ button:focus {
         transform: translateX(0px);
         position: fixed;
         float: left;
-        /*height: 100vh;*/
+    }
+    }
     }
 
     .popup{
@@ -522,22 +607,18 @@ button:focus {
     }
    
 
-    #bottom-buttons{
-        left: 198px;
-    }
-
+   
     .top-buttons{
-        width: 70px;
-
+        /*width: 70px;*/
     }
 
     #dropdown ul li{
         text-align: center;
-        height: 19px;
+        height: 27px;
         font-size: 13px;
         border: 1px solid rgb(173, 173, 173);
         width: 70px;
-        padding-top: 3px ;
+        padding-top: 13px ;
         
     }
 
@@ -548,7 +629,7 @@ button:focus {
     #title-and-favorites{
         position: fixed;
         top: 12px;
-        left: 20px;
+        left: 15px;
         
     }
 }
@@ -584,4 +665,20 @@ button:focus {
 
 #search-input:focus{
     outline: none;
+}}}}}}}}}}}}: 5px;
+    border: none;
+    border-radius: 10px;
+    
 }
+
+#search-input:focus{
+    outline: none;
+}}}}}}}}}}}}}none;
+    border-radius: 10px;
+    
+}
+
+#search-input:focus{
+    outline: none;
+}}}}}}}}}}}}}}}}}}}
+}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}

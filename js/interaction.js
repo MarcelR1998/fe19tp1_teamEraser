@@ -36,6 +36,9 @@ const closeSubnav = () => {
     const sidenav = document.querySelector('#side-nav');
     sidenav.style.transitionDuration = '1.5s';
     sidenav.classList.remove('shadowR');
+
+    // abort requested delete
+    app.state.deleteRequested = false;
 }
 
 
@@ -54,6 +57,8 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
 
 
 
+
+
     /* FUNCS
     *********/
 
@@ -66,23 +71,23 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     }
 
     // sort notes by last updated
-    const applySort = (notes = app.noteList, type = 'updated') => notes.sort(sortBy[type]);
+    const applySort = (items = app.noteList, type = 'updated') => items.sort(sortBy[type]);
 
 
     // available filters
     const filterTypes = {
-        all: (note) => true,
-        favorites: (note) => note.favorite
+        all: (item) => true,
+        favorites: (item) => item.favorite
     }
 
     // apply filter
-    const applyFilter = (notes, type = () => true) => notes.filter(type);
+    const applyFilter = (items, type = () => true) => items.filter(type);
 
 
     // get printable timestamps (created, updated)
-    const dateStamps = (note) => {
-        let updateTime = new Date(note.updated);
-        let createTime = new Date(note.id);
+    const dateStamps = (item) => {
+        let updateTime = new Date(item.updated);
+        let createTime = new Date(item.id);
 
         return {
             updatedDate: updateTime.toLocaleDateString(),
@@ -93,13 +98,13 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     }
 
     // choose favStar-icon based on the note's favStatus
-    const favIconClass = (note) => {
-        return note.favorite ? 'fas' : 'far';
+    const favIconClass = (item) => {
+        return item.favorite ? 'fas' : 'far';
     }
 
     // available html-templates
     templates = {
-        default: (note) =>
+        note: (note) =>
             `<li class="item note" data-note-id="${note.id}" data-created="" data-lastUpdated="">
                 <h4 class="itemTitle">${note.title}</h4>
                 <div class="itemContent">${note.text}</div>
@@ -109,15 +114,25 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
                     <button class = "favoriteNote ${favIconClass(note)} fa-star"></button>
                     <button class = "deleteNote far fa-trash-alt"></button> 
                 </div>
-            </li>`
+            </li>`,
+        settings: (item) =>
+            `<li class="item setting">
+                <div id="${item.id}-container" class="${item.classes}">
+                    <p class="name">${item.name}</p>
+                    <label class="switch settingsToggle">
+                        <input id="${item.id}" class="settingsSwitch" type="checkbox"/>
+                        <span class="slider round"></span>     
+                    </label>
+                </div>
+            <li>`
     }
 
     // apply template
-    const applyTemplate = (notes, template = 'default') => notes.map(note => templates[template](note));
+    const applyTemplate = (items, template = 'note') => items.map(item => templates[template](item));
 
 
     // print notes to DOM
-    const printList = (content = '', parentSelector = '#side-subnav .body .content') => {
+    const print = (content = '', listClass = 'subnavList', parentSelector = '#side-subnav .body .content') => {
         // var ska content printas
         const parentElem = document.querySelector(parentSelector);
 
@@ -126,14 +141,14 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
 
         // print
         parentElem.innerHTML =
-            `<ul class="noteList">
+            `<ul class="${listClass}">
                 ${content}
             </ul>`;
 
     }
 
     // Apply listener to load note on click
-    const applyListener = (selector = 'ul.noteList li', trigger = 'click') => {
+    const applyListener = (selector = 'ul.subnavList li', trigger = 'click') => {
         // what shall listen
         const targets = document.querySelectorAll(selector) || false;
 
@@ -167,17 +182,37 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     **********/
 
     // print sorted notes with applied template and filter
-    printList(
-        applyTemplate(
-            applyFilter(
-                applySort(app.noteList),
-                filterTypes[activeFilter]
-            )
-        )
-    );
+    // if settings
+    if (activeFilter === 'settings') {
+        // hide search input
+        document.querySelector('#search-input').classList.add('invisible');
 
-    // be ready to load specific note in editor
-    applyListener('ul.noteList li', 'click');
+        // print settings template...
+        print(
+            applyTemplate(app.settingsTab, 'settings'),
+            'subnavList'
+        );
+
+
+        return;
+        //document.querySelector('#side-subnav .body .content').innerHTML = settingsContent();
+        // if notes
+    } else {
+        print(
+            applyTemplate(
+                applyFilter(
+                    applySort(app.noteList),
+                    filterTypes[activeFilter]
+                )
+            )
+        );
+
+        // be ready to load specific note in editor
+        applyListener('ul.noteList li', 'click');
+    }
+
+
+
 
     // if search-input has value, search
     if (document.querySelector('#search-input').value.length > 0) {

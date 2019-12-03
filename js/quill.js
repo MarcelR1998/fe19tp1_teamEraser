@@ -26,9 +26,10 @@ const toolbarOptions = () => [
     }], [{
         'indent': '+1'
     }], // outdent/indent
-    [{
-        'direction': 'rtl'
-    }], // text direction
+    // [{
+    //     'direction': 'rtl'
+    // }], // text direction
+    
 
     , // custom dropdown
     [{
@@ -45,7 +46,7 @@ const toolbarOptions = () => [
         'align': []
     }],
 
-    ['clean'] // remove formatting button
+    // ['clean'] // remove formatting button
 ];
 
 

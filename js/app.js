@@ -15,13 +15,31 @@ const app = {
     // id of the note currently in preview/edit
     activeId: false,
 
+    // settings tab content
+    settingsTab: [
+        {
+            id: 'autoSave',
+            classes: '',
+            name: 'Autosave'
+        },
+        {
+            id: 'darkMode',
+            classes: '',
+            name: 'Darkmode'  
+        }
+    ],
+
+    state: {
+        deleteRequested: false 
+    },
+
     // on win load
     init: () => {
         // init editor api instance
         app.quill = app.quill === null ? initEditor() : app.quill;
-
+        
         // set listeners for autosave
-        enableAutoSave();
+        applyEars();
 
         // sync the global noteList with LS
         loadFromLocalStorage();

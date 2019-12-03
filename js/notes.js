@@ -101,7 +101,7 @@ const deleteNote = (id) => {
     renderSubnav();
 
     // if deleted note was active note, clear editor
-    if (idToDelete === Number(app.activeId)) {
+    if (id === Number(app.activeId)) {
         clearNote();
     }
 }
