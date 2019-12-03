@@ -6,6 +6,8 @@ body {
   height: 100%;
   width: 100%;
 } */
+
+/*
 .theme-light {
   --color-primary: #0060df;
   --color-secondary: #fbfbfe;
@@ -35,6 +37,7 @@ body {
   border: 0;
   border-radius: 5px;
 }
+*/
 
 /* The switch - the box around the slider */
 .switch {

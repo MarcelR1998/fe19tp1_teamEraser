@@ -25,19 +25,24 @@ const app = {
         {
             id: 'darkMode',
             classes: '',
-            name: 'Darkmode'  
+            name: 'Darkmode'
         }
     ],
 
     state: {
-        deleteRequested: false 
+        autoSave: true,
+        deleteRequested: false
     },
 
     // on win load
     init: () => {
+        if (app.state.autoSave) {
+            localStorage.setItem('autoSave', JSON.stringify(true));
+        }
+
         // init editor api instance
         app.quill = app.quill === null ? initEditor() : app.quill;
-        
+
         // set listeners for autosave
         applyEars();
 

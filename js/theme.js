@@ -1,9 +1,9 @@
 
 
 let theme = document.querySelector("#editor");
- let lightmode = document.getElementById("lightmode");
- let darkmode = document.getElementById("darkmode");
- let nightmode = document.getElementById("nightmode");
+let lightmode = document.getElementById("lightmode");
+let darkmode = document.getElementById("darkmode");
+let nightmode = document.getElementById("nightmode");
 
 document.addEventListener("click", function (e) {
     if (e.target.classList.contains("lightmode")) {
@@ -29,4 +29,10 @@ document.addEventListener("click", function (e) {
   var editor = tinyMCE.getInstanceById('editorContainer');
   editor.getBody().style.backgroundColor = "#000";
 }*/
+
+
+const darkModeToggle = (clickedElem) => {
+    let status = clickedElem.checked;
+    console.log('darkmode is now: ', clickedElem.checked);
+}
 

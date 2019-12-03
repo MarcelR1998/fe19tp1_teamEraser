@@ -165,10 +165,10 @@ function updateFavStatus(id) {
 }
 
 
-
+/*
 /// TOGGLE AUTO-SAVE
 const toggleAutoSave = () => {
-    let status = document.querySelector('#auto-save span.status');
+    //let status = document.querySelector('#autoSave').checked;
     if (autosaveStatus()) {
         // change status in DOM
         status.innerHTML = 'off';
@@ -185,23 +185,29 @@ const toggleAutoSave = () => {
         document.querySelector('#save-note').classList.add('hidden');
     }
 }
-
+*/
 
 
 /// GET CURRENT AUTO-SAVE STATUS
 const autosaveStatus = () => {
-    const status = (document.querySelector('#auto-save span.status').innerHTML === 'on')
-        ? true : false;
-    return status;
+    return JSON.parse(localStorage.getItem('autoSave'));
 }
 
+const autosaveToggle = () => {
+    //console.log('autosave:', document.querySelector('#autoSave').checked)
+
+    let status = autosaveStatus();
+
+    localStorage.setItem('autoSave', JSON.stringify(!status));
+    //document.querySelector('#autoSave').checked = !document.querySelector('#autoSave').checked;
+}
 
 
 /// AUTO-SAVE NOTE
 const autoSave = () => {
     // bail if:
 
-    // ..autosave is off
+    // ...autosave is off
     if (!autosaveStatus()) {
         return;
     }
