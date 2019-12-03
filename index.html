@@ -8,12 +8,15 @@
     <title>Quire</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/print.css">
+    <link rel="stylesheet" href="css/toggleBtn.css">
+    
     <link href="https://fonts.googleapis.com/css?family=McLaren&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/d82255b79b.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <div id="theme">
+
         <div class="blur invisible">
             <img src="media/solidblack.jpg" class="" alt="">
         </div>
@@ -43,8 +46,8 @@
                     <button class="side-nav-btn" id="all" data-title="all"><i class="fas fa-sticky-note"></i></button>
                     <button class="side-nav-btn" id="favorites" data-title="favorites"><i
                             class="fa fa-star"></i></button>
-                    <!-- <button class="side-nav-btn" id="stats" data-title="stats"><i class="fa fa-chart-bar"></i></button>
-                    <button class="side-nav-btn" id="settings" data-title="settings"><i class="fas fa-cog"></i></button> -->
+                    <!-- <button class="side-nav-btn" id="stats" data-title="stats"><i class="fa fa-chart-bar"></i></button> -->
+                    <button class="side-nav-btn" id="settings" data-title="settings"><i class="fas fa-cog"></i></button> 
                 </div>
             </div>
             <div id="side-subnav" data-open="false">
@@ -54,21 +57,21 @@
                     <input type="text" id="search-input" placeholder="search" />
                     <div class="content"></div>
                 </div>
-            </div>
-
+            <!-- <span id= "darktheme" class=" settingsToggle" >Darktheme  <i class="fas fa-toggle-off"></i> </span> -->
+             
+        </div>
+        
             <!-- Text Editor -->
 
             <div id="editorContainer" class="document">
-                <div id="editor"></div>
+                <input type="text" id="title-input" placeholder="Nameless document...">
+                <div id="editor">
 
-                <div id="title-and-favorites">
-                    <input type="text" id="title-input" placeholder="Nameless document...">
                 </div>
-
                 <div id="bottom-buttons">
                     <button id="auto-save" class="top-buttons autosaveOn">Autosave is
                         <span class="status">on</span></button>
-                    <button class="top-buttons hidden" id="save-note">Save</button>
+                    <!--<button class="top-buttons hidden" id="save-note">Save</button>-->
                     <!--<button class="top-buttons" id="delete-note">Delete</button>-->
                     <button class="top-buttons" id="clear-text">Clear Text</button>
                     <div id="dropdown">
@@ -86,6 +89,9 @@
                     <p id="editorMsg"></p>
                 </div>
             </div>
+            <div id="white-box-cover">
+                
+            </div>
         </div>
     </div>
 
@@ -95,8 +101,6 @@
 
     <!-- Quill local files -->
     <link rel="stylesheet" href="css/quill.css">
-
-
 
     <!-- App -->
     <script src="js/app.js"></script>

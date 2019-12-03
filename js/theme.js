@@ -1,7 +1,9 @@
+
+
 let theme = document.querySelector("#editor");
-/*let lightmode = document.getElementById("lightmode");
-let darkmode = document.getElementById("darkmode");
-let nightmode = document.getElementById("nightmode");*/
+ let lightmode = document.getElementById("lightmode");
+ let darkmode = document.getElementById("darkmode");
+ let nightmode = document.getElementById("nightmode");
 
 document.addEventListener("click", function (e) {
     if (e.target.classList.contains("lightmode")) {
