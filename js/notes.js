@@ -201,7 +201,7 @@ const autosaveStatus = () => {
 const autoSave = () => {
     // bail if:
 
-    // ...autosave is off
+    // ..autosave is off
     if (!autosaveStatus()) {
         return;
     }
