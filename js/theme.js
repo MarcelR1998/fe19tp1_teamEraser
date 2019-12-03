@@ -24,15 +24,10 @@ document.addEventListener("click", function (e) {
         console.log("loaded serif font template")
     }
 });
-/*function postInitWork()
-{
-  var editor = tinyMCE.getInstanceById('editorContainer');
-  editor.getBody().style.backgroundColor = "#000";
-}*/
 
 
 const darkModeToggle = (clickedElem) => {
     let status = clickedElem.checked;
-    console.log('darkmode is now: ', clickedElem.checked);
+    console.log('darkmode:', clickedElem.checked);
 }
 

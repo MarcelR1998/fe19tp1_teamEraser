@@ -15,19 +15,34 @@ const app = {
     // id of the note currently in preview/edit
     activeId: false,
 
-    // settings tab content
-    settingsTab: [
-        {
-            id: 'autoSave',
-            classes: '',
-            name: 'Autosave'
-        },
-        {
-            id: 'darkMode',
-            classes: '',
-            name: 'Darkmode'
+    // settings 
+    settings: {
+        tabContent: [
+            {
+                id: 'autoSave',
+                classes: '',
+                name: 'Autosave'
+            },
+            {
+                id: 'darkMode',
+                classes: '',
+                name: 'Darkmode'
+            }
+        ],
+        icon: {
+            true: '<i class="fas fa-sun"></i>',
+            false: '<i class="fas fa-moon"></i>',
+            update: (status) => {
+                if (!status) {
+                    document.querySelector('#autoSave-container i').classList.remove('fa-moon');
+                    document.querySelector('#autoSave-container i').classList.add('fa-sun');
+                } else {
+                    document.querySelector('#autoSave-container i').classList.remove('fa-sun');
+                    document.querySelector('#autoSave-container i').classList.add('fa-moon');
+                }
+            }
         }
-    ],
+    },
 
     state: {
         autoSave: true,
@@ -36,10 +51,6 @@ const app = {
 
     // on win load
     init: () => {
-        if (app.state.autoSave) {
-            localStorage.setItem('autoSave', JSON.stringify(true));
-        }
-
         // init editor api instance
         app.quill = app.quill === null ? initEditor() : app.quill;
 

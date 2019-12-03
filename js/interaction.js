@@ -121,10 +121,10 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
                     <p class="name">${item.name}</p>
                     <label class="switch settingsToggle">
                         <input id="${item.id}" class="settingsSwitch" type="checkbox"/>
-                        <span class="slider round"></span>      
+                        <span class="slider round"><i class="fas fa-moon"></i></span>      
                     </label>
                 </div>
-            <li>`
+            </li>`
     }
 
     // apply template
@@ -189,13 +189,15 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
 
         // print settings template...
         print(
-            applyTemplate(app.settingsTab, 'settings'),
+            applyTemplate(app.settings.tabContent, 'settings'),
             'subnavList'
         );
 
         // show autosave status
         if (autosaveStatus()) {
             document.querySelector('#autoSave').checked = true;
+
+            app.settings.icon.update(autosaveStatus());
         }
 
         return;
