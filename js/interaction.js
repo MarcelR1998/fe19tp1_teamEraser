@@ -128,7 +128,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     }
 
     // apply template
-    const applyTemplate = (items, template = 'note') => items.map(item => templates[template](item));
+    const applyTemplate = (items = app.noteList, template = 'note') => items.map(item => templates[template](item));
 
 
     // print notes to DOM
@@ -187,6 +187,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
         // hide search input
         document.querySelector('#search-input').classList.add('invisible');
 
+        console.log('settings template', app.settings.tabContent)
         // print settings template...
         print(
             applyTemplate(app.settings.tabContent, 'settings'),
@@ -197,7 +198,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
         if (autosaveStatus()) {
             document.querySelector('#autoSave').checked = true;
 
-            app.settings.icon.update(autosaveStatus());
+            app.settings.toggleIcons.update(autosaveStatus());
         }
 
         return;
@@ -226,3 +227,39 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     }
 
 } // renderSubnav()
+
+
+
+/// INIT APP SETTINGS
+const initSettings = (instanceOf = app) => {
+    // fill settings content
+    instanceOf.settings.tabContent = [
+        {
+            id: 'autoSave',
+            classes: '',
+            name: 'Autosave'
+        },
+        {
+            id: 'darkMode',
+            classes: '',
+            name: 'Darkmode'
+        }
+    ];
+
+    // set settings toggleBtns
+    instanceOf.settings.toggleIcons = {
+        true: 'fas fa-sun',
+        false: 'fas fa-moon',
+        update: (status) => {
+            console.log('updating toggleicon based on', status)
+            if (!status) {
+                document.querySelector('#autoSave-container i').className = instanceOf.settings.toggleIcons.false;
+            } else {
+                document.querySelector('#autoSave-container i').className = instanceOf.settings.toggleIcons.true;
+            }
+        }
+    }
+
+    // set autosave-status
+    setAutosave(instanceOf.state.autoSave);
+}

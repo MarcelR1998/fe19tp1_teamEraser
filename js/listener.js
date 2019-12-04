@@ -94,7 +94,7 @@ const applyEars = () => {
             //clear LS
             localStorage.clear();
             // update noteList
-            loadFromLocalStorage();
+            loadFromLS();
             //display msg below
             displayMsg('Storage cleared!');
         }

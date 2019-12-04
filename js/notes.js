@@ -71,7 +71,7 @@ const saveNote = () => {
     }
 
     // update LS
-    saveToLocalStorage();
+    saveToLS();
 }
 
 
@@ -94,7 +94,7 @@ const deleteNote = (id) => {
         ), 1);
 
     // update LS
-    saveToLocalStorage();
+    saveToLS();
 
     // re-render the DOM-list
     renderSubnav();
@@ -144,7 +144,7 @@ const updateFavStatus = (id) => {
     }
 
     // save changes to LS
-    saveToLocalStorage();
+    saveToLS();
 
     // re-render the DOM-list
     renderSubnav(document.querySelector('#side-subnav .body .title').innerHTML);
@@ -214,10 +214,14 @@ const searchNotes = () => {
 
 
 
-/// AUTO-SAVE STATUS
-const autosaveStatus = () => {
-    return JSON.parse(localStorage.getItem('autoSave'));
-}
+/// GET AUTO-SAVE STATUS
+const autosaveStatus = () => JSON.parse(localStorage.getItem('autoSave'));
+
+
+
+/// SET AUTO-SAVE STATUS
+const setAutosave = (val) => localStorage.setItem('autoSave', JSON.stringify(val));
+
 
 
 /// AUTO-SAVE TOGGLE
@@ -226,14 +230,12 @@ const autosaveToggle = () => {
 
     localStorage.setItem('autoSave', JSON.stringify(!status));
 
-    app.settings.icon.update(status);
-
-    console.log('autosave:', autosaveStatus());
+    app.settings.toggleIcons.update(autosaveStatus());
 }
 
 
 
-/// AUTO-SAVE NOTE
+/// AUTO-SAVE ACTIVE NOTE
 const autoSave = () => {
     // bail if:
 

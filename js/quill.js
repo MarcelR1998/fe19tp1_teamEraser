@@ -29,7 +29,7 @@ const toolbarOptions = () => [
     // [{
     //     'direction': 'rtl'
     // }], // text direction
-    
+
 
     , // custom dropdown
     [{
@@ -52,14 +52,14 @@ const toolbarOptions = () => [
 
 
 /// INIT EDITOR
-const initEditor = (id = '#editor', toolPreset = toolbarOptions(), theme = 'snow') => new Quill(
-    id,
-    {
-        modules: { toolbar: toolPreset },
-        theme: theme
-    }
-);
-
+const initQuill = (instanceOf = app, id = '#editor', toolPreset = toolbarOptions(), theme = 'snow') => {
+    instanceOf.quill = new Quill(id,
+        {
+            modules: { toolbar: toolPreset },
+            theme: theme
+        }
+    );
+}
 
 
 /// CLEAR EDITOR

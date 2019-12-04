@@ -6,42 +6,19 @@
 
 /// APP
 const app = {
-    // upcoming editor instance
+    // editor instance (fill on init)
     quill: null,
 
-    // notes in sync
+    // notes in sync (fill on init)
     noteList: [],
 
     // id of the note currently in preview/edit
     activeId: false,
 
-    // settings 
+    // settings (fill on init)
     settings: {
-        tabContent: [
-            {
-                id: 'autoSave',
-                classes: '',
-                name: 'Autosave'
-            },
-            {
-                id: 'darkMode',
-                classes: '',
-                name: 'Darkmode'
-            }
-        ],
-        icon: {
-            true: '<i class="fas fa-sun"></i>',
-            false: '<i class="fas fa-moon"></i>',
-            update: (status) => {
-                if (!status) {
-                    document.querySelector('#autoSave-container i').classList.remove('fa-moon');
-                    document.querySelector('#autoSave-container i').classList.add('fa-sun');
-                } else {
-                    document.querySelector('#autoSave-container i').classList.remove('fa-sun');
-                    document.querySelector('#autoSave-container i').classList.add('fa-moon');
-                }
-            }
-        }
+        tabContent: [],
+        toggleIcons: {}
     },
 
     state: {
@@ -52,13 +29,16 @@ const app = {
     // on win load
     init: () => {
         // init editor api instance
-        app.quill = app.quill === null ? initEditor() : app.quill;
+        initQuill();
+
+        // run preset for app settings
+        initSettings();
 
         // set listeners for autosave
         applyEars();
 
         // sync the global noteList with LS
-        loadFromLocalStorage();
+        loadFromLS();
 
         // count user visits (include current)
         updateVisits();
