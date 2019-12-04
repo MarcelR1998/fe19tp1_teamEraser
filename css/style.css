@@ -4,10 +4,14 @@
 
 :root{
     --border: 1px solid #ccc;
+    --btn-bg-hover: #005492;
+
+    --logo-shadow: none;
 
     --toolbar-stroke: #444444;
     --toolbar-fill: none;
 
+    --nav-shadow: 2px 0px 10px #222;
     --nav-btn-color: white;
     --nav-bg: #005492;
 
@@ -33,6 +37,7 @@ body {
 
 #quireLogo {
     transition: 0.4s;
+    box-shadow: var(--logo-shadow);
 }
 
 #quireLogo:hover {
@@ -321,7 +326,7 @@ button:focus {
 }
 
 .subnavList .item:hover {
-    background: #005492;
+    background: var(--btn-bg-hover);
     color: white;
     cursor: pointer;
 }
@@ -607,7 +612,7 @@ button:focus {
 }
 
 .shadowR {
-    box-shadow: 2px 0px 10px #222;
+    box-shadow: var(--nav-shadow);
 }
 
 .highlighted {
