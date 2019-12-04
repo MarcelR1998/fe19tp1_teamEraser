@@ -20,13 +20,23 @@ const updatedarkModeStatus = () => {
     let icon = document.querySelector('#darkMode') || false;
 
     if (getDarkModeStatus()) {
+        // css
         document.getElementById("darksheet").href = "css/darktheme.css"
+        // logo
+        document.querySelector('#quireLogo').setAttribute('src', 'media/logo-darkmode.png');
+
+        // toggle icon
         if (icon) {
             icon.checked = true;
             document.querySelector('#darkMode-container i').className = 'fas fa-sun';
         }
     } else {
+        // css
         document.getElementById("darksheet").href = "/";
+        // logo
+        document.querySelector('#quireLogo').setAttribute('src', 'media/logo.png');
+
+        //icon
         if (icon) {
             icon.checked = false;
             document.querySelector('#darkMode-container i').className = 'fas fa-moon';

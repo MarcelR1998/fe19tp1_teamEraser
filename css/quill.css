@@ -18,7 +18,7 @@
 div.ql-toolbar.ql-snow {
   display: flex;
   justify-content: center;
-  background: white;
+  background:var(--bg-color);
   z-index: 1;
   position: fixed;
   flex-basis: 100%;
@@ -26,7 +26,11 @@ div.ql-toolbar.ql-snow {
   height: 75px;
   padding: 0;
   padding-top: 40px;
+  border: var(--border);
 }  
+
+
+
 
 #editor > div.ql-editor.ql-blank, #editor > div.ql-editor {
   /*padding: 100px;
@@ -38,6 +42,11 @@ div.ql-toolbar.ql-snow {
   border-top: none;
   min-height: 800px;
   max-width: 900px;
+}
+
+.ql-picker-options {
+  background: var(--bg-color)!important;
+  border: var(--border)!important;
 }
 
 /* Mobile */

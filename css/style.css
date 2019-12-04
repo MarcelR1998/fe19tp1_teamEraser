@@ -2,6 +2,21 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Vollkorn:400,700&display=swap');
 
+:root{
+    --border: 1px solid #ccc;
+
+    --toolbar-stroke: #444444;
+    --toolbar-fill: none;
+
+    --nav-btn-color: white;
+    --nav-bg: #005492;
+
+    --subnav-bg: #E6E6E6;
+    --subnav-item-bg: linear-gradient(rgba(0,0,0,0) 60%, #F4F4F4);
+
+    --settings-toggle-false: #555;
+    --settings-toggle-true: #E6E6E6;
+}
 
 *{
     margin: 0;
@@ -116,7 +131,7 @@ body {
     margin: 0;
     height: 100vh;
     width: 75px;
-    background-color: rgb(0, 83, 146);
+    background-color: var(--nav-bg);
     transition-duration: .1s;
 }
 
@@ -161,7 +176,7 @@ button:focus {
 
 .side-nav-btn {
     font-size: 25px;
-    color: white;
+    color: var(--nav-btn-color);
     background: none;
     border: none;
 }
@@ -225,7 +240,7 @@ button:focus {
     z-index: 4;
     top: 0;
     left: 0;
-    background-color: rgb(230, 230, 230);
+    background-color: var(--subnav-bg);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -300,7 +315,7 @@ button:focus {
     padding: 10px;
     transition-duration: .3s;
     white-space: nowrap;
-    background: linear-gradient(rgba(0,0,0,0) 60%, #F4F4F4);
+    background: var(--subnav-item-bg);
     min-height: 90px;
     border-radius: 10px;
 }

@@ -13,6 +13,7 @@
   height: 0;
 }
 
+
 /* The slider */
 .slider {
   position: absolute;
@@ -25,6 +26,7 @@
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
+
 
 .slider > i {
   position: relative;
@@ -50,11 +52,6 @@ input:checked + .slider {
   background-color: #123651;
 }
 
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #E6E6E6;
-}
-
 input:checked + .slider i {
   -webkit-transform: translateX(24px);
   -ms-transform: translateX(24px);
@@ -76,12 +73,12 @@ input:checked + .slider i {
 i.fa-moon {
   font-size: 20px;
   top: 6px;
-  color: grey;
+  color: var(--settings-toggle-false);
 }
 
 i.fa-sun {
          top: 4px;
     left: 5px;
     font-size: 25px;
-    color: white;
+    color: var(--settings-toggle-true);
 }

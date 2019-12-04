@@ -2,10 +2,22 @@
     --primary-color: #9A97F3;
     --secondary-color: #818cab;
     --font-color: whitesmoke;
-    --bg-color: #333;
+    --bg-color: #222;
     --heading-color: #818cab;
-    
+    --border: none;
+
+    --toolbar-hover-color: whitesmoke;
+
+    --nav-btn-color: #111;
+    --nav-bg: #102E46;
+
+    --subnav-bg: #333;
+    --subnav-item-bg: linear-gradient(rgba(0,0,0,0) 60%, #383838);
+
+    --settings-toggle-false: #333;
 }
 
-
+.ql-toolbar.ql-snow svg:hover{
+    fill: red;
+}
 
