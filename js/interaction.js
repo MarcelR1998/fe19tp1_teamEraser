@@ -208,6 +208,9 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
         //document.querySelector('#side-subnav .body .content').innerHTML = settingsContent();
         // if notes
     } else {
+        // display search input
+        document.querySelector('#search-input').classList.remove('invisible');
+
         print(
             applyTemplate(
                 applyFilter(
