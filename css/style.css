@@ -315,11 +315,8 @@ button:focus {
 .subnavList .item {
     font-size: 20px;   
     padding: 10px;
-    /*border:rgb(199, 199, 199) solid 1px;*/
     transition-duration: .3s;
     white-space: nowrap;
-    /*display: flex;
-    flex-wrap: wrap;*/
     background: linear-gradient(rgba(0,0,0,0) 60%, #F4F4F4);
     min-height: 90px;
     border-radius: 10px;
@@ -527,6 +524,14 @@ button:focus {
         height: auto !important;
     }
 } 
+
+@media only screen and (max-width: 1100px){
+    #title-input{
+        width: 800px;
+        margin-left: 100px;
+    }    
+}
+
 @media only screen and (max-width: 731px) {
 
     body{
