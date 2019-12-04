@@ -35,38 +35,27 @@ div.ql-toolbar.ql-snow {
   border: 1px solid lightgray;
   border-top: none;
   min-height: 800px;
+  max-width: 900px;
 }
 
-@media only screen and (max-width: 1100px){
-  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
-/*     -webkit-box-shadow: 0;
-    -moz-box-shadow: 0;
-    box-shadow: none;
-    margin: 0;
-    padding: 0;
-    padding-top: 100px; */
-    width: 800px;
-    margin-left: 100px;
-    padding: 50px;
-  }
-}
+/* Mobile */
+
 @media only screen and (max-width: 732px){
   div.ql-toolbar.ql-snow{
+    flex-wrap: wrap;
   z-index: 1;
   position: fixed;
-  left: -59px;
   transform: translateX();
   width: 100%;
-  bottom: 76px;
+  bottom: 75px;
   padding: 10px;
   }
+
   #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
     box-shadow: none;
     margin: 0;
-    padding: 0;
-    padding-top: 100px;
+    padding: 50px 10px 150px 10px;
     width: 100%;
-    padding-right: 10px;
     font-size: 2em;
   }
 
@@ -77,20 +66,4 @@ div.ql-toolbar.ql-snow {
   #editorContainer > div.ql-toolbar.ql-snow{
     padding-top: 15px;
   }
-
-  }
-
-/* @media only screen and (max-width: 1000px) {
-      #editor > div.ql-editor.ql-blank{
-        margin: 0 10%; 
-        width: 1000px;
-    }
-    body > div.ql-toolbar.ql-snow{
-        width: 1200px;
-    }  
-    
-  } 
-*/
-
-
-  
+}

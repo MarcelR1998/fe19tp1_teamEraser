@@ -40,6 +40,7 @@ body {
     color: var(--font-color);
     background: var(--bg-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 900px;
 }
 
 
@@ -75,7 +76,7 @@ body {
     font-size: 20px;
     top: 5px;
     right: 5px;
-    margin-right: 3px;   
+    margin-right: 3px;
 }
 
 .exithidden:hover{
@@ -173,12 +174,10 @@ button:focus {
 
 #bottom-buttons{
     display: flex;
-    flex-direction: row;
     height: 24px;
     position: fixed;
     top: 12px;
     z-index: 3;
-    width: 300px;
 }
 
 .top-buttons{
@@ -186,13 +185,6 @@ button:focus {
     border: 1px solid rgb(179, 179, 179);
     cursor: pointer;
     width: 100px;
-}
-
-.top-buttons-font{
-    background: white;
-    border: none;
-    width: 99px;
-    cursor: pointer;
 }
 
 /*Editor container*/
@@ -410,6 +402,12 @@ button:focus {
 
 #dropdown{
     z-index: 2;
+    font-size: 13px;
+    text-align: center;
+}
+
+#dropdown-options{
+    display: none;
 }
 
 #dropdown ul{
@@ -418,25 +416,27 @@ button:focus {
     height: 100%;
 }
 
-#dropdown ul:hover {
+#dropdown ul li{
+    width: 98px;
+    background-color: white;
+    padding-top: 3px;
+}
+
+#dropdown:hover #dropdown-options {
+    display: block;
     cursor: pointer;
 }
 
-#dropdown ul li{
-    text-align: center;
-    font-size: 13px;
+#dropdown:hover #dropdown-options li{
     border: 1px solid rgb(173, 173, 173);
-    width: 100%;
-    height: inherit;
+    height: 24px;
 }
 
-#dropdown ul ul{
-    display: none;
-}
-
-#dropdown ul li:hover > ul {
-    display: block;
-    margin-top: 5px;
+.top-buttons-font{
+    background: white;
+    border: none;
+    width: inherit;
+    cursor: pointer;
 }
 
 .nightModeTheme {
@@ -445,10 +445,6 @@ button:focus {
 }
 
 /* Print */
-
-@page {
-    /* size: landscape; */
-}
 
 @media print {
     #side-nav,
@@ -486,20 +482,22 @@ button:focus {
     }
 } 
 
-@media only screen and (max-width: 1100px){
-    #title-input{
-        width: 800px;
-        margin-left: 100px;
-    }    
-}
-
 /*Mobile view*/
 
 @media only screen and (max-width: 731px) {
 
+    #editorContainer{
+        margin-left: 0;
+    }
+
     #title-input {
         height: 34px;
         font-size: 30px;
+        margin: 0;
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+        border: none;
     }
 
     #bottom-buttons {
