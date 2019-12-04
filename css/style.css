@@ -33,14 +33,19 @@ body {
     padding: 3px;
     flex-basis: 100%;
     margin: 100px 20% 0;
-    border: 1px solid lightgray;
-    border-bottom: none;
+    /*border: 1px solid lightgray;
+    border-bottom: none;*/
+    border: none;
     text-align: center;
     font-size: x-large;
     color: var(--font-color);
     background: var(--bg-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     max-width: 900px;
+}
+
+#title-input:focus {
+        outline: none;
 }
 
 
@@ -498,6 +503,7 @@ button:focus {
         z-index: 1;
         width: 100%;
         border: none;
+        
     }
 
     #bottom-buttons {

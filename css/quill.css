@@ -29,10 +29,12 @@ div.ql-toolbar.ql-snow {
 }  
 
 #editor > div.ql-editor.ql-blank, #editor > div.ql-editor {
-  padding: 100px;
-  padding-top: 100px;
+  /*padding: 100px;
+  padding-top: 100px;*/
+  padding: 30px;
   margin: 0 20% 50px;
-  border: 1px solid lightgray;
+  /*border: 1px solid lightgray;*/
+  border: none;
   border-top: none;
   min-height: 800px;
   max-width: 900px;
