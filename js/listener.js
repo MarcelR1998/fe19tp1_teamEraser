@@ -79,6 +79,15 @@ const applyEars = () => {
     });
 
 
+    /// NOTE TITLE
+    document.querySelector('#title-input').addEventListener('keyup', (e) => {
+        // on enter focus on editor field
+        if (e.keyCode === 13) {
+            document.querySelector('#editor .ql-editor.ql-blank').focus();
+        }
+    });
+
+
     /// EDITOR
     document.querySelector('#editorContainer').addEventListener('click', (e) => {
         // if subnav is open, close it
