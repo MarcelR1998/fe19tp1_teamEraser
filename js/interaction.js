@@ -56,8 +56,8 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     const activeFilter = title.toLowerCase();
 
 
-    
-    
+
+
 
     /* FUNCS
     *********/
@@ -117,14 +117,14 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
             </li>`,
         settings: (item) =>
             `<li class="item setting">
-                <div id="${item.id}" class="${item.classes}">
+                <div id="${item.id}-container" class="${item.classes}">
                     <p class="name">${item.name}</p>
                     <label class="switch settingsToggle">
-                        <input type="checkbox"/>
-                        <span class="slider round"></span>     
+                        <input id="${item.id}" class="settingsSwitch" type="checkbox"/>
+                        <span class="slider round"><i class="fas fa-moon"></i></span>      
                     </label>
                 </div>
-            <li>`
+            </li>`
     }
 
     // apply template
@@ -189,15 +189,21 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
 
         // print settings template...
         print(
-            applyTemplate(app.settingsTab, 'settings'), 
+            applyTemplate(app.settings.tabContent, 'settings'),
             'subnavList'
         );
 
+        // show autosave status
+        if (autosaveStatus()) {
+            document.querySelector('#autoSave').checked = true;
+
+            app.settings.icon.update(autosaveStatus());
+        }
 
         return;
         //document.querySelector('#side-subnav .body .content').innerHTML = settingsContent();
-    // if notes
-    }else{
+        // if notes
+    } else {
         print(
             applyTemplate(
                 applyFilter(
@@ -208,11 +214,11 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
         );
 
         // be ready to load specific note in editor
-        applyListener('ul.noteList li', 'click');
+        applyListener('ul.subnavList li', 'click');
     }
-    
 
-    
+
+
 
     // if search-input has value, search
     if (document.querySelector('#search-input').value.length > 0) {
