@@ -230,39 +230,3 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     }
 
 } // renderSubnav()
-
-
-
-/// INIT APP SETTINGS
-const initSettings = (instanceOf = app) => {
-    // fill settings content
-    instanceOf.settings.tabContent = [
-        {
-            id: 'autoSave',
-            classes: '',
-            name: 'Autosave'
-        },
-        {
-            id: 'darkMode',
-            classes: '',
-            name: 'Darkmode'
-        }
-    ];
-
-    // set settings toggleBtns
-    instanceOf.settings.toggleIcons = {
-        true: 'fas fa-sun',
-        false: 'fas fa-moon',
-        update: (status) => {
-            console.log('updating toggleicon based on', status)
-            if (!status) {
-                document.querySelector('#autoSave-container i').className = instanceOf.settings.toggleIcons.false;
-            } else {
-                document.querySelector('#autoSave-container i').className = instanceOf.settings.toggleIcons.true;
-            }
-        }
-    }
-
-    // set autosave-status
-    setAutosave(instanceOf.state.autoSave);
-}
