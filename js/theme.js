@@ -25,9 +25,21 @@ document.addEventListener("click", function (e) {
     }
 });
 
-
+/*
 const darkModeToggle = (clickedElem) => {
     let status = clickedElem.checked;
     console.log('darkmode:', clickedElem.checked);
-}
+}*/
 
+const darkModeToggle = (clickedElem) => {
+    let status = clickedElem.checked;
+    console.log('darkmode is now: ', clickedElem.checked);
+    if (status === true) {
+
+        document.getElementById("darksheet").href = "css/darktheme.css"
+    }
+    else {
+
+        document.getElementById("darksheet").href = "/";
+    }
+}

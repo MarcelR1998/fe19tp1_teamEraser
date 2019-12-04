@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Quire</title>
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/print.css">
     <link rel="stylesheet" href="css/toggleBtn.css">
     <link href="https://fonts.googleapis.com/css?family=McLaren&display=swap" rel="stylesheet">
+    <link id="darksheet" rel="stylesheet" href="/">
+
     <script src="https://kit.fontawesome.com/d82255b79b.js" crossorigin="anonymous"></script>
 </head>
 
@@ -41,7 +44,7 @@
                 <button class="side-nav-btn" id="all" data-title="all"><i class="fas fa-sticky-note"></i></button>
                 <button class="side-nav-btn" id="favorites" data-title="favorites"><i class="fa fa-star"></i></button>
                 <!-- <button class="side-nav-btn" id="stats" data-title="stats"><i class="fa fa-chart-bar"></i></button> -->
-                <button class="side-nav-btn" id="settings" data-title="settings"><i class="fas fa-cog"></i></button> 
+                <button class="side-nav-btn" id="settings" data-title="settings"><i class="fas fa-cog"></i></button>
             </div>
         </div>
         <div id="side-subnav" data-open="false">
@@ -51,9 +54,9 @@
                 <input type="text" id="search-input" placeholder="search" />
                 <div class="content"></div>
             </div>
-        <!-- <span id= "darktheme" class=" settingsToggle" >Darktheme  <i class="fas fa-toggle-off"></i> </span> -->
-    </div>
-    
+            <!-- <span id= "darktheme" class=" settingsToggle" >Darktheme  <i class="fas fa-toggle-off"></i> </span> -->
+        </div>
+
         <!-- Text Editor -->
         <div id="editorContainer" class="document">
             <input type="text" id="title-input" placeholder="Nameless document...">
@@ -114,4 +117,5 @@
     <!-- Print -->
     <script src="js/print.js"></script>
 </body>
+
 </html>

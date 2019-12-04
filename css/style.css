@@ -37,7 +37,8 @@ body {
     border-bottom: none;
     text-align: center;
     font-size: x-large;
-    color: lightgray;
+    color: var(--font-color);
+    background: var(--bg-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -74,8 +75,7 @@ body {
     font-size: 20px;
     top: 5px;
     right: 5px;
-    margin-right: 3px;
-    
+    margin-right: 3px;   
 }
 
 .exithidden:hover{
@@ -214,6 +214,8 @@ button:focus {
     flex-wrap: wrap;
     padding: 0;
     margin-left: 75px;
+    background-color: var(--bg-color);
+    color: var(--font-color);
 }
 
 /*
