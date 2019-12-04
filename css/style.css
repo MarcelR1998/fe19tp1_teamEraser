@@ -18,6 +18,10 @@
     --subnav-bg: #E6E6E6;
     --subnav-item-bg: linear-gradient(rgba(0,0,0,0) 60%, #F4F4F4);
 
+    --search-bg: white;
+    --search-color:black;
+    --search-placeholder-color: #818181;
+
     --settings-toggle-false: #555;
     --settings-toggle-true: #E6E6E6;
 }
@@ -263,12 +267,18 @@ button:focus {
     padding: 5px;
     border: none;
     border-radius: 10px;
+    background: var(--search-bg);
+    color: var(--search-color);
 }
 
 #search-input:focus{
     outline: none;
     border: none;
     border-radius: 10px;
+}
+
+#search-input::placeholder{
+    color: var(--search-placeholder-color);
 }
 
 #side-subnav > * {

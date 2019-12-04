@@ -1,3 +1,5 @@
+const theme = document.querySelector('#editor');
+
 // toggle darkMode status
 const darkModeToggle = () => {
     // toggle status in LS

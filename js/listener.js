@@ -71,8 +71,10 @@ const applyEars = () => {
                     darkModeToggle();
                 }
             }
+            // search
         } else if (e.target.id === 'search-input') {
             console.log('ready to search...');
+            // note title
         } else {
             closeSubnav();
         }
@@ -80,6 +82,18 @@ const applyEars = () => {
 
 
     /// NOTE TITLE
+    document.querySelector('#title-input').addEventListener('click', (e) => {
+        if (e.target.innerHTML.length < 1) {
+            e.target.setAttribute('placeholder', '');
+        }
+    });
+
+    document.querySelector('#title-input').addEventListener('focusout', (e) => {
+        if (e.target.innerHTML.length < 1) {
+            e.target.setAttribute('placeholder', 'Nameless document...');
+        }
+    });
+
     document.querySelector('#title-input').addEventListener('keyup', (e) => {
         // on enter focus on editor field
         if (e.keyCode === 13) {

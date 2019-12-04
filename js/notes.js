@@ -13,7 +13,7 @@ class Note {
         this.text = app.quill.getText(0, 30);
         this.content = app.quill.getContents();
         this.favorite = false;
-        this.theme = theme;
+        this.theme = app.editor;
 
         // set global var active id to this
         app.activeId = this.id;

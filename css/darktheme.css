@@ -19,6 +19,10 @@
     --subnav-bg: #0D0F11;
     --subnav-item-bg: linear-gradient(rgba(0,0,0,0) 60%, #0D0F11);
 
+    --search-bg: #818181;
+    --search-color: black;
+    --search-placeholder-color: #0D0F11;
+
     --settings-toggle-false: #333;
     --settings-toggle-true: #818181;
 }
