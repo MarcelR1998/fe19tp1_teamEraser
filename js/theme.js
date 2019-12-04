@@ -1,45 +1,37 @@
+// toggle darkMode status
+const darkModeToggle = () => {
+    // toggle status in LS
+    localStorage.setItem('darkMode', !getDarkModeStatus());
+
+    // show the right icon
+    updatedarkModeStatus();
+}
 
 
-let theme = document.querySelector("#editor");
-let lightmode = document.getElementById("lightmode");
-let darkmode = document.getElementById("darkmode");
-let nightmode = document.getElementById("nightmode");
+// get darkModeStatus from LS
+const getDarkModeStatus = () => {
+    let res = JSON.parse(localStorage.getItem('darkMode')) || false;
+    return res;
+}
 
-document.addEventListener("click", function (e) {
-    if (e.target.classList.contains("lightmode")) {
-        theme.classList.remove("darkModeTheme");
-        theme.classList.remove("nightModeTheme");
-        console.log("loaded sans-serif font template");
-    }
 
-    if (e.target.classList.contains("darkmode")) {
-        theme.classList.remove("nightModeTheme");
-        theme.classList.add("darkModeTheme");
-        console.log("loaded quirky font template")
-    }
+// update DOM based on darkMode status in LS
+const updatedarkModeStatus = () => {
+    let icon = document.querySelector('#darkMode') || false;
 
-    if (e.target.classList.contains("nattläge")) {
-        theme.classList.remove("darkModeTheme");
-        theme.classList.add("nightModeTheme");
-        console.log("loaded serif font template")
-    }
-});
-
-/*
-const darkModeToggle = (clickedElem) => {
-    let status = clickedElem.checked;
-    console.log('darkmode:', clickedElem.checked);
-}*/
-
-const darkModeToggle = (clickedElem) => {
-    let status = clickedElem.checked;
-    console.log('darkmode is now: ', clickedElem.checked);
-    if (status === true) {
-
+    if (getDarkModeStatus()) {
         document.getElementById("darksheet").href = "css/darktheme.css"
-    }
-    else {
-
+        if (icon) {
+            icon.checked = true;
+            document.querySelector('#darkMode-container i').className = 'fas fa-sun';
+        }
+    } else {
         document.getElementById("darksheet").href = "/";
+        if (icon) {
+            icon.checked = false;
+            document.querySelector('#darkMode-container i').className = 'fas fa-moon';
+        }
     }
 }
+
+

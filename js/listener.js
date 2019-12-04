@@ -68,7 +68,7 @@ const applyEars = () => {
                 if (e.target.id === 'autoSave') {
                     autosaveToggle();
                 } else if (e.target.id === 'darkMode') {
-                    darkModeToggle(e.target);
+                    darkModeToggle();
                 }
             }
         } else if (e.target.id === 'search-input') {

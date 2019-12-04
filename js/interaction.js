@@ -6,6 +6,7 @@
 
 /// DISPLAY SUBNAV
 const openSubnav = (subnavTitle) => {
+
     // add shadow-style on open
     const sidenav = document.querySelector('#side-nav');
     sidenav.style.transitionDuration = '.3s';
@@ -145,6 +146,8 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
                 ${content}
             </ul>`;
 
+        // darkMode?
+        updatedarkModeStatus();
     }
 
     // Apply listener to load note on click

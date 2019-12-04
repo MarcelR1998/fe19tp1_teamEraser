@@ -34,6 +34,9 @@ const app = {
         // run preset for app settings
         initSettings();
 
+        // darkMode?
+        updatedarkModeStatus();
+
         // set listeners for autosave
         applyEars();
 
