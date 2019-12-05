@@ -146,6 +146,11 @@ const applyEars = () => {
         closeSubnav();
     });
 
+    // DYNAMIC EDITOR HEIGHT
+    window.onresize = (e) => {
+        updateEditorHeight();
+    }
+
 
 
     // BOTTOM-BUTTONS

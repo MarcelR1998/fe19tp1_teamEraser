@@ -65,6 +65,34 @@ const initQuill = (instanceOf = app, id = '#editor', toolPreset = toolbarOptions
 /// CLEAR EDITOR
 const clearNote = () => {
     app.quill.deleteText(0, 999);
-    document.querySelector("#title-input").value = ""; 
+    document.querySelector("#title-input").value = "";
 }
 
+
+
+/// DYNAMIC EDITOR HEIGHT
+const updateEditorHeight = () => {
+    // current dimensions
+    let bodyH = document.body.clientHeight,
+        bodyW = document.body.clientWidth;
+
+    // if toolbar is at top (wide screens), bail...
+    if (bodyW > 732) { return; }
+
+    // set bottom position (based on toolbar rows)
+    let bottomSpace = 180;
+    //
+    if (bodyW <= 241) {
+        bottomSpace = 290;
+    } else if (bodyW <= 327) {
+        bottomSpace = 255;
+    } else if (bodyW <= 628) {
+        bottomSpace = 215;
+    }
+
+    // new height
+    let res = (bodyH - bottomSpace) + 'px';
+
+    // set it
+    let editor = document.querySelector('#editor .ql-editor').style.height = res;
+}

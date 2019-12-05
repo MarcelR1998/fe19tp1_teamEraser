@@ -34,4 +34,8 @@ const initSettings = (program = app) => {
 
     // set autosave-status
     setAutosave(program.state.autoSave);
+
+
+    // set editor height (when toolbar at bottom)
+    updateEditorHeight();
 }

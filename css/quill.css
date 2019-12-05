@@ -61,7 +61,8 @@ div.ql-toolbar.ql-snow {
   }
 
   #editor {
-    padding-top: 50px;
+    padding-top: 50px!important;
+    margin-left: auto;
   }
 
   div.ql-toolbar.ql-snow{
@@ -72,6 +73,7 @@ div.ql-toolbar.ql-snow {
   width: 100%;
   bottom: 55px;
   padding: 10px;
+  padding-top: 15px;
   }
 
   #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
@@ -81,15 +83,11 @@ div.ql-toolbar.ql-snow {
     padding: 0px 10px 150px 10px;
     width: 100%;
     font-size: 2em;
+
+    min-height: unset;
+    height: 68%;
   }
 
-  #editor{
-    margin-left: auto;
-  }
-  
-  #editorContainer > div.ql-toolbar.ql-snow{
-    padding-top: 15px;
-  }
 }
 
 div.ql-toolbar.ql-snow{
@@ -101,18 +99,27 @@ div.ql-toolbar.ql-snow .ql-formats{
 }
 
 @media only screen and (max-width: 628px){
+  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
+    height: 64%;
+  }
   div.ql-toolbar.ql-snow{
     bottom: 90px;
   }
 }
 
 @media only screen and (max-width: 327px){
+  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
+    height: 58%;
+  }
   div.ql-toolbar.ql-snow{
     bottom: 130px;
   }
 }
 
 @media only screen and (max-width: 241px){
+  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
+    height: 54%;
+  }
   div.ql-toolbar.ql-snow{
     bottom: 165px;
   }
