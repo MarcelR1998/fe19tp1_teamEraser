@@ -175,7 +175,13 @@ const applyEars = () => {
         app.quill.on('text-change', autoSave);
 
         // on title-changes
-        document.querySelector('#title-input').addEventListener('change', autoSave);
+        document.querySelector('#title-input').addEventListener('change', (e) => {
+            // update untitled-status
+            untitled();
+
+            // autosave (if on in settings)
+            autoSave();
+        });
     })();
 
 

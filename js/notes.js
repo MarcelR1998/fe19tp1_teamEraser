@@ -252,3 +252,9 @@ const autoSave = () => {
     // else, save
     saveNote();
 }
+
+const untitled = () => {
+    document.querySelector('#title-input').dataset.untitled =
+        document.querySelector('#title-input').value.length < 1
+            ? true : false;
+}

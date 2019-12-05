@@ -82,11 +82,11 @@ const updateEditorHeight = () => {
     // set bottom position (based on toolbar rows)
     let bottomSpace = 180;
     //
-    if (bodyW <= 241) {
+    if (bodyW <= 261) {
         bottomSpace = 290;
-    } else if (bodyW <= 327) {
+    } else if (bodyW <= 347) {
         bottomSpace = 255;
-    } else if (bodyW <= 628) {
+    } else if (bodyW <= 648) {
         bottomSpace = 215;
     }
 

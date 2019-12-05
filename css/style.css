@@ -532,12 +532,23 @@ button:focus {
     i,
     button,
     #editorContainer>div.ql-toolbar.ql-snow,
-    #title-input,
+    /* Include the title if NOT untitled */
+    #title-input[data-untitled='true'],
     #dropdown,
     .popup,
     .blur,
     #dropdown-options {
         display: none;
+    }
+
+     /* edits when incl title */
+    #title-input{
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%;
+        text-align: center;
+        margin: 0!important;
+        padding: 0;
     }
 
 
@@ -555,6 +566,12 @@ button:focus {
         overflow: hidden !important;
         height: auto !important;
         margin: 0 !important;
+
+        /* edits when incl title */
+        position: absolute;
+        left: 0; top: 80px;
+        width: 100%;
+        padding: 0 50px!important;
     }
 } 
 
