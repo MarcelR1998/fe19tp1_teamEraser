@@ -205,6 +205,7 @@ button:focus {
     font-size: 30px;
 }
 
+
     /*Buttons above toolbar*/
 
 #bottom-buttons{
@@ -320,6 +321,7 @@ button:focus {
     cursor: pointer;
     padding: 0;
 }
+
 
 @media screen and (max-height: 450px) {
     #side-subnav {
@@ -565,7 +567,7 @@ button:focus {
         margin: 0;
         height: 75px;
         width: 100%;
-        background-color: rgb(0, 83, 146);
+        background-color: var(--nav-bg);
     }
 
     #side-nav-buttons{
@@ -603,7 +605,7 @@ button:focus {
         z-index: 4;
         top: 0;
         left: 0;
-        background-color: rgb(230, 230, 230);
+        background-color: var(--subnav-bg);
         overflow-x: hidden;
         transition: 0.5s;
         padding-top: 60px;
