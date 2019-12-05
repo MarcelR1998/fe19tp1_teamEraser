@@ -36,7 +36,7 @@ const prepForNewNote = () => {
     editor.className = "ql-container ql-snow";
 
     // auto-focus on editor
-    document.querySelector('#editor .ql-editor.ql-blank').focus();
+    document.querySelector('#title-input').focus();
 }
 
 
