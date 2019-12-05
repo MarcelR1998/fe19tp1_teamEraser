@@ -18,7 +18,9 @@ const openSubnav = (subnavTitle) => {
     // roll in the nav
     const subnav = document.querySelector("#side-subnav");
     if (subnav.dataset.open === 'false') {
-        subnav.style.width = "250px";
+        let screenW = document.body.clientWidth;
+        let subnavW = screenW > 731 ? '250px' : '100vw';
+        subnav.style.width = subnavW;
         subnav.dataset.open = true;
     }
 }
