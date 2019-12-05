@@ -5,14 +5,20 @@
 
 @import "~quill/dist/quill.core.css";
 
+#title-input {
+  margin: 50px 0 0;
+}
 
 #editor {
-  height: auto;
+  /* height: auto; fixed height and overflow scroll */
+  height: 100vh;
+  overflow-y: scroll;
   min-height: 800px;
   border-left: none;
   border-right: none;
   border-bottom: none;
   flex-basis: 100%;
+  padding-top: 0;
 }
 
 div.ql-toolbar.ql-snow {
@@ -26,14 +32,15 @@ div.ql-toolbar.ql-snow {
   height: 75px;
   padding: 0;
   padding-top: 40px;
-  border: var(--border);
+  border: var(--toolbar-border);
 }  
 
 
 
 
 #editor > div.ql-editor.ql-blank, #editor > div.ql-editor {
-  padding: 30px;
+  /* padding: 30px; little less on y */
+  padding: 0 30px;
   margin: 0 20% 50px;
   border: none;
   border-top: none;
@@ -49,6 +56,14 @@ div.ql-toolbar.ql-snow {
 /* Mobile */
 
 @media only screen and (max-width: 732px){
+  #title-input {
+    margin: 0;
+  }
+
+  #editor {
+    padding-top: 50px;
+  }
+
   div.ql-toolbar.ql-snow{
     flex-wrap: wrap;
   z-index: 1;
@@ -62,7 +77,8 @@ div.ql-toolbar.ql-snow {
   #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
     box-shadow: none;
     margin: 0;
-    padding: 50px 10px 150px 10px;
+    /*padding: 50px 10px 150px 10px; padding på föräldern ist. */
+    padding: 0px 10px 150px 10px;
     width: 100%;
     font-size: 2em;
   }
