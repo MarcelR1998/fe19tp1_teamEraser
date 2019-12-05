@@ -38,6 +38,8 @@ body {
     font-family: 'Roboto',
     sans-serif;
     height: 100vh;
+    overflow: hidden;
+    background: var(--bg-color);
 }
 
 /*Logo*/
@@ -148,8 +150,9 @@ body {
 }
 
 /*Pushes sub-nav menu up to align better, not very important.*/
-.body {
+#side-subnav .body {
     transform: translateY(-26px);
+    margin-bottom: 100px;
 }
 
 .main-page{
