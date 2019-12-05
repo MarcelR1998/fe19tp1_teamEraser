@@ -62,8 +62,6 @@ body {
     padding: 3px;
     flex-basis: 100%;
     margin: 100px 20% 0;
-    /*border: 1px solid lightgray;
-    border-bottom: none;*/
     border: none;
     text-align: center;
     font-size: x-large;
@@ -448,15 +446,20 @@ button:focus {
  
 /* Fonts */
 
-.lightmodeTheme{
+.font-roboto{
     font-family: 'Roboto',
     sans-serif
      !important;
 }
 
-.darkModeTheme {
+.font-courgette{
    font-family: 'Courgette',
    cursive !important;
+}
+
+.font-vollkorn{
+    font-family: 'Vollkorn',
+    serif !important;
 }
 
 /* Drop down fonts */
@@ -505,15 +508,15 @@ button:focus {
     background-color: #005492;
 }
 
+#dropdown:hover .top-buttons-font{
+    height: 60px;
+    width: 62px;
+}
+
 .top-buttons-font{
     background-color: #005492;
     border: none;
     cursor: pointer;
-}
-
-.nightModeTheme {
-    font-family: 'Vollkorn',
-    serif !important;
 }
 
 /* Print */

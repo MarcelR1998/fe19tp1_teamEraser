@@ -8,14 +8,14 @@
 /// ACTION BUTTONS
 //let saveNoteBtn = document.querySelector('#save-note');
 let autoSaveBtn = document.querySelector('#auto-save');
-//let clearNoteBtn = document.querySelector('#clear-text');
+let clearNoteBtn = document.querySelector('#clear-text');
 
 /*saveNoteBtn.addEventListener("click", saveNote);
 autoSaveBtn.addEventListener('click', (e) => {
     toggleAutoSave();
 });*/
 
-//clearNoteBtn.addEventListener("click", clearNote);
+clearNoteBtn.addEventListener("click", clearNote);
 
 const applyEars = () => {
 

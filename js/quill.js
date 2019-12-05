@@ -65,5 +65,6 @@ const initQuill = (instanceOf = app, id = '#editor', toolPreset = toolbarOptions
 /// CLEAR EDITOR
 const clearNote = () => {
     app.quill.deleteText(0, 999);
+    document.querySelector("#title-input").value = ""; 
 }
 

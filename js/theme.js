@@ -46,4 +46,22 @@ const updatedarkModeStatus = () => {
     }
 }
 
+document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("font-change-roboto")) {
+        theme.classList.remove("font-courgette");
+        theme.classList.remove("font-vollkorn");
+        console.log("loaded sans-serif font template");
+    }
 
+    if (e.target.classList.contains("font-change-courgette")) {
+        theme.classList.remove("font-vollkorn");
+        theme.classList.add("font-courgette");
+        console.log("loaded quirky font template")
+    }
+
+    if (e.target.classList.contains("font-change-vollkorn")) {
+        theme.classList.remove("font-courgette");
+        theme.classList.add("font-vollkorn");
+        console.log("loaded serif font template")
+    }
+});
