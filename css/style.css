@@ -210,17 +210,26 @@ button:focus {
 
 #bottom-buttons{
     display: flex;
-    height: 24px;
-    position: fixed;
-    top: 12px;
+    height: 100vh;
+    position: absolute;
     z-index: 3;
+    flex-direction: column;
+    justify-content: space-evenly;
+    right: 5%;
 }
 
 .top-buttons{
-    background: white;
+    background-color: #005492;
     border: 1px solid rgb(179, 179, 179);
     cursor: pointer;
-    width: 100px;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+
+.top-buttons :nth-child(1){
+    font-size: x-large;
+    color: white;
 }
 
 /*Editor container*/
@@ -456,38 +465,49 @@ button:focus {
     z-index: 2;
     font-size: 13px;
     text-align: center;
+    list-style-type: none;
+}
+
+#dropdown-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+    height: 62px;
+    border-radius: 100%;
+    background-color: #005492;
+    color: white;
 }
 
 #dropdown-options{
     display: none;
 }
 
-#dropdown ul{
-    list-style: none;
-    background-color: white;
-    height: 100%;
-}
-
-#dropdown ul li{
-    width: 98px;
-    background-color: white;
-    padding-top: 3px;
-}
+#dropdown-options li{
+    background-color: #005492;
+}   
 
 #dropdown:hover #dropdown-options {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     cursor: pointer;
+    border-radius: 5px;
+    height: 200px;
+    width: 62px;
+    background-color: #005492;
 }
 
 #dropdown:hover #dropdown-options li{
-    border: 1px solid rgb(173, 173, 173);
-    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #005492;
 }
 
 .top-buttons-font{
-    background: white;
+    background-color: #005492;
     border: none;
-    width: inherit;
     cursor: pointer;
 }
 
@@ -505,32 +525,29 @@ button:focus {
     i,
     button,
     #editorContainer>div.ql-toolbar.ql-snow,
-    #title-and-favorites,
+    #title-input,
     #dropdown,
     .popup,
-    .blur {
+    .blur,
+    #dropdown-options {
         display: none;
     }
 
 
     #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
-        -webkit-box-shadow: none !important;
-        -moz-box-shadow: none !important;
-        box-shadow: none !important;
-
+        border: none !important;
         z-index: 2147483647 !important;
-        width: 900px !important;
+        width: auto !important;
         height: 100% !important;
-
         margin: 0 !important;
-        padding: 50px !important;
+        padding: 0 !important;
     }
 
     #editor{
-        margin: -50px !important;
         padding: 0 !important;
         overflow: hidden !important;
         height: auto !important;
+        margin: 0 !important;
     }
 } 
 
@@ -549,13 +566,7 @@ button:focus {
         position: fixed;
         z-index: 1;
         width: 100%;
-        border: none;
-        
-    }
-
-    #bottom-buttons {
-        left: 425px !important;
-        height: 42px;
+        border: none; 
     }
 
     #side-nav {
