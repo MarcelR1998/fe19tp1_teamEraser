@@ -29,13 +29,10 @@ div.ql-toolbar.ql-snow {
   position: fixed;
   flex-basis: 100%;
   width: inherit;
-  height: 75px;
-  padding: 0;
-  padding-top: 40px;
+  height: auto;
+  padding: 15px 0 0;
   border: var(--toolbar-border);
 }  
-
-
 
 
 #editor > div.ql-editor.ql-blank, #editor > div.ql-editor {
@@ -48,9 +45,16 @@ div.ql-toolbar.ql-snow {
   max-width: 900px;
 }
 
+
+div.ql-toolbar.ql-snow .ql-formats{
+  margin-bottom: 15px;
+}
+
 .ql-picker-options {
-  background: var(--bg-color)!important;
+  background: var(--toolbar-bg)!important;
   border: var(--border)!important;
+  left: unset;
+  right: 0;
 }
 
 /* Mobile */
@@ -88,15 +92,13 @@ div.ql-toolbar.ql-snow {
     height: 68%;
   }
 
+  .ql-picker-options {
+    top: unset!important;
+    bottom: 30px;
+  }
+
 }
 
-div.ql-toolbar.ql-snow{
-  padding: 15px 0;
-}
-
-div.ql-toolbar.ql-snow .ql-formats{
-  margin-bottom: 15px;
-}
 
 @media only screen and (max-width: 628px){
   #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
