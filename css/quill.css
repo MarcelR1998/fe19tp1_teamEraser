@@ -58,7 +58,7 @@ div.ql-toolbar.ql-snow {
   position: fixed;
   transform: translateX();
   width: 100%;
-  bottom: 75px;
+  bottom: 55px;
   padding: 10px;
   }
 
@@ -76,5 +76,31 @@ div.ql-toolbar.ql-snow {
   
   #editorContainer > div.ql-toolbar.ql-snow{
     padding-top: 15px;
+  }
+}
+
+div.ql-toolbar.ql-snow{
+  padding: 15px 0;
+}
+
+div.ql-toolbar.ql-snow .ql-formats{
+  margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 628px){
+  div.ql-toolbar.ql-snow{
+    bottom: 90px;
+  }
+}
+
+@media only screen and (max-width: 327px){
+  div.ql-toolbar.ql-snow{
+    bottom: 130px;
+  }
+}
+
+@media only screen and (max-width: 241px){
+  div.ql-toolbar.ql-snow{
+    bottom: 165px;
   }
 }
