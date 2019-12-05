@@ -23,6 +23,7 @@ const app = {
 
     state: {
         autoSave: true,
+        activeSubnav: false,
         deleteRequested: false
     },
 

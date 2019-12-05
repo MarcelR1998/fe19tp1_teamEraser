@@ -43,25 +43,60 @@ const applyEars = () => {
     document.querySelector('#side-subnav').addEventListener('click', (e) => {
         // close subnav on click anywhere but:
         // favStar
+
+        // hide delete popup, if already up
+        if (app.state.deleteRequested && app.state.activeSubnav !== 'settings') {
+            document.querySelector(`#note-${app.state.deleteRequested} .deletePopup`).classList.add('invisible');
+        }
+
         if (e.target.classList.contains('favoriteNote')) {
-            updateFavStatus(e.target.closest('li').dataset.noteId);
+            updateFavStatus(e.target.closest('li.note').dataset.noteId);
+
             // delete btn
         } else if (e.target.classList.contains("deleteNote")) {
-            if (!app.state.deleteRequested) {
-                let confirmDeleteDiv = document.createElement("div");
-                confirmDeleteDiv.id = "confirmDeleteDiv"
-                confirmDeleteDiv.innerHTML = '<button id="confirmDelete" >delete</button><button id="cancelDelete" >cancel</button>'
-                e.target.closest('li').appendChild(confirmDeleteDiv)
-                app.state.deleteRequested = true;
+            // display delete popup for clicked note
+            let noteId = e.target.closest('li.note').dataset.noteId;
+            document.querySelector(`#deletePopup-${noteId}`).classList.remove('invisible');
+
+            // update delete requested id
+            app.state.deleteRequested = noteId;
+
+            // confirm delete
+        } else if (e.target.classList.contains('confirmDelete')) {
+            // get note to delete and note to load after    
+            let deleteID = Number(e.target.closest('li.note').dataset.noteId);
+
+            let domIDs = (() => {
+                let nodes = document.querySelectorAll('li.note');
+                let res = [];
+                nodes.forEach((node, nth) => {
+                    res.push(Number(node.dataset.noteId));
+                });
+                return res;
+            })();
+
+            // if exists, get next or prev note in DOM
+            let noteToLoad = domIDs[(domIDs.indexOf(deleteID)) + 1]
+                || domIDs[(domIDs.indexOf(deleteID)) - 1]
+                || false;
+
+            // delete note
+            deleteNote(deleteID);
+            app.state.deleteRequested = false;
+
+            // load next/prev note in list if exists, else prep for new
+            if (noteToLoad) {
+                loadNote(noteToLoad)
+            } else {
+                prepForNewNote();
             }
-            //confirm delete
-        } else if (e.target.id === "confirmDelete") {
-            deleteNote(Number(e.target.closest('li').dataset.noteId));
-            app.state.deleteRequested = false;
+
             //cancel delete
-        } else if (e.target.id === "cancelDelete") {
-            e.target.closest('li').removeChild(confirmDeleteDiv);
+        } else if (e.target.classList.contains('cancelDelete')) {
+            let noteId = e.target.closest('li.note').dataset.noteId;
+            document.querySelector(`#deletePopup-${noteId}`).classList.add('invisible');
             app.state.deleteRequested = false;
+
             // settings-toggle
         } else if (e.target.closest('label.settingsToggle') != null) {
             if (e.target.classList.contains('settingsSwitch')) {
@@ -71,12 +106,15 @@ const applyEars = () => {
                     darkModeToggle();
                 }
             }
+
             // search
         } else if (e.target.id === 'search-input') {
-            console.log('ready to search...');
-            // note title
+            // search...
+
+            // else close subnav
         } else {
             closeSubnav();
+            app.state.deleteRequested = false;
         }
     });
 
@@ -97,7 +135,7 @@ const applyEars = () => {
     document.querySelector('#title-input').addEventListener('keyup', (e) => {
         // on enter focus on editor field
         if (e.keyCode === 13) {
-            document.querySelector('#editor .ql-editor.ql-blank').focus();
+            document.querySelector('#editor .ql-editor').focus();
         }
     });
 

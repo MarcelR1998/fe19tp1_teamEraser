@@ -40,6 +40,9 @@ const closeSubnav = () => {
 
     // abort requested delete
     app.state.deleteRequested = false;
+
+    // reset active subnav
+    app.state.activeSubnav = false;
 }
 
 
@@ -56,7 +59,8 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     // set active filter
     const activeFilter = title.toLowerCase();
 
-
+    // set active subnav
+    app.state.activeSubnav = activeFilter;
 
 
 
@@ -106,7 +110,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     // available html-templates
     templates = {
         note: (note) =>
-            `<li class="item note" data-note-id="${note.id}" data-created="" data-lastUpdated="">
+            `<li id="note-${note.id}" class="item note" data-note-id="${note.id}" data-created="" data-lastUpdated="">
                 <h4 class="itemTitle">${note.title}</h4>
                 <div class="itemContent">${note.text}</div>
                 <div class="meta">
@@ -114,6 +118,9 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
                     <p class="created">created <span>${dateStamps(note).createdDate} ${dateStamps(note).createdTime}</span></p>
                     <button class = "favoriteNote ${favIconClass(note)} fa-star"></button>
                     <button class = "deleteNote far fa-trash-alt"></button> 
+                </div>
+                <div id="deletePopup-${note.id}" class="deletePopup invisible">
+                    <button class="confirmDelete">delete</button><button class="cancelDelete">cancel</button>
                 </div>
             </li>`,
         settings: (item) =>
@@ -166,7 +173,8 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
 
                 // if clicked is an action-btn, chill...
                 if (e.target.classList.contains('favoriteNote')
-                    || e.target.classList.contains('deleteNote')) {
+                    || e.target.classList.contains('deleteNote')
+                    || e.target.closest('div').classList.contains('deletePopup')) {
                     return;
 
                     // else, load note

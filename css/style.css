@@ -22,6 +22,9 @@
     --search-color:black;
     --search-placeholder-color: #818181;
 
+    --confirm-delete-bg: #102E46;
+    --cancel-delete-bg: #818181;
+
     --settings-toggle-false: #555;
     --settings-toggle-true: #E6E6E6;
 }
@@ -378,32 +381,41 @@ button:focus {
     transform: translateX(210px) translateY(-20px);
 }
 
-#confirmDeleteDiv {
-    transform: translateX(134px) translateY(10px);
+.deletePopup {
+    /*transform: translateX(120px) translateY(10px);*/
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
     position: relative;
+    left: 10px;
 }
 
-#confirmDelete {
+.deletePopup > button {
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 10px 0;
+}
+
+.deletePopup .confirmDelete {
     color: white;
-    background-color: red;
-    border: 1px solid red;
-    padding: 5px;
+    background-color: var(--confirm-delete-bg);
+    border: none;
 }
 
-#confirmDelete:hover{
-    background-color: rgb(255, 110, 110);
+.deletePopup .confirmDelete:hover{
+    /*background-color: rgb(255, 110, 110);*/
 }
 
-#cancelDelete {
+.deletePopup .cancelDelete {
     color:white;
-    background-color: rgb(190, 190, 190);
-    border: 1px solid rgb(190, 190, 190);
-    padding: 5px;
+    background-color: var(--cancel-delete-bg);
+    border: none;
     margin-left: 3px;
 }
 
-#cancelDelete:hover{
-    background-color: rgb(210, 210, 210 );
+.deletePopup .cancelDelete:hover{
+    /*background-color: rgb(210, 210, 210 );*/
 }
 
 /* display part of note content in subnav */
