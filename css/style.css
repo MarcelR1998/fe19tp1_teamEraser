@@ -30,7 +30,12 @@
     --settings-toggle-false: #555;
     --settings-toggle-true: #E6E6E6;
 
-    
+    --floatBtn-bg: #005492;
+    --floatBtn-border: 1px solid rgb(179, 179, 179);
+    --floatBtn-icon-color: white;
+
+    --options-bg: #A0D9FF;
+    --options-color: white;
 }
 
 *{
@@ -246,8 +251,8 @@ button:focus {
 }
 
 .floatBtn{
-    background-color: #005492;
-    border: 1px solid rgb(179, 179, 179);
+    background: var(--floatBtn-bg);
+    border: var(--floatBtn-border);
     cursor: pointer;
     width: 60px;
     height: 60px;
@@ -295,8 +300,13 @@ button:focus {
 
 .floatBtn i:nth-child(1){
     font-size: x-large;
-    color: white;
+    color: var(--floatBtn-icon-color);
     padding: 30%;
+}
+
+.options.theme {
+    background: var(--options-bg);
+    color: var(--options-color);
 }
 
 /*Editor container*/
