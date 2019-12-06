@@ -152,21 +152,21 @@ const applyEars = () => {
     }
 
 
-
-    // BOTTOM-BUTTONS
-    document.querySelector('#bottom-buttons').addEventListener('click', (e) => {
-        // clear storage? (temp dev func)
-        if (e.target.id == 'clearStorage') {
-            //clear LS
-            localStorage.clear();
-            // update noteList
-            loadFromLS();
-            //display msg below
-            displayMsg('Storage cleared!');
-        }
-    });
-
-
+    /*
+        // BOTTOM-BUTTONS
+        document.querySelector('#bottom-buttons').addEventListener('click', (e) => {
+            // clear storage? (temp dev func)
+            if (e.target.id == 'clearStorage') {
+                //clear LS
+                localStorage.clear();
+                // update noteList
+                loadFromLS();
+                //display msg below
+                displayMsg('Storage cleared!');
+            }
+        });
+    
+    */
 
 
     /// AUTO-SAVE

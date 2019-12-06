@@ -17,7 +17,7 @@
     --nav-btn-color: white;
     --nav-bg: #005492;
 
-    --subnav-bg: #E6E6E6;
+    --subnav-bg: #E6E6E6; 
     --subnav-item-bg: linear-gradient(rgba(0,0,0,0) 60%, #F4F4F4);
 
     --search-bg: white;
@@ -209,7 +209,7 @@ button:focus {
 
 
     /*Buttons above toolbar*/
-
+/*
 #bottom-buttons{
     display: flex;
     height: 100vh;
@@ -232,6 +232,71 @@ button:focus {
 .top-buttons :nth-child(1){
     font-size: x-large;
     color: white;
+}*/
+
+#floatBtns-container{
+    display: flex;
+    height: auto;
+    position: fixed;
+    z-index: 3;
+    flex-direction: column;
+    justify-content: start;
+    right: 10px;
+    top: 50px;
+}
+
+.floatBtn{
+    background-color: #005492;
+    border: 1px solid rgb(179, 179, 179);
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    margin-top: 20px;
+    overflow-y: hidden;
+}
+
+.floatBtn:hover {
+    overflow-y: visible;
+}
+
+.floatBtn .options {
+    transition-duration: .3s;
+    position: relative;
+    top: 0;
+    right: 0;
+    display: none;
+    background: #A0D9FF;
+    color: white;
+    width: 100px;
+    height: 0px;
+    right: 40px;
+    border-radius: 8px;
+    display: block;
+}
+
+
+.floatBtn .options * {
+    margin: 0!important;
+    padding: 0!important;
+}
+
+.floatBtn .options .option{
+    list-style: none;
+    background: none;
+    padding: 10px!important;
+    float: right;
+    cursor: pointer;
+}
+
+.floatBtn:hover .options {
+    height: 120px;
+}
+
+.floatBtn i:nth-child(1){
+    font-size: x-large;
+    color: white;
+    padding: 30%;
 }
 
 /*Editor container*/
@@ -264,7 +329,7 @@ button:focus {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 4;
+    z-index: 5;
     top: 0;
     left: 0;
     background-color: var(--subnav-bg);
@@ -534,6 +599,7 @@ button:focus {
     #editorContainer>div.ql-toolbar.ql-snow,
     /* Include the title if NOT untitled */
     #title-input[data-untitled='true'],
+    #floatBtns-container,
     #dropdown,
     .popup,
     .blur,
@@ -594,7 +660,7 @@ button:focus {
     }
 
     #side-nav {
-        z-index: 3;
+        z-index: 6;
         position: fixed;
         display: flex;
         bottom: 0;
@@ -637,7 +703,7 @@ button:focus {
         height: calc(100% - 135px);
         width: 0;
         position: fixed;
-        z-index: 4;
+        z-index: 5;
         top: 0;
         left: 0;
         background-color: var(--subnav-bg);

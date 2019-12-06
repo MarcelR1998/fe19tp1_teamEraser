@@ -121,6 +121,8 @@ const loadNote = (id) => {
         app.quill.setContents(loadedNote.content);
         // font to editor
         editor.className = loadedNote.theme;
+        // untitled-status
+        untitled();
     }
 }
 

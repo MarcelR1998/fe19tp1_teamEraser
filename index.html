@@ -60,9 +60,18 @@
             <input type="text" id="title-input" placeholder="Nameless document..." data-untitled="true">
             <div id="editor">
             </div>
-            <div id="bottom-buttons">
+            <div id="floatBtns-container">
                 <!--<button class="top-buttons hidden" id="save-note">Save</button>-->
-                <button class="top-buttons" id="clear-text"><i class="fas fa-eraser"></i></button>
+                <div class="floatBtn" id="clear-text"><i class="fas fa-eraser"></i></div>
+                <div id="themes" class="floatBtn">
+                    <i class="fas fa-font"></i>
+                    <div class="options theme">
+                        <span class="option theme-change roboto">Roboto</span>
+                        <span class="option theme-change courgette">Courgette</span>
+                        <span class="option theme-change vollkorn">Vollkorn</span>
+                    </div>
+                </div>
+                <!--
                 <ul id="dropdown">
                     <li id="dropdown-button"><i class="fas fa-font"></i></li>
                     <div id="dropdown-options">
@@ -70,7 +79,7 @@
                         <li> <button class="top-buttons-font font-change-courgette">Courgette</button></li>
                         <li> <button class="top-buttons-font font-change-vollkorn">Vollkorn</button></li>
                     </div>
-                </ul>
+                </ul>-->
             </div>
         </div>
     </div>

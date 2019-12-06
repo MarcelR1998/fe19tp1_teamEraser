@@ -46,22 +46,33 @@ const updatedarkModeStatus = () => {
     }
 }
 
-document.addEventListener("click", function (e) {
-    if (e.target.classList.contains("font-change-roboto")) {
+document.querySelector('.options.theme').addEventListener("click", function (e) {
+    let title = document.querySelector('#title-input');
+
+    if (e.target.classList.contains("roboto")) {
         theme.classList.remove("font-courgette");
         theme.classList.remove("font-vollkorn");
+
+        title.classList.remove("font-courgette");
+        title.classList.remove("font-vollkorn");
         console.log("loaded sans-serif font template");
     }
 
-    if (e.target.classList.contains("font-change-courgette")) {
+    if (e.target.classList.contains("courgette")) {
         theme.classList.remove("font-vollkorn");
         theme.classList.add("font-courgette");
+
+        title.classList.remove("font-vollkorn");
+        title.classList.add("font-courgette");
         console.log("loaded quirky font template")
     }
 
-    if (e.target.classList.contains("font-change-vollkorn")) {
+    if (e.target.classList.contains("vollkorn")) {
         theme.classList.remove("font-courgette");
         theme.classList.add("font-vollkorn");
+
+        title.classList.remove("font-courgette");
+        title.classList.add("font-vollkorn");
         console.log("loaded serif font template")
     }
 });
