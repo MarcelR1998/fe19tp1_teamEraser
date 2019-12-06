@@ -6,6 +6,7 @@
 
 /// DISPLAY SUBNAV
 const openSubnav = (subnavTitle) => {
+
     // add shadow-style on open
     const sidenav = document.querySelector('#side-nav');
     sidenav.style.transitionDuration = '.3s';
@@ -17,7 +18,9 @@ const openSubnav = (subnavTitle) => {
     // roll in the nav
     const subnav = document.querySelector("#side-subnav");
     if (subnav.dataset.open === 'false') {
-        subnav.style.width = "250px";
+        let screenW = document.body.clientWidth;
+        let subnavW = screenW > 731 ? '250px' : '100vw';
+        subnav.style.width = subnavW;
         subnav.dataset.open = true;
     }
 }
@@ -39,6 +42,9 @@ const closeSubnav = () => {
 
     // abort requested delete
     app.state.deleteRequested = false;
+
+    // reset active subnav
+    app.state.activeSubnav = false;
 }
 
 
@@ -55,7 +61,8 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     // set active filter
     const activeFilter = title.toLowerCase();
 
-
+    // set active subnav
+    app.state.activeSubnav = activeFilter;
 
 
 
@@ -105,7 +112,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
     // available html-templates
     templates = {
         note: (note) =>
-            `<li class="item note" data-note-id="${note.id}" data-created="" data-lastUpdated="">
+            `<li id="note-${note.id}" class="item note" data-note-id="${note.id}" data-created="" data-lastUpdated="">
                 <h4 class="itemTitle">${note.title}</h4>
                 <div class="itemContent">${note.text}</div>
                 <div class="meta">
@@ -114,6 +121,9 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
                     <button class = "favoriteNote ${favIconClass(note)} fa-star"></button>
                     <button class = "deleteNote far fa-trash-alt"></button> 
                 </div>
+                <div id="deletePopup-${note.id}" class="deletePopup invisible">
+                    <button class="confirmDelete">delete</button><button class="cancelDelete">cancel</button>
+                </div>
             </li>`,
         settings: (item) =>
             `<li class="item setting">
@@ -121,14 +131,14 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
                     <p class="name">${item.name}</p>
                     <label class="switch settingsToggle">
                         <input id="${item.id}" class="settingsSwitch" type="checkbox"/>
-                        <span class="slider round"></span>     
+                        <span class="slider round"><i class="fas fa-moon"></i></span>      
                     </label>
                 </div>
-            <li>`
+            </li>`
     }
 
     // apply template
-    const applyTemplate = (items, template = 'note') => items.map(item => templates[template](item));
+    const applyTemplate = (items = app.noteList, template = 'note') => items.map(item => templates[template](item));
 
 
     // print notes to DOM
@@ -145,6 +155,8 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
                 ${content}
             </ul>`;
 
+        // darkMode?
+        updatedarkModeStatus();
     }
 
     // Apply listener to load note on click
@@ -163,7 +175,8 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
 
                 // if clicked is an action-btn, chill...
                 if (e.target.classList.contains('favoriteNote')
-                    || e.target.classList.contains('deleteNote')) {
+                    || e.target.classList.contains('deleteNote')
+                    || e.target.closest('div').classList.contains('deletePopup')) {
                     return;
 
                     // else, load note
@@ -187,17 +200,27 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
         // hide search input
         document.querySelector('#search-input').classList.add('invisible');
 
+        console.log('settings template', app.settings.tabContent)
         // print settings template...
         print(
-            applyTemplate(app.settingsTab, 'settings'),
+            applyTemplate(app.settings.tabContent, 'settings'),
             'subnavList'
         );
 
+        // show autosave status
+        if (autosaveStatus()) {
+            document.querySelector('#autoSave').checked = true;
+
+            app.settings.toggleIcons.update(autosaveStatus());
+        }
 
         return;
         //document.querySelector('#side-subnav .body .content').innerHTML = settingsContent();
         // if notes
     } else {
+        // display search input
+        document.querySelector('#search-input').classList.remove('invisible');
+
         print(
             applyTemplate(
                 applyFilter(
@@ -208,7 +231,7 @@ const renderSubnav = (title = document.querySelector('#side-subnav .body .title'
         );
 
         // be ready to load specific note in editor
-        applyListener('ul.noteList li', 'click');
+        applyListener('ul.subnavList li', 'click');
     }
 
 

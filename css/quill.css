@@ -7,90 +7,131 @@
 
 
 #editor {
-  height: auto;
+  /* height: auto; fixed height and overflow scroll */
+  height: 90vh;
+  overflow-y: auto;
   min-height: 800px;
   border-left: none;
   border-right: none;
   border-bottom: none;
   flex-basis: 100%;
+  padding-top: 0;
 }
 
 div.ql-toolbar.ql-snow {
   display: flex;
   justify-content: center;
-  background: white;
+  background:var(--toolbar-bg);
   z-index: 1;
   position: fixed;
+  z-index: 4;
   flex-basis: 100%;
   width: inherit;
-  height: 75px;
-  padding: 0;
-  padding-top: 28px;
+  height: auto;
+  padding: 15px 0 0;
+  border: var(--toolbar-border);
 }  
 
+
 #editor > div.ql-editor.ql-blank, #editor > div.ql-editor {
-  padding: 100px;
-  padding-top: 100px;
+  /* padding: 30px; little less on y */
+  padding: 0 30px 30px 30px;
   margin: 0 20% 50px;
-  border: 1px solid lightgray;
+  border: none;
   border-top: none;
   min-height: 800px;
+  max-width: 900px;
+  height: auto; 
+  overflow: hidden;
 }
 
-@media only screen and (max-width: 1100px){
-  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
-/*     -webkit-box-shadow: 0;
-    -moz-box-shadow: 0;
-    box-shadow: none;
-    margin: 0;
-    padding: 0;
-    padding-top: 100px; */
-    width: 800px;
-    margin-left: 100px;
-    padding: 50px;
-  }
+
+div.ql-toolbar.ql-snow .ql-formats{
+  margin-bottom: 15px;
 }
+
+.ql-picker-options {
+  background: var(--toolbar-bg)!important;
+  border: var(--border)!important;
+  left: unset;
+  right: 0;
+}
+
+/* Mobile */
+
 @media only screen and (max-width: 732px){
-  div.ql-toolbar.ql-snow{
-  z-index: 1;
-  position: fixed;
-  left: -59px;
-  transform: translateX();
-  width: 100%;
-  bottom: 76px;
-  padding: 10px;
-  }
-  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
-    box-shadow: none;
+  #title-input {
     margin: 0;
-    padding: 0;
-    padding-top: 100px;
-    width: 100%;
-    padding-right: 10px;
-    font-size: 2em;
   }
 
-  #editor{
+  #editor {
+    padding-top: 50px!important;
     margin-left: auto;
   }
-  
-  #editorContainer > div.ql-toolbar.ql-snow{
-    padding-top: 15px;
+
+  div.ql-toolbar.ql-snow{
+    flex-wrap: wrap;
+  z-index: 1;
+  position: fixed;
+  transform: translateX();
+  width: 100%;
+  bottom: 55px;
+  padding: 10px;
+  padding-top: 15px;
   }
 
+  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
+    box-shadow: none;
+    margin: 0;
+    /*padding: 50px 10px 150px 10px; padding på föräldern ist. */
+    padding: 0px 10px 150px 10px;
+    width: 100%;
+    font-size: 2em;
+
+    min-height: unset;
+    height: 68%;
   }
 
-/* @media only screen and (max-width: 1000px) {
-      #editor > div.ql-editor.ql-blank{
-        margin: 0 10%; 
-        width: 1000px;
-    }
-    body > div.ql-toolbar.ql-snow{
-        width: 1200px;
-    }  
-    
-  } 
-*/
+  .ql-picker-options {
+    top: unset!important;
+    bottom: 30px;
+  }
+
+}
 
 
-  
+@media only screen and (max-width: 628px){
+  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
+    height: 64%;
+  }
+  div.ql-toolbar.ql-snow{
+    /*bottom: 90px;*/
+  }
+}
+
+@media only screen and (max-width: 327px){
+  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
+    height: 58%;
+  }
+  div.ql-toolbar.ql-snow{
+    /*bottom: 130px;*/
+  }
+}
+
+@media only screen and (max-width: 241px){
+  #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
+    height: 54%;
+  }
+  div.ql-toolbar.ql-snow{
+    /*bottom: 165px;*/
+  }
+}
+
+@media only screen and (max-width: 732px) and (orientation: landscape) {
+  #floatBtns-container {
+    top: 0;
+  }
+  .floatBtn:first-child {
+    margin-top: 10px;
+  }
+}

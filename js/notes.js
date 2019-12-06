@@ -13,7 +13,7 @@ class Note {
         this.text = app.quill.getText(0, 30);
         this.content = app.quill.getContents();
         this.favorite = false;
-        this.theme = theme;
+        this.theme = app.editor;
 
         // set global var active id to this
         app.activeId = this.id;
@@ -36,7 +36,7 @@ const prepForNewNote = () => {
     editor.className = "ql-container ql-snow";
 
     // auto-focus on editor
-    document.querySelector('#editor .ql-editor.ql-blank').focus();
+    document.querySelector('#title-input').focus();
 }
 
 
@@ -71,7 +71,7 @@ const saveNote = () => {
     }
 
     // update LS
-    saveToLocalStorage();
+    saveToLS();
 }
 
 
@@ -93,9 +93,8 @@ const deleteNote = (id) => {
             app.noteList.find(note => note.id === id)
         ), 1);
 
-
     // update LS
-    saveToLocalStorage();
+    saveToLS();
 
     // re-render the DOM-list
     renderSubnav();
@@ -110,14 +109,6 @@ const deleteNote = (id) => {
 
 /// LOAD SPECIFIC NOTE IN EDITOR
 const loadNote = (id) => {
-    // if autosave, pause till note is loaded
-    // (prevents it from saving as new at load)
-    let pauseAutosave = false;
-    if (autosaveStatus()) {
-        pauseAutosave = true;
-        autoSaveBtn.children[0].innerHTML = 'off';
-    }
-
     // find note to load
     let loadedNote = app.noteList.find(note => note.id === Number(id)) || false;
 
@@ -130,18 +121,15 @@ const loadNote = (id) => {
         app.quill.setContents(loadedNote.content);
         // font to editor
         editor.className = loadedNote.theme;
-    }
-
-    // if autosave was paused, turn it back on
-    if (pauseAutosave) {
-        autoSaveBtn.children[0].innerHTML = 'on';
+        // untitled-status
+        untitled();
     }
 }
 
 
 
 /// TOGGLE FAVORITE
-function updateFavStatus(id) {
+const updateFavStatus = (id) => {
     // find note to mark/unmark
     let note = app.noteList.find(note => note.id === Number(id)) || false;
 
@@ -158,61 +146,10 @@ function updateFavStatus(id) {
     }
 
     // save changes to LS
-    saveToLocalStorage();
+    saveToLS();
 
     // re-render the DOM-list
     renderSubnav(document.querySelector('#side-subnav .body .title').innerHTML);
-}
-
-
-
-/// TOGGLE AUTO-SAVE
-const toggleAutoSave = () => {
-    let status = document.querySelector('#auto-save span.status');
-    if (autosaveStatus()) {
-        // change status in DOM
-        status.innerHTML = 'off';
-        status.closest('button').classList.remove('autosaveOn');
-
-        // display manual save-btn
-        document.querySelector('#save-note').classList.remove('hidden');
-    } else {
-        // change status in DOM
-        status.innerHTML = 'on';
-        status.closest('button').classList.add('autosaveOn');
-
-        // hide manual save-btn
-        document.querySelector('#save-note').classList.add('hidden');
-    }
-}
-
-
-
-/// GET CURRENT AUTO-SAVE STATUS
-const autosaveStatus = () => {
-    const status = (document.querySelector('#auto-save span.status').innerHTML === 'on')
-        ? true : false;
-    return status;
-}
-
-
-
-/// AUTO-SAVE NOTE
-const autoSave = () => {
-    // bail if:
-
-    // ...autosave is off
-    if (!autosaveStatus()) {
-        return;
-    }
-
-    // ...new note is empty
-    if (!app.activeId && app.quill.getLength() < 2) {
-        return;
-    }
-
-    // else, save
-    saveNote();
 }
 
 
@@ -264,7 +201,7 @@ const searchNotes = () => {
     /// ACTION
 
     // decide visibility for each note based on search input
-    let notesInDom = document.querySelectorAll("ul.noteList li.note");
+    let notesInDom = document.querySelectorAll("ul.subnavList li.note");
 
     notesInDom.forEach((item, i) => {
         hideOrShow(
@@ -276,3 +213,50 @@ const searchNotes = () => {
     });
 
 } // searchNotes()
+
+
+
+/// GET AUTO-SAVE STATUS
+const autosaveStatus = () => JSON.parse(localStorage.getItem('autoSave'));
+
+
+
+/// SET AUTO-SAVE STATUS
+const setAutosave = (val) => localStorage.setItem('autoSave', JSON.stringify(val));
+
+
+
+/// AUTO-SAVE TOGGLE
+const autosaveToggle = () => {
+    let status = autosaveStatus();
+
+    localStorage.setItem('autoSave', JSON.stringify(!status));
+
+    app.settings.toggleIcons.update(autosaveStatus());
+}
+
+
+
+/// AUTO-SAVE ACTIVE NOTE
+const autoSave = () => {
+    // bail if:
+
+    // ...autosave is off
+    if (!autosaveStatus()) {
+        return;
+    }
+
+    // ...new note is empty
+    if (!app.activeId && app.quill.getLength() < 2) {
+        return;
+    }
+
+    // else, save
+    saveNote();
+}
+
+const untitled = () => {
+    document.querySelector('#title-input').dataset.untitled =
+        document.querySelector('#title-input').value.length < 1
+            ? true : false;
+}

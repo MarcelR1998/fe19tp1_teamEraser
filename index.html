@@ -9,88 +9,77 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/print.css">
     <link rel="stylesheet" href="css/toggleBtn.css">
-    
     <link href="https://fonts.googleapis.com/css?family=McLaren&display=swap" rel="stylesheet">
+    <link id="darksheet" rel="stylesheet" href="/">
     <script src="https://kit.fontawesome.com/d82255b79b.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div id="theme">
+    <div class="blur invisible">
+        <img src="media/solidblack.jpg" class="" alt="">
+    </div>
 
-        <div class="blur invisible">
-            <img src="media/solidblack.jpg" class="" alt="">
-        </div>
+    <!-- Pop up -->
+    <div class="popup invisible">
+        <button class="exithidden exit"> <span class="fa fa-times exit"></span> </button>
+        <h1>Welcome!</h1>
+        <p>
+            Quire by Eraser Enterprise is a new solution for easy, cross-platform notekeeping.
+            Free and easy to use, join today!
+        </p>
+        <button id="closeWelcome" class="exit">Continue</button>
+    </div>
 
-        <!-- Pop up -->
-        <div class="popup invisible">
-            <button class="exithidden exit "> <span class="fa fa-times exit"></span> </button>
-            <h1>Welcome!</h1>
-            <p>
-                Quire by Eraser Enterprise is a new solution for easy, cross-platform notekeeping.
-                Free and easy to use, join today!
-            </p>
-            <button id="closeWelcome" class="exit">Continue</button>
-        </div>
-
-        <div id="main-page" class="main-page">
-            <!-- Side nav -->
-            <div id="side-nav">
-                <div id="side-nav-logo">
-                    <a href="index.html"><img id="quireLogo" src="media/logo.png" alt="logo"></a>
-                </div>
-
-                <div id="side-nav-buttons">
-                    <!--button-sidebar handles javascript, while sidebarbutton purely concerns css.-->
-                    <button class="side-nav-btn" id="new_note" data-title="new"><i class="fas fa-plus"></i></button>
-                    <!--<button class="side-nav-btn" id="search" data-title="search"><i class="fa fa-search"></i></button>-->
-                    <button class="side-nav-btn" id="all" data-title="all"><i class="fas fa-sticky-note"></i></button>
-                    <button class="side-nav-btn" id="favorites" data-title="favorites"><i
-                            class="fa fa-star"></i></button>
-                    <!-- <button class="side-nav-btn" id="stats" data-title="stats"><i class="fa fa-chart-bar"></i></button> -->
-                    <button class="side-nav-btn" id="settings" data-title="settings"><i class="fas fa-cog"></i></button> 
-                </div>
+    <div id="main-page" class="main-page">
+        <!-- Side nav -->
+        <div id="side-nav">
+            <div id="side-nav-logo">
+                <a href="index.html"><img id="quireLogo" src="media/logo.png" alt="logo"></a>
             </div>
-            <div id="side-subnav" data-open="false">
-                <button class="closebtn">&times;</button>
-                <div class="body">
-                    <h3 class="title"></h3>
-                    <input type="text" id="search-input" placeholder="search" />
-                    <div class="content"></div>
-                </div>
+            <div id="side-nav-buttons">
+                <!--button-sidebar handles javascript, while sidebarbutton purely concerns css.-->
+                <button class="side-nav-btn" id="new_note" data-title="new"><i class="fas fa-plus"></i></button>
+                <button class="side-nav-btn" id="all" data-title="all"><i class="fas fa-sticky-note"></i></button>
+                <button class="side-nav-btn" id="favorites" data-title="favorites"><i class="fa fa-star"></i></button>
+                <!-- <button class="side-nav-btn" id="stats" data-title="stats"><i class="fa fa-chart-bar"></i></button> -->
+                <button class="side-nav-btn" id="settings" data-title="settings"><i class="fas fa-cog"></i></button>
+            </div>
+        </div>
+        <div id="side-subnav" data-open="false">
+            <button class="closebtn">&times;</button>
+            <div class="body">
+                <h3 class="title"></h3>
+                <input type="text" id="search-input" placeholder="search" />
+                <div class="content"></div>
+            </div>
             <!-- <span id= "darktheme" class=" settingsToggle" >Darktheme  <i class="fas fa-toggle-off"></i> </span> -->
-             
         </div>
-        
-            <!-- Text Editor -->
 
-            <div id="editorContainer" class="document">
-                <input type="text" id="title-input" placeholder="Nameless document...">
-                <div id="editor">
-
-                </div>
-                <div id="bottom-buttons">
-                    <button id="auto-save" class="top-buttons autosaveOn">Autosave is
-                        <span class="status">on</span></button>
-                    <!--<button class="top-buttons hidden" id="save-note">Save</button>-->
-                    <!--<button class="top-buttons" id="delete-note">Delete</button>-->
-                    <button class="top-buttons" id="clear-text">Clear Text</button>
-                    <div id="dropdown">
-                        <ul>
-                            <li>Fonts
-                                <ul>
-                                    <li> <button class="top-buttons-font lightmode">Roboto</button></li>
-                                    <li> <button class="top-buttons-font darkmode">Courgette</button></li>
-                                    <li> <button class="top-buttons-font nattläge">Vollkorn</button></li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <p id="editorMsg"></p>
-                </div>
+        <!-- Text Editor -->
+        <div id="editorContainer" class="document">
+            <input type="text" id="title-input" placeholder="Nameless document..." data-untitled="true">
+            <div id="editor">
             </div>
-            <div id="white-box-cover">
-                
+            <div id="floatBtns-container">
+                <!--<button class="top-buttons hidden" id="save-note">Save</button>-->
+                <div class="floatBtn" id="clear-text"><i class="fas fa-eraser"></i></div>
+                <div id="themes" class="floatBtn">
+                    <i class="fas fa-font"></i>
+                    <div class="options theme">
+                        <span class="option theme-change roboto">Roboto</span>
+                        <span class="option theme-change courgette">Courgette</span>
+                        <span class="option theme-change vollkorn">Vollkorn</span>
+                    </div>
+                </div>
+                <!--
+                <ul id="dropdown">
+                    <li id="dropdown-button"><i class="fas fa-font"></i></li>
+                    <div id="dropdown-options">
+                        <li> <button class="top-buttons-font font-change-roboto">Roboto</button></li>
+                        <li> <button class="top-buttons-font font-change-courgette">Courgette</button></li>
+                        <li> <button class="top-buttons-font font-change-vollkorn">Vollkorn</button></li>
+                    </div>
+                </ul>-->
             </div>
         </div>
     </div>
@@ -104,6 +93,9 @@
 
     <!-- App -->
     <script src="js/app.js"></script>
+
+    <!-- Settings -->
+    <script src="js/settings.js"></script>
 
     <!-- Quill Editor -->
     <script src="js/quill.js"></script>
@@ -125,9 +117,6 @@
 
     <!-- Themes -->
     <script src="js/theme.js"></script>
-
-    <!-- Print -->
-    <script src="js/print.js"></script>
 </body>
 
 </html>

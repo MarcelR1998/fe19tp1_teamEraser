@@ -1,44 +1,3 @@
-
-/* html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-} */
-
-/*
-.theme-light {
-  --color-primary: #0060df;
-  --color-secondary: #fbfbfe;
-  --color-accent: #fd6f53;
-  --font-color: #000000;
-}
-.theme-dark {
-  --color-primary: #17ed90;
-  --color-secondary: #2a2c2d;
-  --color-accent: #12cdea;
-  --font-color: #ffffff;
-}
-.contain {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  background: var(--color-secondary);
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.contain button {
-  color: var(--font-color);
-  background: var(--color-primary);
-  padding: 10px 20px;
-  border: 0;
-  border-radius: 5px;
-}
-*/
-
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -54,6 +13,7 @@ body {
   height: 0;
 }
 
+
 /* The slider */
 .slider {
   position: absolute;
@@ -67,37 +27,36 @@ body {
   transition: 0.4s;
 }
 
-.slider:before {
-  position: absolute;
+
+.slider > i {
+  position: relative;
   content: "";
   height: 40px;
   width: 40px;
-  left: 0px;
-  bottom: 4px;
-  top: 0;
-  bottom: 0;
-  margin: auto 0;
+  left: 6px;
+  top: 6px;
+  margin: 0;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  box-shadow: 0 0px 15px #2020203d;
-  background: white url('https://i.ibb.co/FxzBYR9/night.png');
+  /*box-shadow: 0 0px 15px #2020203d;*/
+  /*background: white url('https://i.ibb.co/FxzBYR9/night.png');*/
   background-repeat: no-repeat;
   background-position: center;
 }
 
+input + .slider {
+  background-color: #102E46;
+
+}
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #123651;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
+input:checked + .slider i {
   -webkit-transform: translateX(24px);
   -ms-transform: translateX(24px);
   transform: translateX(24px);
-  background: white url('https://i.ibb.co/7JfqXxB/sunny.png');
+  /*background: white url('https://i.ibb.co/7JfqXxB/sunny.png');*/
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -111,4 +70,15 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+i.fa-moon {
+  font-size: 20px;
+  top: 6px;
+  color: var(--settings-toggle-false);
+}
 
+i.fa-sun {
+         top: 4px;
+    left: 5px;
+    font-size: 25px;
+    color: var(--settings-toggle-true);
+}

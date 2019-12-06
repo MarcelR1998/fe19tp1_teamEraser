@@ -2,6 +2,41 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Vollkorn:400,700&display=swap');
 
+:root{
+    --border: 1px solid #ccc;
+    --btn-bg-hover: #005492;
+
+    --logo-shadow: none;
+
+    --toolbar-bg: white;
+    --toolbar-stroke: #444444;
+    --toolbar-fill: none;
+    --toolbar-border: none;
+
+    --nav-shadow: 2px 0px 10px #222;
+    --nav-btn-color: white;
+    --nav-bg: #005492;
+
+    --subnav-bg: #E6E6E6; 
+    --subnav-item-bg: linear-gradient(rgba(0,0,0,0) 60%, #F4F4F4);
+
+    --search-bg: white;
+    --search-color:black;
+    --search-placeholder-color: #818181;
+
+    --confirm-delete-bg: #102E46;
+    --cancel-delete-bg: #818181;
+
+    --settings-toggle-false: #555;
+    --settings-toggle-true: #E6E6E6;
+
+    --floatBtn-bg: #005492;
+    --floatBtn-border: 1px solid rgb(179, 179, 179);
+    --floatBtn-icon-color: white;
+
+    --options-bg: #A0D9FF;
+    --options-color: white;
+}
 
 *{
     margin: 0;
@@ -12,14 +47,15 @@ body {
     font-family: 'Roboto',
     sans-serif;
     height: 100vh;
+    overflow: hidden;
+    background: var(--bg-color);
 }
 
-#theme{
-    height: 100%;
-}
+/*Logo*/
 
 #quireLogo {
     transition: 0.4s;
+    box-shadow: var(--logo-shadow);
 }
 
 #quireLogo:hover {
@@ -27,40 +63,29 @@ body {
     opacity: 70%;
 }
 
-/* Top title / Favorite  */
-#title-and-favorites {
-    position: fixed;
-    top: 12px;
-    left: 92px;
-    z-index: 3;
-}
+/* Note title */
 
 #title-input{
     height: 50px;
     border: none;
     padding: 3px;
     flex-basis: 100%;
-    margin: 100px 20% 0;
-    border: 1px solid lightgray;
-    border-bottom: none;
+    margin: 50px 20% 0;
+    border: none;
     text-align: center;
     font-size: x-large;
-    color: lightgray;
+    color: var(--font-color);
+    background: var(--bg-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 900px;
 }
 
-/* white div covering text on the top of mobile view */
-
-#white-box-cover {
-    position: fixed;
-    width: 100%;
-    height: 70px;
-    top: 0px;
-    background-color: white;
-    z-index: 1;
+#title-input:focus {
+        outline: none;
 }
 
-/* pop up */
+
+/* Pop-up */
 
 .popup{
     position: fixed;
@@ -84,7 +109,6 @@ body {
     width: 100%;
 }
 
-
 .exithidden{
     position: absolute;
     background: none;
@@ -94,8 +118,8 @@ body {
     top: 5px;
     right: 5px;
     margin-right: 3px;
-    
 }
+
 .exithidden:hover{
     color: gray;
 }
@@ -122,20 +146,20 @@ body {
     z-index: 5;
     position: fixed;
     display: flex;
-    /*position: fixed;*/
     float: left;
     flex-direction: column;
     justify-content: flex-start;
     margin: 0;
     height: 100vh;
     width: 75px;
-    background-color: rgb(0, 83, 146);
+    background-color: var(--nav-bg);
     transition-duration: .1s;
 }
 
 /*Pushes sub-nav menu up to align better, not very important.*/
-.body {
+#side-subnav .body {
     transform: translateY(-26px);
+    margin-bottom: 100px;
 }
 
 .main-page{
@@ -166,9 +190,15 @@ body {
 
 /* Buttons */
 
+button:focus {
+    outline: none;
+}
+
+    /*Side nav buttons*/
+
 .side-nav-btn {
     font-size: 25px;
-    color: white;
+    color: var(--nav-btn-color);
     background: none;
     border: none;
 }
@@ -182,46 +212,104 @@ body {
     font-size: 30px;
 }
 
-button:focus {
-    outline: none;
-}
 
+    /*Buttons above toolbar*/
+/*
 #bottom-buttons{
     display: flex;
-    flex-direction: row;
-    height: 24px;
-    position: fixed;
-    top: 12px;
-    left: 257px;
+    height: 100vh;
+    position: absolute;
     z-index: 3;
+    flex-direction: column;
+    justify-content: space-evenly;
+    right: 5%;
 }
 
 .top-buttons{
-    background: white;
+    background-color: #005492;
     border: 1px solid rgb(179, 179, 179);
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+
+.top-buttons :nth-child(1){
+    font-size: x-large;
+    color: white;
+}*/
+
+#floatBtns-container{
+    display: flex;
+    height: auto;
+    position: fixed;
+    z-index: 3;
+    flex-direction: column;
+    justify-content: start;
+    right: 10px;
+    top: 50px;
+}
+
+.floatBtn{
+    background: var(--floatBtn-bg);
+    border: var(--floatBtn-border);
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    margin-top: 20px;
+    overflow-y: hidden;
+}
+
+.floatBtn:hover {
+    overflow-y: visible;
+}
+
+.floatBtn .options {
+    transition-duration: .3s;
+    position: relative;
+    top: 0;
+    right: 0;
+    display: none;
+    background: #A0D9FF;
+    color: white;
     width: 100px;
+    height: 0px;
+    right: 40px;
+    border-radius: 8px;
+    display: block;
+}
+
+
+.floatBtn .options * {
+    margin: 0!important;
+    padding: 0!important;
+}
+
+.floatBtn .options .option{
+    list-style: none;
+    background: none;
+    padding: 10px!important;
+    float: right;
     cursor: pointer;
 }
 
-.top-buttons-font{
-    background: white;
-    border: none;
-    width: 99px;
-    cursor: pointer;
+.floatBtn:hover .options {
+    height: 120px;
 }
 
-.note-add {
-    font-size:30px;
-    position: absolute;
-    background: #005392;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    border: none;
-    left: 90%;
-    bottom: 5%;
-    color: white;  
+.floatBtn i:nth-child(1){
+    font-size: x-large;
+    color: var(--floatBtn-icon-color);
+    padding: 30%;
 }
+
+.options.theme {
+    background: var(--options-bg);
+    color: var(--options-color);
+}
+
+/*Editor container*/
 
 .document{
     padding: 15px;
@@ -240,14 +328,9 @@ button:focus {
     flex-wrap: wrap;
     padding: 0;
     margin-left: 75px;
+    background-color: var(--bg-color);
+    color: var(--font-color);
 }
-
-
-
-#editorMsg {
-    font-style: italic;
-}
-
 
 /*
 * Side menu content
@@ -256,10 +339,10 @@ button:focus {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 4;
+    z-index: 5;
     top: 0;
     left: 0;
-    background-color: rgb(230, 230, 230);
+    background-color: var(--subnav-bg);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -267,6 +350,28 @@ button:focus {
     position: fixed;
     float: left;
     height: 100vh;
+}
+
+#search-input{
+    display: block;
+    max-width: 90%;
+    font-size: 1em;
+    margin: 10px;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    background: var(--search-bg);
+    color: var(--search-color);
+}
+
+#search-input:focus{
+    outline: none;
+    border: none;
+    border-radius: 10px;
+}
+
+#search-input::placeholder{
+    color: var(--search-placeholder-color);
 }
 
 #side-subnav > * {
@@ -303,6 +408,7 @@ button:focus {
     padding: 0;
 }
 
+
 @media screen and (max-height: 450px) {
     #side-subnav {
         padding-top: 15px;
@@ -316,19 +422,15 @@ button:focus {
 .subnavList .item {
     font-size: 20px;   
     padding: 10px;
-    /*border:rgb(199, 199, 199) solid 1px;*/
     transition-duration: .3s;
     white-space: nowrap;
-    /*display: flex;
-    flex-wrap: wrap;*/
-    background: linear-gradient(rgba(0,0,0,0) 60%, #F4F4F4);
+    background: var(--subnav-item-bg);
     min-height: 90px;
     border-radius: 10px;
 }
 
-
 .subnavList .item:hover {
-    background: #005492;
+    background: var(--btn-bg-hover);
     color: white;
     cursor: pointer;
 }
@@ -337,7 +439,6 @@ button:focus {
 .subnavList .item:hover .deleteNote {
     color: white;
     transition-duration: .3s;
-
 }
 
 .subnavList .item.setting {
@@ -348,8 +449,6 @@ button:focus {
     display: flex;
     justify-content: space-between;
 }
-
-
 
 .favoriteNote {
     color: #818181;
@@ -373,41 +472,41 @@ button:focus {
     transform: translateX(210px) translateY(-20px);
 }
 
-#confirmDeleteDiv {
-    /*background-color: rgb(230, 230, 230);
-    width: 92px;
-    height: 25px;
-    margin-top: 10px;
-    padding: 5px;
-    text-align: center;
-    border-radius: 10px;
+.deletePopup {
+    /*transform: translateX(120px) translateY(10px);*/
     display: flex;
-    justify-content: space-between;*/
-    transform: translateX(134px) translateY(10px);
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
     position: relative;
+    left: 10px;
 }
 
-#confirmDelete {
+.deletePopup > button {
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 10px 0;
+}
+
+.deletePopup .confirmDelete {
     color: white;
-    background-color: red;
-    border: 1px solid red;
-    padding: 5px;
-    /*border-radius: 10px;*/
-}
-#confirmDelete:hover{
-    background-color: rgb(255, 110, 110);
+    background-color: var(--confirm-delete-bg);
+    border: none;
 }
 
-#cancelDelete {
-    color:white;
-    background-color: rgb(190, 190, 190);
-    border: 1px solid rgb(190, 190, 190);
-    padding: 5px;
-    margin-left: 3px;
-    /*border-radius: 10px;*/
+.deletePopup .confirmDelete:hover{
+    /*background-color: rgb(255, 110, 110);*/
 }
-#cancelDelete:hover{
-    background-color: rgb(210, 210, 210 );
+
+.deletePopup .cancelDelete {
+    color:white;
+    background-color: var(--cancel-delete-bg);
+    border: none;
+    margin-left: 3px;
+}
+
+.deletePopup .cancelDelete:hover{
+    /*background-color: rgb(210, 210, 210 );*/
 }
 
 /* display part of note content in subnav */
@@ -424,75 +523,82 @@ button:focus {
     font-style: italic;
 }
  
-/* Themes */
+/* Fonts */
 
-.lightmodeTheme{
+.font-roboto{
     font-family: 'Roboto',
     sans-serif
      !important;
 }
 
-.darkModeTheme {
-    
+.font-courgette{
    font-family: 'Courgette',
-   cursive
- !important;
-    
-    
+   cursive !important;
 }
 
-/* Tool Bar */
-
-#editorContainer > div.ql-toolbar.ql-snow{
-    padding-top: 40px;
+.font-vollkorn{
+    font-family: 'Vollkorn',
+    serif !important;
 }
 
 /* Drop down fonts */
 
 #dropdown{
     z-index: 2;
-    
-}
-
-#dropdown ul{
-    list-style: none;
-    background-color: white;
-}
-
-#dropdown ul:hover {
-    cursor: pointer;
-}
-
-#dropdown ul li{
-    text-align: center;
-    height: 19px;
     font-size: 13px;
-    border: 1px solid rgb(173, 173, 173);
-    width: 100px;
-    padding-top: 3px ;
-    
+    text-align: center;
+    list-style-type: none;
 }
 
-#dropdown ul ul{
+#dropdown-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+    height: 62px;
+    border-radius: 100%;
+    background-color: #005492;
+    color: white;
+}
+
+#dropdown-options{
     display: none;
 }
 
+#dropdown-options li{
+    background-color: #005492;
+}   
 
-#dropdown ul li:hover > ul {
-    display: block;
-    margin-top: 5px;
+#dropdown:hover #dropdown-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 200px;
+    width: 62px;
+    background-color: #005492;
 }
 
-.nightModeTheme {
-    font-family: 'Vollkorn',
-    serif !important;
+#dropdown:hover #dropdown-options li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #005492;
+}
+
+#dropdown:hover .top-buttons-font{
+    height: 60px;
+    width: 62px;
+}
+
+.top-buttons-font{
+    background-color: #005492;
+    border: none;
+    cursor: pointer;
 }
 
 /* Print */
-
-@page {
-    /* size: landscape; */
-}
 
 @media print {
     #side-nav,
@@ -501,49 +607,70 @@ button:focus {
     i,
     button,
     #editorContainer>div.ql-toolbar.ql-snow,
-    #title-and-favorites,
+    /* Include the title if NOT untitled */
+    #title-input[data-untitled='true'],
+    #floatBtns-container,
     #dropdown,
     .popup,
-    .blur {
+    .blur,
+    #dropdown-options {
         display: none;
+    }
+
+     /* edits when incl title */
+    #title-input{
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%;
+        text-align: center;
+        margin: 0!important;
+        padding: 0;
     }
 
 
     #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
-        -webkit-box-shadow: none !important;
-        -moz-box-shadow: none !important;
-        box-shadow: none !important;
-
+        border: none !important;
         z-index: 2147483647 !important;
-        width: 900px !important;
+        width: auto !important;
         height: 100% !important;
-
         margin: 0 !important;
-        padding: 50px !important;
+        padding: 0 !important;
     }
 
     #editor{
-        margin: -50px !important;
         padding: 0 !important;
         overflow: hidden !important;
         height: auto !important;
+        margin: 0 !important;
+
+        /* edits when incl title */
+        position: absolute;
+        left: 0; top: 80px;
+        width: 100%;
+        padding: 0 50px!important;
     }
 } 
+
+/*Mobile view*/
+
 @media only screen and (max-width: 731px) {
 
+    #editorContainer{
+        margin-left: 0;
+    }
 
     #title-input {
         height: 34px;
         font-size: 30px;
-    }
-
-    #bottom-buttons {
-        left: 425px !important;
-        height: 42px;
+        margin: 0;
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+        border: none; 
     }
 
     #side-nav {
-        z-index: 3;
+        z-index: 6;
         position: fixed;
         display: flex;
         bottom: 0;
@@ -551,7 +678,7 @@ button:focus {
         margin: 0;
         height: 75px;
         width: 100%;
-        background-color: rgb(0, 83, 146);
+        background-color: var(--nav-bg);
     }
 
     #side-nav-buttons{
@@ -568,7 +695,6 @@ button:focus {
     #editor{
         width: 100vw;
         margin-left: 0;
-
     }
 
     #editor > div.ql-editor.ql-blank, #editor > div.ql-editor{
@@ -587,10 +713,10 @@ button:focus {
         height: calc(100% - 135px);
         width: 0;
         position: fixed;
-        z-index: 4;
+        z-index: 5;
         top: 0;
         left: 0;
-        background-color: rgb(230, 230, 230);
+        background-color: var(--subnav-bg);
         overflow-x: hidden;
         transition: 0.5s;
         padding-top: 60px;
@@ -598,43 +724,22 @@ button:focus {
         position: fixed;
         float: left;
     }
-    }
-    }
 
     .popup{
         left: 10%;
         width: 70%;
     }
-   
-
-   
-    .top-buttons{
-        /*width: 70px;*/
-    }
 
     #dropdown ul li{
         text-align: center;
-        height: 27px;
         font-size: 13px;
         border: 1px solid rgb(173, 173, 173);
-        width: 70px;
-        padding-top: 13px ;
-        
     }
 
     .top-buttons-font{
      width: 70px;  
     }
-
-    #title-and-favorites{
-        position: fixed;
-        top: 12px;
-        left: 15px;
-        
-    }
 }
-
-
 
 .autosaveOn {
     background: #f5f5f5;
@@ -645,40 +750,9 @@ button:focus {
 }
 
 .shadowR {
-    box-shadow: 2px 0px 10px #222;
+    box-shadow: var(--nav-shadow);
 }
 
 .highlighted {
     color: black; 
 }
-
-#search-input{
-    display: block;
-    max-width: 90%;
-    font-size: 1em;
-    margin: 10px;
-    padding: 5px;
-    border: none;
-    border-radius: 10px;
-    
-}
-
-#search-input:focus{
-    outline: none;
-}}}}}}}}}}}}: 5px;
-    border: none;
-    border-radius: 10px;
-    
-}
-
-#search-input:focus{
-    outline: none;
-}}}}}}}}}}}}}none;
-    border-radius: 10px;
-    
-}
-
-#search-input:focus{
-    outline: none;
-}}}}}}}}}}}}}}}}}}}
-}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}

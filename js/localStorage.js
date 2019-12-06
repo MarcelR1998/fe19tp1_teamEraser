@@ -3,20 +3,25 @@
  *****************/
 
 
-
 /// SAVE NOTES TO LS
-const saveToLocalStorage = () => {
-    localStorage.setItem("noteList", JSON.stringify(app.noteList));
+const saveToLS = (key = 'noteList', val = app.noteList) => {
+    localStorage.setItem("noteList", JSON.stringify(val));
 }
 
 
-
 /// LOAD NOTES FROM LS
-const loadFromLocalStorage = () => {
-    let noteListString = localStorage.getItem("noteList");
-    app.noteList = JSON.parse(noteListString);
+const loadFromLS = (key = 'noteList', type = 'note') => {
+    let res = JSON.parse(localStorage.getItem(key));
 
-    if (app.noteList == null) {
-        app.noteList = [];
+    // notes
+    if (type === 'note') {
+        app.noteList = res;
+
+        if (app.noteList == null) {
+            app.noteList = [];
+        }
+        // autosave status
+    } else if (type === 'autosave') {
+        app.state.autoSave = res;
     }
 }

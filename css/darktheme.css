@@ -1,0 +1,41 @@
+:root{
+    --primary-color: #9A97F3;
+    --secondary-color: #818cab;
+    --font-color: rgb(185, 185, 185);
+    --bg-color: #101316;
+    --heading-color: #818cab;
+    --border: none;
+
+    --logo-shadow: 0px -4px 5px -2px black;
+
+    --btn-bg-hover: #101316;
+
+    --toolbar-bg: #0D0F11;
+    --toolbar-hover-color: whitesmoke;
+
+    --nav-shadow: --nav-shadow: 2px 0px 10px black;
+    --nav-btn-color: #101316;
+    --nav-bg: #102E46;
+
+    --subnav-bg: #0D0F11;
+    --subnav-item-bg: linear-gradient(rgba(0,0,0,0) 60%, #101316);
+
+    --search-bg: #818181;
+    --search-color: black;
+    --search-placeholder-color: #0D0F11;
+
+    --settings-toggle-false: #333;
+    --settings-toggle-true: #818181;
+
+    --floatBtn-bg: #0F2E46;
+    --floatBtn-border: none;
+    --floatBtn-icon-color: #101316;/*#818181;*/
+
+    --options-bg: #0F2E46;
+    --options-color: #818181
+}
+
+.ql-toolbar.ql-snow svg:hover{
+    fill: red;
+}
+

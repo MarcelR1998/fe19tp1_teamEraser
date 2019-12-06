@@ -6,43 +6,43 @@
 
 /// APP
 const app = {
-    // upcoming editor instance
+    // editor instance (fill on init)
     quill: null,
 
-    // notes in sync
+    // notes in sync (fill on init)
     noteList: [],
 
     // id of the note currently in preview/edit
     activeId: false,
 
-    // settings tab content
-    settingsTab: [
-        {
-            id: 'autoSave',
-            classes: '',
-            name: 'Autosave'
-        },
-        {
-            id: 'darkMode',
-            classes: '',
-            name: 'Darkmode'  
-        }
-    ],
+    // settings (fill on init)
+    settings: {
+        tabContent: [],
+        toggleIcons: {}
+    },
 
     state: {
-        deleteRequested: false 
+        autoSave: true,
+        activeSubnav: false,
+        deleteRequested: false
     },
 
     // on win load
     init: () => {
         // init editor api instance
-        app.quill = app.quill === null ? initEditor() : app.quill;
-        
+        initQuill();
+
+        // run preset for app settings
+        initSettings();
+
+        // darkMode?
+        updatedarkModeStatus();
+
         // set listeners for autosave
         applyEars();
 
         // sync the global noteList with LS
-        loadFromLocalStorage();
+        loadFromLS();
 
         // count user visits (include current)
         updateVisits();

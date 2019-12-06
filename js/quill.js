@@ -29,7 +29,7 @@ const toolbarOptions = () => [
     // [{
     //     'direction': 'rtl'
     // }], // text direction
-    
+
 
     , // custom dropdown
     [{
@@ -52,18 +52,48 @@ const toolbarOptions = () => [
 
 
 /// INIT EDITOR
-const initEditor = (id = '#editor', toolPreset = toolbarOptions(), theme = 'snow') => new Quill(
-    id,
-    {
-        modules: { toolbar: toolPreset },
-        theme: theme
-    }
-);
-
+const initQuill = (instanceOf = app, id = '#editor', toolPreset = toolbarOptions(), theme = 'snow') => {
+    instanceOf.quill = new Quill(id,
+        {
+            modules: { toolbar: toolPreset },
+            theme: theme
+        }
+    );
+}
 
 
 /// CLEAR EDITOR
 const clearNote = () => {
-    app.quill.deleteText(0, 999);
+    app.quill.deleteText(0, document.querySelectorAll(".ql-editor")[0].firstChild.innerHTML.length);
+    document.querySelector("#title-input").value = "";
+    document.querySelector("#title-input").focus();
 }
 
+
+
+/// DYNAMIC EDITOR HEIGHT
+const updateEditorHeight = () => {
+    // current dimensions
+    let bodyH = document.body.clientHeight,
+        bodyW = document.body.clientWidth;
+
+    // if toolbar is at top (wide screens), bail...
+    if (bodyW > 732) { return; }
+
+    // set bottom position (based on toolbar rows)
+    let bottomSpace = 180;
+    //
+    if (bodyW <= 261) {
+        bottomSpace = 290;
+    } else if (bodyW <= 347) {
+        bottomSpace = 255;
+    } else if (bodyW <= 648) {
+        bottomSpace = 215;
+    }
+
+    // new height
+    let res = (bodyH - bottomSpace) + 'px';
+
+    // set it
+    let editor = document.querySelector('#editor .ql-editor').style.height = res;
+}
