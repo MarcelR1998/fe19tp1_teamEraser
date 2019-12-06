@@ -5,14 +5,11 @@
 
 @import "~quill/dist/quill.core.css";
 
-#title-input {
-  margin: 50px 0 0;
-}
 
 #editor {
   /* height: auto; fixed height and overflow scroll */
-  height: 100vh;
-  overflow-y: scroll;
+  height: 90vh;
+  overflow-y: auto;
   min-height: 800px;
   border-left: none;
   border-right: none;
@@ -38,12 +35,14 @@ div.ql-toolbar.ql-snow {
 
 #editor > div.ql-editor.ql-blank, #editor > div.ql-editor {
   /* padding: 30px; little less on y */
-  padding: 0 30px;
+  padding: 0 30px 30px 30px;
   margin: 0 20% 50px;
   border: none;
   border-top: none;
   min-height: 800px;
   max-width: 900px;
+  height: auto; 
+  overflow: hidden;
 }
 
 
