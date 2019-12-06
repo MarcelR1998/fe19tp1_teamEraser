@@ -93,11 +93,16 @@ BSD 3-Clause "New" or "Revised" License
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks to - https://dillinger.io/ for the .md markdown-guide)
 
+[//]: # (Links to PO/CTO)
+
+    [Github Repo (if you would ever get lost)]: <https://github.com/MarcelR1998/fe19tp1_teamEraser>
+    [Trello]: <https://trello.com/b/1xRH0U4P/team-eraser>
+
 [//]: # (Team Eraser)
 
-   [Kim Nkoubou]: <https://kiiim.se>
-   [Marcel]: <https://github.com/joemccann/dillinger.git>
-   [Joel]: <http://daringfireball.net>
-   [Vidar]: <http://daringfireball.net/projects/markdown/>
-   [Liesse]: <https://github.com/markdown-it/markdown-it>
+    [Kim Nkoubou]: <https://kiiim.se>
+    [Marcel]: <https://github.com/joemccann/dillinger.git>
+    [Joel]: <http://daringfireball.net>
+    [Vidar]: <http://daringfireball.net/projects/markdown/>
+    [Liesse]: <https://github.com/markdown-it/markdown-it>
   
